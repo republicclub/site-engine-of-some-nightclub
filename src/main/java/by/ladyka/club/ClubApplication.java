@@ -3,6 +3,8 @@ package by.ladyka.club;
 import by.ladyka.club.config.Config;
 import by.ladyka.club.config.DataSourceConfig;
 import by.ladyka.club.service.ImageDownloaderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,8 +22,11 @@ public class ClubApplication {
 	@Autowired
 	private ImageDownloaderService imageDownloaderService;
 
+	private static final Logger logger = LoggerFactory.getLogger(ClubApplication.class);
+
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
+		logger.warn("START PROCESS IMAGES");
 		imageDownloaderService.downloadImagesFromEvents();
 	}
 }

@@ -37,14 +37,18 @@ public class ImageDownloaderServiceImpl implements ImageDownloaderService {
                      HttpClientBuilder.create().build()
         ) {
             for (EventEntity event : eventsWithUrl) {
-                URL coverUrl = new URL(event.getCoverUri());
-                HttpGet httpGet = new HttpGet(event.getCoverUri());
-                CloseableHttpResponse response = httpclient.execute(httpGet);
-                String localFilePath = storageService.store(FilenameUtils.getName(coverUrl.getPath()), response.getEntity().getContent());
-                event.setCoverUri(localFilePath);
-                response.close();
+                try {
+                    URL coverUrl = new URL(event.getCoverUri());
+                    HttpGet httpGet = new HttpGet(event.getCoverUri());
+                    CloseableHttpResponse response = httpclient.execute(httpGet);
+                    String localFilePath = storageService.store(FilenameUtils.getName(coverUrl.getPath()), response.getEntity().getContent());
+                    event.setCoverUri(localFilePath);
+                    response.close();
+                    eventRepository.save(event);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
-            eventRepository.saveAll(eventsWithUrl);
         } catch (MalformedURLException e) {
             logger.error("wrong url type in coverUrl field from event", e);
         } catch (IOException e) {

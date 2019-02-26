@@ -20,6 +20,6 @@ public interface EventRepository extends JpaRepository<EventEntity, Long> {
 	List<EventEntity> findByRecommendationAndStartEventGreaterThanAndVisibleTrueOrderByStartEventAsc(Boolean recommendation, LocalDateTime time);
 	long countByDescriptionContainingOrNameContainingOrCostTextContainingAndVisibleTrue(String description, String name, String costText);
 	Page<EventEntity> findByNameContainingAndAccessEditContains(String name, List<UserEntity> accessEdit, Pageable pageable);
-	@Query("Select e from EventEntity e where e.coverUri like 'https://%' or e.coverUri like '%http://%'")
+	@Query("select e from EventEntity e where e.coverUri like 'https://%' or e.coverUri like 'http://%'")
 	List<EventEntity> findAllWhereCoverIsUrl();
 }

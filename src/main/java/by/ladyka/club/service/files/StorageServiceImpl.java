@@ -27,11 +27,9 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public String store(String originalFilename, InputStream inputStream) throws IOException {
-        LocalDateTime date = LocalDateTime.now();
-        String directoryOut = date.getYear() + File.separator + date.getMonthValue();
+        String directoryOut = "2017";
         new File(customSettings.getFilesDirectory() + File.separator + directoryOut).mkdirs();
-        String fN = originalFilename;
-        String fileName = (int) (Math.random() * 10000) + fN.substring(fN.length() - 5);
+        String fileName = System.nanoTime() + originalFilename.substring(originalFilename.length() - 5);
         File outFile = new File(customSettings.getFilesDirectory() + File.separator + directoryOut + File.separator + fileName);
         OutputStream outStream = new FileOutputStream(outFile);
         IOUtils.copy(inputStream, outStream);
@@ -39,7 +37,7 @@ public class StorageServiceImpl implements StorageService {
         FileEntity fileEntity = new FileEntity();
         fileEntity.setFilePath(directoryOut + File.separator + fileName);
         fileEntity = filesRepository.save(fileEntity);
-        return fileEntity.getFilePath();
+        return "/files/" + fileEntity.getFilePath();
     }
 
     @Override

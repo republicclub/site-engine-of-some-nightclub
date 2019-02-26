@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {SettingsBanner} from "../../dto/settingsBanner";
+import {SettingsSiteDto} from "../../dto/settingsSiteDto";
+import {SettingsService} from "../../services/settings/settings.service";
 
 @Component({
   selector: 'app-top-banner',
@@ -7,15 +8,14 @@ import {SettingsBanner} from "../../dto/settingsBanner";
   styleUrls: ['./top-banner.component.css']
 })
 export class TopBannerComponent implements OnInit {
-  settingsBanner: SettingsBanner;
+  settingsBanner: SettingsSiteDto = new SettingsSiteDto();
 
-  constructor() { }
+  constructor(private settingsService: SettingsService) { }
 
   ngOnInit() {
-    this.settingsBanner = new SettingsBanner();
-    this.settingsBanner.eventId = 1113;
-    this.settingsBanner.imageUrl = 'https://republic-club.by/files/2018/11/banner.jpg';
-    this.settingsBanner.active = false;
+    this.settingsService.getSettingsDto().then(value => {
+      this.settingsBanner = value;
+    });
   }
 
 }

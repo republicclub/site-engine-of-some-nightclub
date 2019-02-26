@@ -21,7 +21,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeRequests()
-				.antMatchers("/api/admin/**").authenticated()
+				.antMatchers("/api/admin/**").hasAnyAuthority(ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT)
+				.antMatchers("/api/tickets/report/event").hasAnyAuthority(ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT)
+				.antMatchers("/api/tickets/accept").hasAnyRole(ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT)
 				.antMatchers("/api/private/**").authenticated()
 				.antMatchers("/", "/**").permitAll()
 				.anyRequest().fullyAuthenticated()

@@ -1,21 +1,73 @@
 databaseChangeLog:
-- changeSet:
-    id: 2018-12-09-drop-bcCode-column
-    author: Andrei Ladyka
-    changes:
-    - dropColumn:
-        columnName: bcCode
-        tableName: menu_order
-- changeSet:
-    id: 2018-12-11-add-enterTime-time-and-acceptor
-    author: Andrei Ladyka
-    changes:
-    - addColumn:
-        columns:
-        - column:
-            name: acceptor_user_id
-            type: BIGINT
-        - column:
-            name: enter_time
-            type: datetime
-        tableName: ticket_order
+  - changeSet:
+      id: 2018-12-09-drop-bcCode-column
+      author: Andrei Ladyka
+      changes:
+        - dropColumn:
+            columnName: bcCode
+            tableName: menu_order
+  - changeSet:
+      id: 2018-12-11-add-enterTime-time-and-acceptor
+      author: Andrei Ladyka
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: acceptor_user_id
+                  type: BIGINT
+              - column:
+                  name: enter_time
+                  type: datetime
+            tableName: ticket_order
+  - changeSet:
+      id: 2019-02-03-settings-table
+      author: Andrei Ladyka
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: createdDate
+                  type: datetime
+              - column:
+                  name: lastModifiedDate
+                  type: datetime
+              - column:
+                  name: version
+                  type: BIGINT
+              - column:
+                  name: visible
+                  type: BIT(1)
+              - column:
+                  name: settings_key
+                  type: VARCHAR(255)
+              - column:
+                  name: settings_value
+                  type: VARCHAR(1023)
+            tableName: site_settings
+  - changeSet:
+      id: 2019-02-23-ticket-user-book
+      author: Andrei Ladyka
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: book_user_id
+                  type: BIGINT
+            tableName: ticket_order
+
+  - changeSet:
+      id: 2019-02-25-ticket-type
+      author: Andrei Ladyka
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: ticket_type
+                  type: int(11)
+            tableName: ticket_order

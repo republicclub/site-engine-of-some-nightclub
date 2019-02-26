@@ -28,6 +28,7 @@ import {PublicOfferComponent} from "./pages/public-offer/public-offer.component"
 import {SingInComponent} from "./auth/sing-in/sing-in.component";
 import {SingUpComponent} from "./auth/sing-up/sing-up.component";
 import {PersonalInfoComponent} from "./user-cabinet/personal-info/personal-info.component";
+import {SettingsMainComponent} from "./admin/settings/settings-main/settings-main.component";
 
 const routes: Routes = [
   {path: '', component: EventsComponent},
@@ -48,6 +49,7 @@ const routes: Routes = [
   {path: 'admin-event-view', component: EventViewComponent},
   {path: 'admin-events', component: EventsAdminPageComponent},
   {path: 'admin-news', component: NewsSummaryComponent},
+  {path: 'admin-settings', component: SettingsMainComponent},
   {path: 'login', component: SingInComponent},
   {path: 'singup', component: SingUpComponent},
   {path: 'feedback', component: FeedbackComponent},

@@ -24,6 +24,7 @@
           <a style="color: red" routerLink="/feedback">Бюро находок и информация</a>
           <!--<a routerLink="/shop">Магазин</a>-->
           <a [hidden]="!isAdmin" routerLink="/admin">Admin главная</a>
+          <a [hidden]="!isAdmin" routerLink="/admin-settings">Настройки сайта</a>
           <a [hidden]="!isConcert" routerLink="/admin-events">Операции над событиями</a>
           <a [hidden]="!isAdmin" routerLink="/admin-order-list">Список заказов</a>
           <a [hidden]="!isAdmin" routerLink="/admin-menu-editor">Редактор меню</a>

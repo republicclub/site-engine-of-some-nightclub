@@ -28,7 +28,6 @@ export class PreSummaryComponent implements OnInit {
       })
       this.wait = false;
     });
-    console.log(this.dataGallery);
   }
 
   addNewPhotoReport() {

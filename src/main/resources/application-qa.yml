@@ -10,3 +10,4 @@ datasource:
 spring:
   liquibase:
     contexts: qa
+debug: true

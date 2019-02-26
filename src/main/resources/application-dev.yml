@@ -3,3 +3,4 @@ club:
     directory: /home/user/p/republicfiles
   site:
     domain: http://dev.republic-club.by
+debug: true

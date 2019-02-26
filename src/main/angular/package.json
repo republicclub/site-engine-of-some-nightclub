@@ -39,8 +39,8 @@
     "ng6-toastr": "^6.0.0",
     "ngx-uploader": "^6.1.0",
     "open-iconic": "^1.1.1",
-    "rxjs": "^6.3.3",
-    "rxjs-compat": "^6.3.3",
+    "rxjs": "6.3.3",
+    "rxjs-compat": "6.3.3",
     "web-animations-js": "^2.3.1",
     "zone.js": "^0.8.26"
   },

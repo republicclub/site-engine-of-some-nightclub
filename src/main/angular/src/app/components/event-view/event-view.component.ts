@@ -58,7 +58,6 @@ export class EventViewComponent implements OnInit {
   }
 
   deleteEvent() {
-    console.log(this.event.id);
     if (this.event.id > 0) {
       if (confirm("Удалить событие?")) {
         this.onEventDeleteButtonClick.emit(this.event.id)

@@ -37,7 +37,7 @@ public class EmailServiceImpl implements EmailService {
 	@Override
 	public void sendOrderToOwner(MenuOrder order) {
 		String subject = "RE:PUBLIC Заказ № " + order.getId();
-		sendMessage(subject, order.getEmail(), "orders@republic-club.by", buildOrderText(order));
+		sendMessage(subject, order.getEmail(), ORDER_EMAIL, buildOrderText(order));
 
 	}
 

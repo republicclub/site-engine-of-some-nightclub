@@ -38,7 +38,7 @@ public class OrderTicketsController {
 		result.put("input", dto);
 		try {
 			result.put("success", true);
-			result.put("data", orderTicketsService.bookAndPay(dto));
+			result.put("data", orderTicketsService.bookAndPay(dto, (principal != null) ? principal.getName() : null));
 		} catch (Exception ex) {
 			result.put("message", ex.getLocalizedMessage());
 			result.put("success", false);
@@ -52,7 +52,6 @@ public class OrderTicketsController {
 	Map<String, Object> reportEvent(Principal principal, HttpServletRequest httpServletRequest, Long eventId) {
 		Map<String, Object> result = new TreeMap<>();
 		try {
-			principal.getName();
 			result.put("success", true);
 			result.put("data", orderTicketsService.getReport(eventId));
 		} catch (Exception ex) {
@@ -74,7 +73,6 @@ public class OrderTicketsController {
 	public Map<String, Object> accept(Principal principal, String uuid) {
 		Map<String, Object> result = new TreeMap<>();
 		try {
-			principal.getName();
 			result.put("success", true);
 			result.put("data", orderTicketsService.acceptTicket(principal.getName(), uuid));
 			result.put("message", "Проходите!");

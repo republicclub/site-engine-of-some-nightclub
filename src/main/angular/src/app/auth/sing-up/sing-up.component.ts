@@ -30,8 +30,6 @@ export class SingUpComponent implements OnInit {
     this.passwordError = false;
     if (this.passwordAgain != this.user.password) {
       this.passwordError = true;
-      console.log(this.passwordAgain);
-      console.log(this.user.password);
     } else {
       this.authService.singin(this.user)
         .pipe()

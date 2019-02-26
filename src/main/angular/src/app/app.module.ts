@@ -87,12 +87,14 @@ import {FroalaEditorModule, FroalaViewModule} from "angular-froala-wysiwyg";
 import {NewsSummaryComponent} from './admin/news/news-summary/news-summary.component';
 import {OrderTicketsComponent} from './orders/order-tickets/order-tickets.component';
 import {OrderTicketService} from "./services/tickets/order-ticket.service";
-import { ShopMainComponent } from './shop/shop-main/shop-main.component';
-import { PublicOfferComponent } from './pages/public-offer/public-offer.component';
-import { SingUpComponent } from './auth/sing-up/sing-up.component';
-import { SingInComponent } from './auth/sing-in/sing-in.component';
+import {ShopMainComponent} from './shop/shop-main/shop-main.component';
+import {PublicOfferComponent} from './pages/public-offer/public-offer.component';
+import {SingUpComponent} from './auth/sing-up/sing-up.component';
+import {SingInComponent} from './auth/sing-in/sing-in.component';
 import {QRCodeModule} from "angularx-qrcode";
 import {UserCabinetModule} from "./user-cabinet/user-cabinet.module";
+import {SettingsMainComponent} from './admin/settings/settings-main/settings-main.component';
+import {SettingsService} from "./services/settings/settings.service";
 
 @NgModule({
   imports: [
@@ -183,7 +185,8 @@ import {UserCabinetModule} from "./user-cabinet/user-cabinet.module";
     ShopMainComponent,
     SingInComponent,
     SingUpComponent,
-    TopBannerComponent
+    TopBannerComponent,
+    SettingsMainComponent
   ],
   providers: [
     AuthService,
@@ -194,6 +197,7 @@ import {UserCabinetModule} from "./user-cabinet/user-cabinet.module";
     NewsService,
     OrderTicketService,
     PhotoReportService,
+    SettingsService,
     StatisticService
   ],
   entryComponents: [BepaidDialog, OrderTicketsComponent],

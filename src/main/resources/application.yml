@@ -16,7 +16,6 @@ spring:
       max-request-size: 128MB
 server:
   port: 28010
-  debug: true
 log4j:
   logger:
     org:
@@ -28,8 +27,6 @@ hibernate:
 club:
   files:
     directory: /tmp
-  site:
-    domain: http://dev.republic-club.by
 mail:
   host: smtp.yandex.ru
   port: 587

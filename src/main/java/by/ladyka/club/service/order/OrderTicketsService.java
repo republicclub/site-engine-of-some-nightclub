@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderTicketsService {
 	List<TicketTableDto> getTables(Long eventId);
 
-	String bookAndPay(TicketsOrderDto dto);
+	String bookAndPay(TicketsOrderDto dto, String username);
 
 	boolean updateStatus(String uuid, GatewayStatus gatewayStatus, String uid, String token);
 

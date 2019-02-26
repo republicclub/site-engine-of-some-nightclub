@@ -61,6 +61,13 @@ public class OrderEntity extends AbstractEntity {
 	@JoinColumn(name = "acceptor_user_id")
 	private UserEntity acceptor;
 
+	@ManyToOne
+	@JoinColumn(name = "book_user_id")
+	private UserEntity bookUser;
+
+	@Column(name = "ticket_type")
+	private TicketType ticketType;
+
 	public OrderEntity(OrderEntity entity) {
 		this.name = entity.getName();
 		this.surname = entity.getSurname();
@@ -78,6 +85,8 @@ public class OrderEntity extends AbstractEntity {
 		this.itemPricesHasOrders = entity.getItemPricesHasOrders();
 		this.enterTime = entity.getEnterTime();
 		this.acceptor = entity.getAcceptor();
+		this.bookUser = entity.getBookUser();
+		this.ticketType = entity.getTicketType();
 	}
 
 	public void setNewUuid() {

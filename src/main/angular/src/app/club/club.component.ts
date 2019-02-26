@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {SettingsService} from "../services/settings/settings.service";
+import {SettingsSiteDto} from "../dto/settingsSiteDto";
 
 @Component({
   selector: 'app-club',
@@ -7,10 +9,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ClubComponent implements OnInit {
 
-  constructor() {
+  settingsDto : SettingsSiteDto = new SettingsSiteDto();
+
+  constructor(private settingsService: SettingsService) {
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.settingsDto = await this.settingsService.getSettingsDto();
   }
 
 }

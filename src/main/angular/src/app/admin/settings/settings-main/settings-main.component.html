@@ -1,0 +1,90 @@
+<div class="container">
+  <div [hidden]="submitted">
+    <h1>Настройки сайта</h1>
+    <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
+      <div class="form-group">
+        <label for="bannerActive">bannerActive</label>
+        <input type="checkbox" class="form-control" id="bannerActive"
+               required
+               [(ngModel)]="settingsSiteDto.bannerActive" name="bannerActive"
+               #bannerActive="ngModel">
+      </div>
+      <div class="form-group" [hidden]="!settingsSiteDto.bannerActive">
+        <label for="bannerEventId">bannerEventId</label>
+        <input type="text" class="form-control" id="bannerEventId"
+               required
+               [(ngModel)]="settingsSiteDto.bannerEventId" name="bannerEventId"
+               #bannerEventId="ngModel">
+        <div [hidden]="bannerEventId.valid || bannerEventId.pristine || !settingsSiteDto.bannerActive"
+             class="alert alert-danger">
+          bannerEventId is required
+        </div>
+      </div>
+      <div class="form-group" [hidden]="!settingsSiteDto.bannerActive">
+        <label for="bannerImageUrl">bannerImageUrl</label>
+        <input type="text" class="form-control" id="bannerImageUrl"
+               required
+               [(ngModel)]="settingsSiteDto.bannerImageUrl" name="bannerImageUrl"
+               #bannerImageUrl="ngModel">
+        <div [hidden]="bannerImageUrl.valid || bannerImageUrl.pristine || !settingsSiteDto.bannerActive"
+             class="alert alert-danger">
+          bannerImageUrl is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="riderLight">riderLight</label>
+        <input type="text" class="form-control" id="riderLight"
+               required
+               [(ngModel)]="settingsSiteDto.riderLight" name="riderLight"
+               #riderLight="ngModel">
+        <div [hidden]="riderLight.valid || riderLight.pristine"
+             class="alert alert-danger">
+          riderLight is required
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="riderSound">riderSound</label>
+        <input type="text" class="form-control" id="riderSound"
+               required
+               [(ngModel)]="settingsSiteDto.riderSound" name="riderSound"
+               #riderSound="ngModel">
+        <div [hidden]="riderSound.valid || riderSound.pristine"
+             class="alert alert-danger">
+          riderSound is required
+        </div>
+      </div>
+      <!--[disabled]="!heroForm.form.valid"-->
+      <button type="submit" class="btn btn-success">Сохранить</button>
+    </form>
+
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>Текущие настройки сайта:</h2>
+    <div class="row">
+      <div class="col-xs-3">bannerActive: </div>
+      <div class="col-xs-9">{{ settingsSiteDto.bannerActive }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">bannerEventId: </div>
+      <br>
+      <div class="col-xs-9">{{ settingsSiteDto.bannerEventId }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">bannerImageUrl: </div>
+      <div class="col-xs-9">{{ settingsSiteDto.bannerImageUrl }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">riderLight: </div>
+      <div class="col-xs-9">{{ settingsSiteDto.riderLight }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">riderSound: </div>
+      <div class="col-xs-9">{{ settingsSiteDto.riderSound }}</div>
+    </div>
+
+    <br>
+    <button class="btn btn-primary" (click)="submitted=false">Изменить</button>
+  </div>
+</div>

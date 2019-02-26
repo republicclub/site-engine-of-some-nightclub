@@ -46,7 +46,6 @@ export class MenuEditorComponent implements OnInit {
   }
 
   onClickSaveCategory(category: MenuCategoryDto) {
-    console.log(category);
     this.editCategoryId = 0;
     this.menuService.saveCategory(category)
       .subscribe(responce => {

@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "event_ticket_price")
+@Table(name = "club_event_ticket_price")
 @EntityListeners(AuditingEntityListener.class)
-public class EventTicketPriceEntity  extends AbstractEntity {
+public class ClubEventTicketPrice extends AbstractEntity {
     private BigDecimal cost;
     private Integer quantity;
     @Enumerated(EnumType.STRING)

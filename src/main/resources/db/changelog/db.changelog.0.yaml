@@ -112,6 +112,6 @@ databaseChangeLog:
                     foreignKey:
                       referencedColumnNames: id
                       referencedTableName: users
-            tableName: event_ticket_price
+            tableName: club_event_ticket_price
 
 

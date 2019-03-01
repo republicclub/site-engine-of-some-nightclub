@@ -123,25 +123,11 @@
         </div>
         <div class="form-group">
           <label for="costDance">Стоимость. Танцпол</label>
-          <input
-            type="number"
-            class="form-control"
-            id="costDance"
-            [(ngModel)]="event.costDance"
-            name="costDance"
-            #costDance="ngModel"
-          >
+          <div id="costDance">{{event.costDance}}</div>
         </div>
         <div class="form-group">
           <label for="costTablePlace">Стоимость. Столик</label>
-          <input
-            type="number"
-            class="form-control"
-            id="costTablePlace"
-            [(ngModel)]="event.costTablePlace"
-            name="costTablePlace"
-            #costTablePlace="ngModel"
-          >
+          <div id="costTablePlace">{{event.costTablePlace}}</div>
         </div>
         <button type="submit" (click)="saveEvent(event)" class="btn btn-primary">Сохранить</button>
       </form>

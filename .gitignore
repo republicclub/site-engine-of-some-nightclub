@@ -32,3 +32,4 @@ sh.sh
 classes
 
 src/main/angular/src/files/
+/application*.yml

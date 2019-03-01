@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import by.ladyka.club.dto.menu.TicketOrderDto;
 import by.ladyka.club.service.MenuService;

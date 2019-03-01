@@ -33,7 +33,12 @@ public class EventEntity extends AbstractEntity {
 	private String coverUri;
 	private Boolean recommendation;
 	private Boolean republicPay;
+
+	@OneToMany(mappedBy = "event")
+	private List<ClubEventTicketPrice> ticketPrices = new ArrayList<>();
+	@Deprecated
 	private BigDecimal costDance;
+	@Deprecated
 	private BigDecimal costTablePlace;
 
 	@ManyToMany(fetch = FetchType.LAZY,
@@ -46,9 +51,13 @@ public class EventEntity extends AbstractEntity {
 			inverseJoinColumns = {@JoinColumn(name = "user_id")})
 	private List<UserEntity> accessEdit = new ArrayList<>();
 
-	//TODO remove me
+	@Deprecated
 	private String alias;
+
+	@Deprecated
 	private BigDecimal cost;
+
+	@Deprecated
 	private String buyTicketUrl;
 
 	public EventEntity(Long eventId) {

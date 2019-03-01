@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

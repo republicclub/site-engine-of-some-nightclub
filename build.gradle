@@ -57,4 +57,10 @@ dependencies {
 	compile "org.liquibase:liquibase-core:$liquibaseVersion"
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
+
+}
+
+test {
+	environment "spring.profiles.active", "test"
 }

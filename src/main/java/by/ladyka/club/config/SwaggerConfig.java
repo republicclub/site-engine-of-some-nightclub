@@ -1,6 +1,6 @@
 package by.ladyka.club.config;
 
-import by.ladyka.club.endpoints.HealthCheck;
+import by.ladyka.club.endpoints.api.HealthCheck;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;

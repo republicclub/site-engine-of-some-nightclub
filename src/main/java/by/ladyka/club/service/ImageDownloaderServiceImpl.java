@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.List;
 
@@ -38,8 +39,9 @@ public class ImageDownloaderServiceImpl implements ImageDownloaderService {
         ) {
             for (EventEntity event : eventsWithUrl) {
                 try {
-                    URL coverUrl = new URL(event.getCoverUri());
-                    HttpGet httpGet = new HttpGet(event.getCoverUri());
+                    String coverUri = event.getCoverUri().replaceAll(" ", "%20");
+                    URI coverUrl = new URI(coverUri);
+                    HttpGet httpGet = new HttpGet(coverUrl);
                     CloseableHttpResponse response = httpclient.execute(httpGet);
                     String localFilePath = storageService.store(FilenameUtils.getName(coverUrl.getPath()), response.getEntity().getContent());
                     event.setCoverUri(localFilePath);

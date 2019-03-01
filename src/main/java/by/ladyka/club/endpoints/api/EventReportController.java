@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import by.ladyka.club.dto.EventReportDto;
 import by.ladyka.club.dto.EventReportFileDto;

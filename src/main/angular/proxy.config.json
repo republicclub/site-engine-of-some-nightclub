@@ -4,6 +4,11 @@
     "secure": false,
     "logLevel": "debug"
   },
+  "/event/*": {
+    "target": "http://localhost:28010",
+    "secure": false,
+    "logLevel": "debug"
+  },
   "/logout" : {
     "target": "http://localhost:28010",
     "secure": false,

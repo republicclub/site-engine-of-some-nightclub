@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta property="og:type" content="website">
+    <meta property="og:url" th:content="${url}">
+    <meta property="og:title" th:content="${data.name}">
+    <meta property="og:description" th:content="${data.description}">
+    <meta property="og:image" th:content="${@environment.getProperty('club.site.domain')} + ${data.coverUri}">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Клуб «RE:PUBLIC»&nbsp;/ RE:PUBLIC Club Minsk</title>
+    <base href="/">
+    <meta name="description" content="Клуб «RE:PUBLIC» в Минске — афиша концертов и заказ билетов">
+    <meta class="meta" property="facebook:site" content="@RePub">
+    <meta class="meta" property="instagram:site" content="@republic.clubminsk">
+    <meta class="meta" property="vk:site" content="@republic_club">
+    <meta class="meta" property="og:locale" content="ru_RU">
+    <meta class="meta" property="og:site_name" content="Клуб «RE:PUBLIC»">
+    <script type="text/javascript">
+        window.indexHtmlLoaded = new Date();
+    </script>
+</head>
+<body>
+<app-root>
+    <h1 th:text="${data.name}"/>
+    <br>
+    <h3 th:utext="${data.description}"/>
+    <br>
+    <img th:src="${@environment.getProperty('club.site.domain')} + ${data.coverUri}"/>
+</app-root>
+
+
+<script type="text/javascript" src="https://vk.com/js/api/openapi.js?159"></script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function () { // Аналог $(document).ready(function(){
+        var vk = document.createElement("div")
+        vk.id = "vk_community_messages"
+        document.getElementsByTagName("body")[0].appendChild(vk)
+        VK.Widgets.CommunityMessages(vk.id, 18143442, {expanded: "0", tooltipButtonText: "Есть вопрос?"});
+
+
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function () {
+                try {
+                    w.yaCounter23663974 = new Ya.Metrika({
+                        id: 23663974,
+                        webvisor: true,
+                        clickmap: true,
+                        trackLinks: true,
+                        accurateTrackBounce: true
+                    });
+                } catch (e) {
+                }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () {
+                    n.parentNode.insertBefore(s, n);
+                };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else {
+                f();
+            }
+        })(document, window, "yandex_metrika_callbacks");
+    });
+</script>
+
+<script type="text/javascript" src="runtime.js"></script>
+<script type="text/javascript" src="polyfills.js"></script>
+<script type="text/javascript" src="styles.js"></script>
+<script type="text/javascript" src="scripts.js"></script>
+<script type="text/javascript" src="vendor.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

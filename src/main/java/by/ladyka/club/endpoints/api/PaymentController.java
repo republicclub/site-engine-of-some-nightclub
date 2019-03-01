@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import by.ladyka.bepaid.BePaidApi;
 import by.ladyka.bepaid.dto.*;

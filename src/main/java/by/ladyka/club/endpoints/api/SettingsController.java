@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import by.ladyka.club.entity.SettingsEntity;
 import by.ladyka.club.service.SettingsService;

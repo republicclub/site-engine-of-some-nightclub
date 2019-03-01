@@ -68,15 +68,8 @@ public class EventEntity extends AbstractEntity {
 	public String toString() {
 		return "EventEntity{" +
 				"id='" + getId() + '\'' +
-				", description='" + description + '\'' +
-				", startEvent=" + startEvent +
-				", endEvent=" + endEvent +
 				", name='" + name + '\'' +
 				", coverUri='" + coverUri + '\'' +
-				", recommendation=" + recommendation +
-				", republicPay=" + republicPay +
-				", costDance=" + costDance +
-				", costTablePlace=" + costTablePlace +
 				'}';
 	}
 }

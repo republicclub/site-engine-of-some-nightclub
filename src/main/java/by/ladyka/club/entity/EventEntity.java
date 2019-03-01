@@ -63,4 +63,20 @@ public class EventEntity extends AbstractEntity {
 	public EventEntity(Long eventId) {
 		setId(eventId);
 	}
+
+	@Override
+	public String toString() {
+		return "EventEntity{" +
+				"costText='" + costText + '\'' +
+				", description='" + description + '\'' +
+				", startEvent=" + startEvent +
+				", endEvent=" + endEvent +
+				", name='" + name + '\'' +
+				", coverUri='" + coverUri + '\'' +
+				", recommendation=" + recommendation +
+				", republicPay=" + republicPay +
+				", costDance=" + costDance +
+				", costTablePlace=" + costTablePlace +
+				'}';
+	}
 }

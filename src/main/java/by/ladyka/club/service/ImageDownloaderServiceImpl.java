@@ -1,7 +1,12 @@
 package by.ladyka.club.service;
 
+import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventEntity;
+import by.ladyka.club.entity.EventTicketPriceType;
+import by.ladyka.club.entity.UserEntity;
+import by.ladyka.club.repository.ClubEventTicketPriceRepository;
 import by.ladyka.club.repository.EventRepository;
+import by.ladyka.club.repository.UserEntityRepository;
 import by.ladyka.club.service.files.StorageService;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -18,6 +23,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -61,6 +67,46 @@ public class ImageDownloaderServiceImpl implements ImageDownloaderService {
         } catch (IOException e) {
             logger.error(e);
         }
+    }
+
+    @Autowired
+    UserEntityRepository userEntityRepository;
+
+    @Autowired
+    ClubEventTicketPriceRepository clubEventTicketPriceRepository;
+
+    @Override
+    public void updatePrice() {
+        UserEntity userEntity10 = userEntityRepository.getOne(10L);
+        List<EventEntity> eventEntities = eventRepository.findAll();
+        for (EventEntity e:
+              eventEntities) {
+            if (e.getCostDance()!= null)
+            if (e.getCostDance().longValue() > 0) {
+                ClubEventTicketPrice price = sss(userEntity10, e);
+                price.setCost(e.getCostDance());
+                price.setType(EventTicketPriceType.dance);
+                clubEventTicketPriceRepository.save(price);
+            }
+
+            if (e.getCostTablePlace()!= null)
+            if (e.getCostTablePlace().longValue() > 0) {
+                ClubEventTicketPrice price = sss(userEntity10, e);
+                price.setCost(e.getCostTablePlace());
+                price.setType(EventTicketPriceType.table);
+                clubEventTicketPriceRepository.save(price);
+            }
+        }
+    }
+
+    private ClubEventTicketPrice sss(UserEntity userEntity10, EventEntity e) {
+        ClubEventTicketPrice price = new ClubEventTicketPrice();
+        price.setEndActiveTime(e.getStartEvent());
+        price.setEvent(e);
+        price.setModifiedBy(userEntity10);
+        price.setStartActiveTime(LocalDateTime.now());
+        price.setQuantity(100);
+        return price;
     }
 }
 

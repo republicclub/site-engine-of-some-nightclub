@@ -27,6 +27,6 @@ public class ClubApplication {
 	@EventListener(ApplicationReadyEvent.class)
 	public void doSomethingAfterStartup() {
 		logger.warn("START PROCESS IMAGES");
-		imageDownloaderService.downloadImagesFromEvents();
+		imageDownloaderService.updatePrice();
 	}
 }

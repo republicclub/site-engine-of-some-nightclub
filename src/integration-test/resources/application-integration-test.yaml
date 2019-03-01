@@ -4,3 +4,6 @@ spring:
     drop-first: true
     change-log: classpath:db/changelog/db.changelog-master-integration-test.yaml
 debug: true
+club:
+  site:
+    domain: http://localhost

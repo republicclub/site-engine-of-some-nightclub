@@ -1,0 +1,6 @@
+spring:
+  liquibase:
+    contexts: integration-test
+    drop-first: true
+    change-log: classpath:db/changelog/db.changelog-master-integration-test.yaml
+debug: true

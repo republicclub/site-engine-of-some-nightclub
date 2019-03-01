@@ -67,7 +67,7 @@ public class EventEntity extends AbstractEntity {
 	@Override
 	public String toString() {
 		return "EventEntity{" +
-				"costText='" + costText + '\'' +
+				"id='" + getId() + '\'' +
 				", description='" + description + '\'' +
 				", startEvent=" + startEvent +
 				", endEvent=" + endEvent +

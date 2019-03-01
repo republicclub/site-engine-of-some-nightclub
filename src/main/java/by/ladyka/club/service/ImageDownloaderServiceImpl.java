@@ -40,6 +40,9 @@ public class ImageDownloaderServiceImpl implements ImageDownloaderService {
         ) {
             for (EventEntity event : eventsWithUrl) {
                 try {
+                    if (event.getCoverUri() == null) {
+                        continue;
+                    }
                     logger.info(event);
                     String coverUri = event.getCoverUri().replaceAll(" ", "%20");
                     URI coverUrl = new URI(coverUri);

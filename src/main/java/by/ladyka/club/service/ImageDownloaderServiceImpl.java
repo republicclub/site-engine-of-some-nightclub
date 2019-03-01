@@ -34,11 +34,13 @@ public class ImageDownloaderServiceImpl implements ImageDownloaderService {
     @Override
     public void downloadImagesFromEvents() {
         List<EventEntity> eventsWithUrl = eventRepository.findAllWhereCoverIsUrl();
+        logger.info("COUNT EVENTS : " + eventsWithUrl.size());
         try (CloseableHttpClient httpclient =
                      HttpClientBuilder.create().build()
         ) {
             for (EventEntity event : eventsWithUrl) {
                 try {
+                    logger.info(event);
                     String coverUri = event.getCoverUri().replaceAll(" ", "%20");
                     URI coverUrl = new URI(coverUri);
                     HttpGet httpGet = new HttpGet(coverUrl);

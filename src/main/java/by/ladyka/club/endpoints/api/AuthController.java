@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

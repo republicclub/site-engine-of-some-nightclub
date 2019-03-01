@@ -16,6 +16,7 @@ import by.ladyka.club.entity.order.OrderItemEntity;
 import by.ladyka.club.entity.order.TicketType;
 import by.ladyka.club.repository.OrderEntityRepository;
 import by.ladyka.club.repository.OrderItemEntityRepository;
+import by.ladyka.club.service.ClubEventTicketPriceService;
 import by.ladyka.club.service.EventsService;
 import by.ladyka.club.service.UserService;
 import by.ladyka.club.service.email.EmailService;
@@ -57,6 +58,8 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 	private OrderEntityConverter orderEntityConverter;
 	@Autowired
 	private EmailService emailService;
+	@Autowired
+	private ClubEventTicketPriceService clubEventTicketPriceService;
 
 	@Override
 	public List<TicketTableDto> getTables(Long eventId) {
@@ -263,7 +266,7 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 		orderEntity.setItemPricesHasOrders(items);
 		final EventEntity eventEntity = eventService.getEventById(dto.getEvent().getId()).orElseThrow(RuntimeException::new);
 		orderEntity.setEventEntity(eventEntity);
-		orderEntity.setTotalOrder(amount(dto.getDanceFloor(), collect.size(), eventEntity.getCostDance(), eventEntity.getCostTablePlace()));
+		orderEntity.setTotalOrder(amount(dto.getDanceFloor(), collect.size(), clubEventTicketPriceService.getLowPriceForEventDance(eventEntity), clubEventTicketPriceService.getLowPriceForEventTablePlace(eventEntity)));
 
 		if (username != null) {
 			UserEntity bookUser = userService.getUserEntity(username);
@@ -299,8 +302,8 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 
 	private long amount(OrderEntity orderEntity) {
 		final EventEntity eventEntity = orderEntity.getEventEntity();
-		final BigDecimal costDance = eventEntity.getCostDance();
-		final BigDecimal costTablePlace = eventEntity.getCostTablePlace();
+		final BigDecimal costDance = clubEventTicketPriceService.getLowPriceForEventDance(eventEntity);
+		final BigDecimal costTablePlace = clubEventTicketPriceService.getLowPriceForEventTablePlace(eventEntity );
 		return amount(orderEntity.getDance(), orderEntity.getTableNumbers().size(), costDance, costTablePlace).longValue() * 100;
 	}
 

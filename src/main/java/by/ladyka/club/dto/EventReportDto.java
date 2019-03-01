@@ -15,5 +15,6 @@ public class EventReportDto {
 	private LocalDateTime startEvent;
 	private String name;
 	private String coverUri;
+	private String description;
 	private Set<String> images;
 }

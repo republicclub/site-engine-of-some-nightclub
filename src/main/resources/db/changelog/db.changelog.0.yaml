@@ -71,3 +71,47 @@ databaseChangeLog:
                   name: ticket_type
                   type: int(11)
             tableName: ticket_order
+  - changeSet:
+      id: 2019-02-28-event_ticket_price
+      author: Yury Golikov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: cost
+                  type: DECIMAL(19, 2)
+              - column:
+                  name: quantity
+                  type: BIGINT
+              - column:
+                  name: type
+                  type: VARCHAR(255)
+              - column:
+                  name: event_id
+                  type: BIGINT
+                  constraints:
+                    foreignKey:
+                      referencedColumnNames: id
+                      referencedTableName: club_event
+              - column:
+                  name: start_active_time
+                  type: datetime
+              - column:
+                  name: end_active_time
+                  type: datetime
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    foreignKey:
+                      referencedColumnNames: id
+                      referencedTableName: users
+            tableName: club_event_ticket_price
+
+

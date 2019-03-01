@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import by.ladyka.club.config.ClubRole;
 import by.ladyka.club.dto.tikets.TicketTableDto;

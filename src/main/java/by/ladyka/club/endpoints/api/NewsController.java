@@ -1,4 +1,4 @@
-package by.ladyka.club.endpoints;
+package by.ladyka.club.endpoints.api;
 
 import by.ladyka.club.dto.NewsDto;
 import by.ladyka.club.service.NewsService;

@@ -1,0 +1,105 @@
+databaseChangeLog:
+- changeSet:
+    id: 2019-02-28-add-admin-user
+    author: human453453467
+    context: integration-test
+    changes:
+    - insert:
+        tableName: users
+        columns:
+        - column:
+            name: id
+            value: 1
+        - column:
+            name: username
+            value: admin
+        - column:
+            name: enabled
+            valueBoolean: true
+        - column:
+            name: accountNonExpired
+            valueBoolean: true
+        - column:
+            name: accountNonLocked
+            valueBoolean: true
+        - column:
+            name: credentialsNonExpired
+            valueBoolean: true
+    - insert:
+        tableName: users
+        columns:
+        - column:
+            name: id
+            value: 2
+        - column:
+            name: username
+            value: concert
+        - column:
+            name: enabled
+            valueBoolean: true
+        - column:
+            name: accountNonExpired
+            valueBoolean: true
+        - column:
+            name: accountNonLocked
+            valueBoolean: true
+        - column:
+            name: credentialsNonExpired
+            valueBoolean: true
+    - insert:
+        tableName: users
+        columns:
+        - column:
+            name: id
+            value: 3
+        - column:
+            name: username
+            value: user
+        - column:
+            name: enabled
+            valueBoolean: true
+        - column:
+            name: accountNonExpired
+            valueBoolean: true
+        - column:
+            name: accountNonLocked
+            valueBoolean: true
+        - column:
+            name: credentialsNonExpired
+            valueBoolean: true
+    - insert:
+        tableName: authorities
+        columns:
+        - column:
+            name: authority
+            value: admin
+        - column:
+            name: username
+            value: admin
+        - column:
+            name: user_id
+            value: 1
+    - insert:
+        tableName: authorities
+        columns:
+        - column:
+            name: authority
+            value: concert
+        - column:
+            name: username
+            value: concert
+        - column:
+            name: user_id
+            value: 2
+    - insert:
+        tableName: authorities
+        columns:
+        - column:
+            name: authority
+            value: user
+        - column:
+            name: username
+            value: user
+        - column:
+            name: user_id
+            value: 3

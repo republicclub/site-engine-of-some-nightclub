@@ -57,4 +57,40 @@ dependencies {
 	compile "org.liquibase:liquibase-core:$liquibaseVersion"
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.4.RELEASE'
+
+}
+
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+			srcDir file('src/integration-test/java')
+		}
+		resources.srcDir file('src/integration-test/resources')
+	}
+}
+
+configurations {
+	integrationTestCompile.extendsFrom testCompile
+	integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+	description = 'Runs the integration tests.'
+	group = 'verification'
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	classpath = sourceSets.integrationTest.runtimeClasspath
+	mustRunAfter test
+}
+
+check.dependsOn integrationTest
+
+test {
+	environment "spring.profiles.active", "test"
+}
+
+integrationTest {
+	environment "spring.profiles.active", "integration-test"
 }

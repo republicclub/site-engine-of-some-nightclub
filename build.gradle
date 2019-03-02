@@ -94,9 +94,9 @@ task integrationTest(type: Test) {
 check.dependsOn integrationTest
 
 test {
-	environment "spring.profiles.active", "test"
+	systemProperty "spring.profiles.active", "test"
 }
 
 integrationTest {
-	environment "spring.profiles.active", "integration-test"
+	systemProperty "spring.profiles.active", "integration-test"
 }

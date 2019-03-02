@@ -22,13 +22,24 @@ import java.util.Map;
 @RequestMapping(value = "/api/admin/events/ticket/price", produces = MediaType.APPLICATION_JSON_VALUE)
 public class ClubEventTicketPriceAdminController {
 
+    private static ClubEventTicketPriceDTO mockResponse;
+
     @RequestMapping(method = RequestMethod.POST)
     @Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT})
     public @ResponseBody
     ResponseEntity save(Principal principal, HttpServletRequest httpServletRequest, @RequestBody ClubEventTicketPriceDTO price) {
         //TODO: mock controller, rewrite
         price.setId(5L);
+        mockResponse = price;
         return new ResponseEntity<>(price, HttpStatus.OK);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    @Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT})
+    public @ResponseBody
+    ResponseEntity get(Principal principal, HttpServletRequest httpServletRequest, @RequestParam(required = false) String sort, String order, Integer page, Integer size, @RequestParam(required = false) String filter) {
+        //TODO: mock controller, rewrite
+        return new ResponseEntity<>(mockResponse, HttpStatus.OK);
     }
 
 }

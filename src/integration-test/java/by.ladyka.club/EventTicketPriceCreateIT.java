@@ -76,7 +76,7 @@ public class EventTicketPriceCreateIT {
         clubEventTicketPriceDTO.setCost(BigDecimal.valueOf(250L));
         clubEventTicketPriceDTO.setQuantity(100);
         clubEventTicketPriceDTO.setStartActiveTime(LocalDateTime.now());
-        clubEventTicketPriceDTO.setEndActiveTime(LocalDateTime.now().plusDays(5));
+        clubEventTicketPriceDTO.setEndActiveTime(LocalDateTime.now().plusDays(10));
         clubEventTicketPriceDTO.setEventId(clubEventResponseDTO.getId());
 
         String priceJsonForCreateRequest = new ObjectMapper()
@@ -92,17 +92,18 @@ public class EventTicketPriceCreateIT {
 
 
         mvc.perform(
-                get("/api/admin/events/ticket/price?id=" + clubEventResponseDTO.getId())
+                get("/api/admin/events/ticket/price?eventId=" + clubEventResponseDTO.getId())
                         .contentType(MediaType.APPLICATION_JSON)
 
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.quantity", is(clubEventTicketPriceDTO.getQuantity())))
-                .andExpect(jsonPath("$.type", is(clubEventTicketPriceDTO.getType().toString())))
-                .andExpect(jsonPath("$.eventId", is(clubEventTicketPriceDTO.getEventId().intValue())))
+                .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO.getQuantity())))
+                .andExpect(jsonPath("$.items[0].type", is(clubEventTicketPriceDTO.getType().toString())))
+                .andExpect(jsonPath("$.items[0].eventId", is(clubEventTicketPriceDTO.getEventId().intValue())))
                 //TODO: resolve problem with serialized LocalDataTime format
-                /*.andExpect(jsonPath("$.startActiveTime", is(clubEventTicketPriceDTO.getStartActiveTime().toString())))
-                .andExpect(jsonPath("$.endActiveTime", is(clubEventTicketPriceDTO.getEndActiveTime().toString())))*/;
+                /*.andExpect(jsonPath("$.items[0].startActiveTime", is(clubEventTicketPriceDTO.getStartActiveTime().toString())))
+                .andExpect(jsonPath("$.items[0].endActiveTime", is(clubEventTicketPriceDTO.getEndActiveTime().toString())))*/;
     }
+
 }

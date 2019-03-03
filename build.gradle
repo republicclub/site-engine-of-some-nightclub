@@ -61,6 +61,8 @@ dependencies {
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.1.4.RELEASE'
 	testCompile group: 'commons-io', name: 'commons-io'
 	testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+	testCompile group: 'com.h2database', name: 'h2', version: '1.4.198'
+
 }
 
 

@@ -1,0 +1,7 @@
+CLUB_EVENT:
+- id: 1
+  name: "Тестовое Название мероприятия"
+  startEvent: _YESTERDAY_
+  endEvent: _PLUS_5_HOURS_
+  republicPay: true
+  recommendation: false

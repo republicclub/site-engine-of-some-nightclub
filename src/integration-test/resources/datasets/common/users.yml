@@ -1,0 +1,31 @@
+USERS:
+- id: 1
+  username: "admin"
+  enabled: true
+  accountNonExpired: true
+  accountNonLocked: true
+  credentialsNonExpired: true
+- id: 2
+  username: "concert"
+  enabled: true
+  accountNonExpired: true
+  accountNonLocked: true
+  credentialsNonExpired: true
+- id: 3
+  username: "user"
+  enabled: true
+  accountNonExpired: true
+  accountNonLocked: true
+  credentialsNonExpired: true
+AUTHORITIES:
+- authority: "admin"
+  username: "admin"
+  user_id: 1
+- authority: "concert"
+  username: "concert"
+  user_id: 2
+- authority: "user"
+  username: "user"
+  user_id: 3
+
+

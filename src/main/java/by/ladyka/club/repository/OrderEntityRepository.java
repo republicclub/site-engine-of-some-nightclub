@@ -1,5 +1,7 @@
 package by.ladyka.club.repository;
 
+import by.ladyka.club.entity.ClubEventTicketPrice;
+import by.ladyka.club.entity.EventEntity;
 import by.ladyka.club.entity.order.OrderEntity;
 import by.ladyka.club.entity.order.TicketType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,4 +16,6 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity, Long> 
 
 	List<OrderEntity> findAllByEventEntityIdAndTicketType(Long eventId, TicketType ticketType);
 	List<OrderEntity> findTop5ByEventEntityIdAndUuidContains(Long eventId, String uuid);
+
+	long countByClubEventTicketPriceDanceOrClubEventTicketPriceTable(ClubEventTicketPrice clubEventTicketPriceDance, ClubEventTicketPrice clubEventTicketPriceTable);
 }

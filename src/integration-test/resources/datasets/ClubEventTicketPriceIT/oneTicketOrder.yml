@@ -1,0 +1,8 @@
+TICKET_ORDER:
+- id: 1
+  version: 1
+  dance: 3
+  uuid: 1
+  eventId: 1
+  ticket_type: 0
+  club_event_ticket_price_dance_id: 1

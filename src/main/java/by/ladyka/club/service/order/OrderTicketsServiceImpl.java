@@ -8,6 +8,7 @@ import by.ladyka.club.config.CustomSettings;
 import by.ladyka.club.dto.menu.TicketOrderDto;
 import by.ladyka.club.dto.report.TicketOrderReportDto;
 import by.ladyka.club.dto.tikets.*;
+import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventEntity;
 import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.entity.menu.MenuItemPricesHasOrders;
@@ -266,7 +267,31 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 		orderEntity.setItemPricesHasOrders(items);
 		final EventEntity eventEntity = eventService.getEventById(dto.getEvent().getId()).orElseThrow(RuntimeException::new);
 		orderEntity.setEventEntity(eventEntity);
-		orderEntity.setTotalOrder(amount(dto.getDanceFloor(), collect.size(), clubEventTicketPriceService.getLowPriceForEventDance(eventEntity), clubEventTicketPriceService.getLowPriceForEventTablePlace(eventEntity)));
+
+		BigDecimal costDance = BigDecimal.valueOf(0);
+		BigDecimal costTablePlace = BigDecimal.valueOf(0);
+
+		if(dto.getDanceFloor() > 0){
+            ClubEventTicketPrice clubEventTicketPriceDance = clubEventTicketPriceService.getLowPriceEntityForEventDance(eventEntity)
+                    .orElseThrow(() -> new RuntimeException("tickets are no longer sold"));
+            if(clubEventTicketPriceDance.getCost().compareTo(dto.getEvent().getCostDance()) != 0){
+                throw new RuntimeException("tickets at this price is no longer on sale");
+            }
+			orderEntity.setClubEventTicketPriceDance(clubEventTicketPriceDance);
+            costDance = clubEventTicketPriceDance.getCost();
+        }
+
+        if(collect.size() > 0){
+            ClubEventTicketPrice clubEventTicketPriceTable = clubEventTicketPriceService.getLowPriceEntityForEventTablePlace(eventEntity)
+                    .orElseThrow(() -> new RuntimeException("tickets are no longer sold"));
+            if(clubEventTicketPriceTable.getCost().compareTo(dto.getEvent().getCostTablePlace()) != 0){
+                throw new RuntimeException("tickets at this price is no longer on sale");
+            }
+            orderEntity.setClubEventTicketPriceTable(clubEventTicketPriceTable);
+            costTablePlace = clubEventTicketPriceTable.getCost();
+        }
+
+		orderEntity.setTotalOrder(amount(dto.getDanceFloor(), collect.size(), costDance, costTablePlace));
 
 		if (username != null) {
 			UserEntity bookUser = userService.getUserEntity(username);
@@ -301,9 +326,8 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 	}
 
 	private long amount(OrderEntity orderEntity) {
-		final EventEntity eventEntity = orderEntity.getEventEntity();
-		final BigDecimal costDance = clubEventTicketPriceService.getLowPriceForEventDance(eventEntity);
-		final BigDecimal costTablePlace = clubEventTicketPriceService.getLowPriceForEventTablePlace(eventEntity );
+		final BigDecimal costDance = orderEntity.getClubEventTicketPriceDance().getCost();
+		final BigDecimal costTablePlace = orderEntity.getClubEventTicketPriceTable().getCost();
 		return amount(orderEntity.getDance(), orderEntity.getTableNumbers().size(), costDance, costTablePlace).longValue() * 100;
 	}
 

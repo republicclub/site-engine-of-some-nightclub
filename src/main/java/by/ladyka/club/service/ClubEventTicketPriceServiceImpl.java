@@ -6,6 +6,7 @@ import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventTicketPriceType;
 import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.repository.ClubEventTicketPriceRepository;
+import by.ladyka.club.repository.OrderEntityRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.security.AccessControlException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -24,6 +26,8 @@ public class ClubEventTicketPriceServiceImpl implements ClubEventTicketPriceServ
     @Autowired
     private ClubEventTicketPriceRepository clubEventTicketPriceRepository;
 
+    @Autowired
+    private OrderEntityRepository orderEntityRepository;
 
     @Autowired
     private EventsService eventsService;
@@ -59,13 +63,20 @@ public class ClubEventTicketPriceServiceImpl implements ClubEventTicketPriceServ
                 clubEventTicketPrice = new ClubEventTicketPrice();
                 clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, null);
             }else {
-                clubEventTicketPrice = clubEventTicketPriceRepository.findById(requestDto.getId()).orElseGet(() -> {
+                Optional<ClubEventTicketPrice> clubEventTicketPriceOptional = clubEventTicketPriceRepository.findById(requestDto.getId());
+                if(clubEventTicketPriceOptional.isPresent()){
+                    clubEventTicketPrice = clubEventTicketPriceOptional.get();
+                    if(orderEntityRepository.countByClubEventTicketPriceDanceOrClubEventTicketPriceTable(clubEventTicketPrice, clubEventTicketPrice) > 0){
+                        clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, new String[]{"cost", "type"});
+                    }else{
+                        clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, null);
+                    }
+                }else{
                     final ClubEventTicketPrice clubEventTicketPriceNewed = new ClubEventTicketPrice();
                     converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPriceNewed, null);
                     clubEventTicketPriceNewed.setId(requestDto.getId());
-                    return clubEventTicketPriceNewed;
-                });
-                clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, new String[]{"cost", "type"});
+                    clubEventTicketPrice = clubEventTicketPriceNewed;
+                }
             }
             clubEventTicketPrice.setModifiedBy(user);
             clubEventTicketPrice = clubEventTicketPriceRepository.save(clubEventTicketPrice);
@@ -76,23 +87,53 @@ public class ClubEventTicketPriceServiceImpl implements ClubEventTicketPriceServ
     }
 
     @Override
-    public Optional<BigDecimal> getLowPriceForEventByPriceType(Long eventId, EventTicketPriceType eventTicketPriceType) {
-        Page<ClubEventTicketPrice> eventTicketPrices = clubEventTicketPriceRepository.findAscSortPricesForEventByPriceType(eventId, eventTicketPriceType, PageRequest.of(0, 1));
-        if(eventTicketPrices.getTotalElements() > 0){
-            return Optional.of(eventTicketPrices.getContent().get(0).getCost());
-        }else{
-            return Optional.empty();
+    public Optional<ClubEventTicketPrice> getLowPriceForEventByPriceType(Long eventId, EventTicketPriceType eventTicketPriceType) {
+
+        List<ClubEventTicketPrice> eventTicketPrices = null;
+
+        switch (eventTicketPriceType) {
+            case dance:
+                eventTicketPrices = clubEventTicketPriceRepository.findActiveAndLowestAndAvailableDancePriceForEvent(LocalDateTime.now(), eventId);
+                break;
+            case table:
+                eventTicketPrices = clubEventTicketPriceRepository.findActiveAndLowestAndAvailableTablePriceForEvent(LocalDateTime.now(), eventId);
+                break;
         }
 
+        if (eventTicketPrices != null && !eventTicketPrices.isEmpty()) {
+            return Optional.of(eventTicketPrices.get(0));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public Optional<ClubEventTicketPrice> getLowPriceEntityForEventDance(EventEntity event) {
+        return getLowPriceForEventByPriceType(event.getId(), EventTicketPriceType.dance);
+    }
+
+    @Override
+    public Optional<ClubEventTicketPrice> getLowPriceEntityForEventTablePlace(EventEntity event) {
+        return getLowPriceForEventByPriceType(event.getId(), EventTicketPriceType.table);
     }
 
 	@Override
 	public BigDecimal getLowPriceForEventDance(EventEntity event) {
-		return getLowPriceForEventByPriceType(event.getId(), EventTicketPriceType.dance).orElse(BigDecimal.valueOf(0L));
+        Optional<ClubEventTicketPrice> clubEventTicketPriceOptional = getLowPriceForEventByPriceType(event.getId(), EventTicketPriceType.dance);
+		if(clubEventTicketPriceOptional.isPresent()){
+		    return clubEventTicketPriceOptional.get().getCost();
+        }else{
+		    return BigDecimal.valueOf(0L);
+        }
 	}
 
 	@Override
 	public BigDecimal getLowPriceForEventTablePlace(EventEntity event) {
-		return getLowPriceForEventByPriceType(event.getId(), EventTicketPriceType.table).orElse(BigDecimal.valueOf(0L));
+        Optional<ClubEventTicketPrice> clubEventTicketPriceOptional = getLowPriceForEventByPriceType(event.getId(), EventTicketPriceType.table);
+        if(clubEventTicketPriceOptional.isPresent()){
+            return clubEventTicketPriceOptional.get().getCost();
+        }else{
+            return BigDecimal.valueOf(0L);
+        }
 	}
 }

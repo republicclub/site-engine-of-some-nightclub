@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2019-03-12-remove-club_event-alias-field
+      author: Andrei Ladyka
+      changes:
+        - dropColumn:
+            columnName: alias
+            tableName: club_event

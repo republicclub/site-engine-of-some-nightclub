@@ -52,9 +52,6 @@ public class EventEntity extends AbstractEntity {
 	private List<UserEntity> accessEdit = new ArrayList<>();
 
 	@Deprecated
-	private String alias;
-
-	@Deprecated
 	private BigDecimal cost;
 
 	@Deprecated

@@ -28,6 +28,7 @@ log4j:
 club:
   files:
     directory: /tmp
+  site:
     email:
       admin: spam@republic-club.by
 mail:

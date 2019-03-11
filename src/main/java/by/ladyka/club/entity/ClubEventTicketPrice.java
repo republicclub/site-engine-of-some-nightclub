@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class ClubEventTicketPrice extends AbstractEntity {
     private BigDecimal cost;
-    private Integer quantity;
+    private Long quantity;
     @Enumerated(EnumType.STRING)
     private EventTicketPriceType type;
     @ManyToOne

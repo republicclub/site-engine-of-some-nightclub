@@ -6,6 +6,8 @@ import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.entity.menu.MenuOrder;
 import by.ladyka.club.entity.order.OrderEntity;
 
+import java.util.Map;
+
 public interface EmailService {
 	void sendOrderToOwner(MenuOrder order);
 
@@ -14,4 +16,6 @@ public interface EmailService {
 	void sendSingInLetter(UserEntity entity);
 
 	void sendOrderToOwner(OrderEntity orderEntity);
+
+	void sendAlertToAdmin(String message);
 }

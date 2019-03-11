@@ -14,7 +14,7 @@ import java.util.*;
 public class TicketsOrderDto {
 
 	private EventDTO event;
-	private int danceFloor;
+	private Long danceFloor;
 	private int placeSeats;
 	private String name;
 	private String surname;

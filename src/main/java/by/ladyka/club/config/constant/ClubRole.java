@@ -1,4 +1,4 @@
-package by.ladyka.club.config;
+package by.ladyka.club.config.constant;
 
 public class ClubRole {
 	public static final String ROLE_USER = "user";

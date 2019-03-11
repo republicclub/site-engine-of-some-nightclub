@@ -33,6 +33,7 @@ public class OrderEntity extends AbstractEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "eventId")
 	private EventEntity eventEntity;
+	@Lob
 	private String description;
 
 	@Column(name = "uuid", unique = true, nullable = false)
@@ -48,7 +49,7 @@ public class OrderEntity extends AbstractEntity {
 
 
 	//Paid Values
-	private int dance;
+	private Long dance;
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderEntity")
 	private List<OrderItemEntity> tableNumbers = new ArrayList<>();
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")

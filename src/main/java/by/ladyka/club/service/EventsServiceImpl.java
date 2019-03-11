@@ -1,6 +1,6 @@
 package by.ladyka.club.service;
 
-import by.ladyka.club.config.ClubRole;
+import by.ladyka.club.config.constant.ClubRole;
 import by.ladyka.club.dto.AppUser;
 import by.ladyka.club.dto.EventDTO;
 import by.ladyka.club.dto.EventRelevantDTO;

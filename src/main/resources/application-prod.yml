@@ -6,7 +6,7 @@ club:
     domain: https://republic-club.by
 spring:
   liquibase:
-  contexts: prod
+    contexts: prod
 log4j:
   logger:
     org:
@@ -15,4 +15,3 @@ log4j:
         type: info
 hibernate:
   show_sql: false
-spring.liquibase.contexts: prod

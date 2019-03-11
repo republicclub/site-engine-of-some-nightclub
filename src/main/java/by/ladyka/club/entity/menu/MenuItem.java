@@ -22,7 +22,9 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class MenuItem extends AbstractEntity {
 	private String name;
+	@Lob
 	private String description;
+	@Lob
 	private String descriptionProportions;
 
 	@ManyToOne(fetch = FetchType.LAZY)

@@ -1,8 +1,7 @@
 package by.ladyka.club;
 
 import by.ladyka.bepaid.dto.GatewayStatus;
-import by.ladyka.bepaid.dto.OrderDto;
-import by.ladyka.club.config.ClubRole;
+import by.ladyka.club.config.constant.ClubRole;
 import by.ladyka.club.dto.ClubEventTicketPriceDTO;
 import by.ladyka.club.dto.EventDTO;
 import by.ladyka.club.dto.tikets.TicketPlaceDto;
@@ -28,8 +27,6 @@ import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-
 import javax.transaction.Transactional;
 
 import java.math.BigDecimal;
@@ -71,7 +68,7 @@ public class ClubEventTicketPriceIT implements Replacer {
     @Transactional
     @DataSet(
             value = {"datasets/common/users.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEvent.yml"},
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEvent.yml"},
             cleanBefore = true,
             tableOrdering = {"USERS", "AUTHORITIES", "CLUB_EVENT"}
     )
@@ -119,8 +116,8 @@ public class ClubEventTicketPriceIT implements Replacer {
     @Transactional
     @DataSet(
             value = {"datasets/common/users.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEvent.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEventTicketPriceForUpdate.yml"},
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEvent.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEventTicketPriceForUpdate.yml"},
             cleanBefore = true,
             tableOrdering = {"USERS", "AUTHORITIES", "CLUB_EVENT", "CLUB_EVENT_TICKET_PRICE"}
     )
@@ -167,9 +164,9 @@ public class ClubEventTicketPriceIT implements Replacer {
     @Transactional
     @DataSet(
             value = {"datasets/common/users.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEvent.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEventTicketPriceForUpdate.yml",
-                    "datasets/ClubEventTicketPriceIT/oneTicketOrder.yml"},
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEvent.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEventTicketPriceForUpdate.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/oneTicketOrder.yml"},
             cleanBefore = true,
             tableOrdering = {"USERS", "AUTHORITIES", "CLUB_EVENT", "CLUB_EVENT_TICKET_PRICE", "TICKET_ORDER"}
     )
@@ -216,10 +213,10 @@ public class ClubEventTicketPriceIT implements Replacer {
     @Transactional
     @DataSet(
             value = {"datasets/common/users.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEvent.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEventTicketPrices.yml",
-                    "datasets/ClubEventTicketPriceIT/ticketOrders.yml",
-                    "datasets/ClubEventTicketPriceIT/ticketOrderItems.yml"},
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEvent.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEventTicketPrices.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/ticketOrders.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/ticketOrderItems.yml"},
             cleanBefore = true,
             tableOrdering = {"USERS", "AUTHORITIES", "CLUB_EVENT", "CLUB_EVENT_TICKET_PRICE", "TICKET_ORDER", "TICKET_ORDER_ITEM"}
     )
@@ -242,24 +239,24 @@ public class ClubEventTicketPriceIT implements Replacer {
     @Transactional
     @DataSet(
             value = {"datasets/common/users.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEvent.yml",
-                    "datasets/ClubEventTicketPriceIT/clubEventTicketPrices.yml",
-                    "datasets/ClubEventTicketPriceIT/ticketOrders.yml",
-                    "datasets/ClubEventTicketPriceIT/ticketOrderItems.yml"},
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEvent.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/clubEventTicketPrices.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/ticketOrders.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/ticketOrderItems.yml"},
             cleanBefore = true,
             tableOrdering = {"USERS", "AUTHORITIES", "CLUB_EVENT", "CLUB_EVENT_TICKET_PRICE", "TICKET_ORDER", "TICKET_ORDER_ITEM"}
     )
     @ExpectedDataSet(
             value = {
-                    "datasets/ClubEventTicketPriceIT/expectedTicketOrder.yml",
-                    "datasets/ClubEventTicketPriceIT/expectedTicketOrderItems.yml"
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/expectedTicketOrder.yml",
+                    "datasets/by/ladyka/club/ClubEventTicketPriceIT/expectedTicketOrderItems.yml"
             },
             compareOperation = CompareOperation.CONTAINS
     )
     @WithMockUser(username = "admin", authorities = ClubRole.ROLE_ADMIN)
     public void givenAvailablePriceForEvent_whenBuyTicket_thenOrderMustBeCreated() throws Exception{
         TicketsOrderDto ticketsOrderDto = new TicketsOrderDto();
-        ticketsOrderDto.setDanceFloor(3);
+        ticketsOrderDto.setDanceFloor(3L);
         TicketTableDto ticketTableDto = new TicketTableDto();
         TicketPlaceDto ticketPlaceDto = new TicketPlaceDto();
         ticketPlaceDto.setPlaceNumber(10);

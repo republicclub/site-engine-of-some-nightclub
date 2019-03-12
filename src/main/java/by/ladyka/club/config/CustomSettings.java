@@ -17,6 +17,9 @@ public class CustomSettings {
     @Value("${club.site.domain}")
     private String siteDomain;
 
+    @Value("${club.site.email.admin}")
+    private String emailAdmin;
+
     @Value("${bepaid.payment.store.id}")
     private Long bePaidPaymentStoreId;
 

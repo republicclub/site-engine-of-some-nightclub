@@ -21,7 +21,7 @@ import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collections;
 
-import static by.ladyka.club.config.Constants.API_ORDER_BEPAID;
+import static by.ladyka.club.config.constant.Constants.API_ORDER_BEPAID;
 
 @RestController
 @RequestMapping(API_ORDER_BEPAID)
@@ -84,11 +84,6 @@ public class PaymentController {
 		response.sendRedirect("/order/" + uuid);
 	}
 
-	@GetMapping(path = "/callback/{uuid}/ывфы")
-	public void orderCallBack222(@PathVariable String uuid, HttpServletResponse response) throws IOException {
-		response.sendRedirect("/order/" + uuid);
-	}
-
 	@GetMapping(path = "/callback/{uuid}/{status}")
 	public void orderCallBack(@PathVariable String uuid, HttpServletResponse response) throws IOException {
 		response.sendRedirect("/order/" + uuid);
@@ -98,6 +93,7 @@ public class PaymentController {
 	public GatewayStatus checkStatus(@PathVariable Long orderId) {
 		return menuService.getStatus(orderId);
 	}
+
 	@GetMapping(path = "/pay/{uId}/status/private")
 	public GatewayStatus checkStatusHidden(@PathVariable String uId) throws NoSuchAlgorithmException, IOException, URISyntaxException {
 		return menuService.getStatus(uId);

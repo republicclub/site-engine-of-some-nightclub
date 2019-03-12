@@ -1,6 +1,6 @@
 package by.ladyka.club.endpoints.api;
 
-import by.ladyka.club.config.ClubRole;
+import by.ladyka.club.config.constant.ClubRole;
 import by.ladyka.club.dto.EventDTO;
 import by.ladyka.club.dto.shared.BaseListResultDto;
 import by.ladyka.club.service.EventsService;

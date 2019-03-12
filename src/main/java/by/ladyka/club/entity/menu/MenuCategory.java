@@ -22,6 +22,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 public class MenuCategory extends AbstractEntity {
 	private String name;
+	@Lob
 	private String description;
 	private Integer categoryType;
 

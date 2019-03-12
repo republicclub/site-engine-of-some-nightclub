@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 
@@ -19,5 +20,6 @@ public class FeedBackEntity extends AbstractEntity {
 	private String name;
 	private String email;
 	private String phone;
-	private String description;
+	@Lob
+    private String description;
 }

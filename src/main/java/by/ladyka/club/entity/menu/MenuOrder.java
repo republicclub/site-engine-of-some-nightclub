@@ -34,6 +34,7 @@ public class MenuOrder extends AbstractEntity {
 	private EventEntity eventEntity;
 	private String arrivalTime;
 	private Integer people;
+	@Lob
 	private String description;
 	private Integer tableNumber;
 

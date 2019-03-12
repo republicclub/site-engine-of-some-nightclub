@@ -25,6 +25,7 @@ import java.util.Locale;
 public class EmailServiceImpl implements EmailService {
 
 	public static final String ORDER_EMAIL = "orders@republic-club.by";
+
 	@Qualifier("republic")
 	@Autowired
 	private JavaMailSender emailSender;
@@ -82,6 +83,11 @@ public class EmailServiceImpl implements EmailService {
 		String cc = ORDER_EMAIL;
 		String text = buildOrderText(order);
 		sendMessage(subject, to, cc, text);
+	}
+
+	@Override
+	public void sendAlertToAdmin(String message) {
+		sendMessage("RE:PUBLIC Проблемы с дисковым пространством", settings.getEmailAdmin(), settings.getEmailAdmin(), message);
 	}
 
 	private void sendMessage(String subject, String to, String cc, String text) {

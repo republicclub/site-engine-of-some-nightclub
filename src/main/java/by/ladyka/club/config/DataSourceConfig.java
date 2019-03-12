@@ -1,6 +1,7 @@
 package by.ladyka.club.config;
 
 import liquibase.integration.spring.SpringLiquibase;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,36 +20,17 @@ import javax.sql.DataSource;
 @EnableConfigurationProperties(LiquibaseProperties.class)
 public class DataSourceConfig {
 
-	@Value("${datasource.url}")
-	private String dataSourceUrl;
-	@Value("${datasource.username}")
-	private String dataSourceUsername;
-	@Value("${datasource.password}")
-	private String dataBasePassword;
-	@Value("${datasource.driver-class-name}")
-	private String datasourceDriverClassName;
-
 	@Bean
-	public DataSource dataSource() {
-		return DataSourceBuilder.create()
-				.url(dataSourceUrl)
-				.username(dataSourceUsername)
-				.password(dataBasePassword)
-				.driverClassName(datasourceDriverClassName)
-				.build();
+	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+		return new JdbcTemplate(dataSource);
 	}
 
 	@Bean
-	public JdbcTemplate jdbcTemplate() {
-		return new JdbcTemplate(dataSource());
-	}
-
-	@Bean
-	public SpringLiquibase liquibase(LiquibaseProperties properties) {
+	public SpringLiquibase liquibase(LiquibaseProperties properties, DataSource dataSource) {
 		SpringLiquibase liquibase = new SpringLiquibase();
 		liquibase.setChangeLog(properties.getChangeLog());
 		liquibase.setContexts(properties.getContexts());
-		liquibase.setDataSource(dataSource());
+		liquibase.setDataSource(dataSource);
 		liquibase.setDefaultSchema(properties.getDefaultSchema());
 		liquibase.setDropFirst(properties.isDropFirst());
 		liquibase.setShouldRun(properties.isEnabled());

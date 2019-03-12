@@ -1,6 +1,6 @@
 package by.ladyka.club.service;
 
-import by.ladyka.club.config.ClubRole;
+import by.ladyka.club.config.constant.ClubRole;
 import by.ladyka.club.dto.UserDto;
 import by.ladyka.club.dto.UserPersonalDto;
 import by.ladyka.club.entity.AuthorityEntity;

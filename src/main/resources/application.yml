@@ -1,13 +1,14 @@
-datasource:
-  database: afisha
-  url: jdbc:mysql://127.0.0.1:3306/${datasource.database}?characterEncoding=UTF-8&autoReconnect=true&useSSL=false&useUnicode=true
-  username: afisha
-  password: afishapass
-  driver-class-name: com.mysql.jdbc.Driver
 spring:
+  datasource:
+    database: afisha
+    url: jdbc:mysql://127.0.0.1:3306/${spring.datasource.database}?characterEncoding=UTF-8&autoReconnect=true&useSSL=false&useUnicode=true
+    username: afisha
+    password: afishapass
+    driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: validate
+      show_sql: true
   liquibase:
     contexts: dev
   servlet:
@@ -24,18 +25,19 @@ log4j:
       hibernate:
         SQL: debug
         type: trace
-hibernate:
-  show_sql: true
 club:
   files:
     directory: /tmp
+  site:
+    email:
+      admin: spam@republic-club.by
 mail:
   host: smtp.yandex.ru
   port: 587
   protocol: smtp
   default-encoding: UTF-8
-  username: info-dev@republic-club.by
-  password: 1qaz@#WESDXC
+  username: spam@republic-club.by
+  password: secretpassword
 
 bepaid:
   payment:

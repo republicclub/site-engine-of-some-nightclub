@@ -1,6 +1,6 @@
 package by.ladyka.club.endpoints.api;
 
-import by.ladyka.club.config.ClubRole;
+import by.ladyka.club.config.constant.ClubRole;
 import by.ladyka.club.dto.tikets.TicketTableDto;
 import by.ladyka.club.dto.tikets.TicketsOrderDto;
 import by.ladyka.club.service.order.OrderTicketsService;

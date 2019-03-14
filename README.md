@@ -25,3 +25,4 @@ Fron part
 * Database under_score
 * Java camelCase
 * Use tabs instead spaces
+* Maximum method length is 20 lines.

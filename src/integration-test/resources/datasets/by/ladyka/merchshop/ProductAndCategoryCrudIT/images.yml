@@ -1,0 +1,9 @@
+FILES_USERS:
+- id: 1
+  file_path: "/files/2019/2/6666k.jpg"
+- id: 2
+  file_path: "/files/2019/2/7777g.jpg"
+- id: 3
+  file_path: "/files/2019/2/88888w.jpg"
+- id: 4
+  file_path: "/files/2019/2/99999x.jpg"

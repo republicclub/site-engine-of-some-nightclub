@@ -1,0 +1,13 @@
+MERCHSHOP_PRODUCT:
+- id: 1
+  name: "Some name of product"
+  description: "Some desc of product"
+  cost: 400
+  size : "Some size of product"
+  product_category_id: 4
+
+MERCHSHOP_PRODUCT_IMAGES:
+- product_id: 1
+  file_id: 1
+- product_id: 1
+  file_id: 2

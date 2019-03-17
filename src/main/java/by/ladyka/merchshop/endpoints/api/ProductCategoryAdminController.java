@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -60,5 +61,13 @@ public class ProductCategoryAdminController {
             logger.error("Error", ex);
         }
         return result;
+    }
+
+    //subcategory
+    @GetMapping(params = { "parentid" })
+    @Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_SHOP})
+    public @ResponseBody
+    List<ProductCategoryDTO> getSubcategoriesByParentCategoryId(@RequestParam("parentid") Long parentCategoryId){
+        return productCategoryService.getSubcategoriesByParentCategoryId(parentCategoryId);
     }
 }

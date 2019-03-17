@@ -4,6 +4,8 @@ import by.ladyka.merchshop.dto.ProductDTO;
 import by.ladyka.merchshop.entity.Product;
 import by.ladyka.merchshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,5 +35,9 @@ public class ProductService {
         product.setVisible(false);
         productRepository.save(product);
         return productDTO;
+    }
+
+    public Page<ProductDTO> getByCategoryId(Integer page, Integer size, Long categoryId) {
+        return productRepository.findProductByCategory(categoryId, PageRequest.of(page, size)).map(converterProductService::toDto);
     }
 }

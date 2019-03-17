@@ -6,6 +6,7 @@ import by.ladyka.club.dto.EventDTO;
 import by.ladyka.merchshop.dto.ImageDTO;
 import by.ladyka.merchshop.dto.ProductCategoryDTO;
 import by.ladyka.merchshop.dto.ProductDTO;
+import by.ladyka.merchshop.repository.ProductRepository;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.database.rider.core.api.configuration.DBUnit;
@@ -20,6 +21,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -31,8 +33,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -339,6 +340,36 @@ public class ProductAndCategoryCrudIT implements Replacer {
 
 
     }
+
+
+    /*@Test@DataSet(
+            value = {
+                    "datasets/common/users.yml",
+            }
+    )
+
+    @WithMockUser(username = "shop", authorities = ClubRole.ROLE_SHOP)
+    public void trulala2() throws Exception {
+
+        System.out.println(mvc.perform(
+                get("/api/admin/merchshop/product-category")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("parentid", "4")
+
+        ).andReturn().getResponse().getContentAsString());
+
+
+        System.out.println(mvc.perform(
+                get("/api/admin/merchshop/product")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .param("page", "1")
+                        .param("size", "2")
+                        .param("categoryid", "7")
+
+        ).andReturn().getResponse().getContentAsString());
+    }*/
+
+
 
 
 

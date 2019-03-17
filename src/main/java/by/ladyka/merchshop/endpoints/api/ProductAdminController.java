@@ -1,11 +1,13 @@
 package by.ladyka.merchshop.endpoints.api;
 
 import by.ladyka.club.config.constant.ClubRole;
+import by.ladyka.club.dto.shared.BaseListResultDto;
 import by.ladyka.merchshop.dto.ProductDTO;
 import by.ladyka.merchshop.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -60,5 +63,13 @@ public class ProductAdminController {
             logger.error("Error", ex);
         }
         return result;
+    }
+
+    @GetMapping(params = { "page", "size", "categoryid" })
+    @Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_SHOP})
+    public @ResponseBody
+    List<ProductDTO> getByCategoryId(@RequestParam("page") Integer page, @RequestParam("size") Integer size, @RequestParam("categoryid") Long categoryId){
+        Page<ProductDTO> products = productService.getByCategoryId(page, size, categoryId);
+        return products.getContent();
     }
 }

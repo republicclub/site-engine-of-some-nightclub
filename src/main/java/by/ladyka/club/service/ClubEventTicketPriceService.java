@@ -10,11 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClubEventTicketPriceService {
-    Optional<ClubEventTicketPrice> getLowPriceForEventByPriceType(Long eventId, EventTicketPriceType eventTicketPriceType);
     ClubEventTicketPriceDTO save(ClubEventTicketPriceDTO requestDto, String username);
     List<ClubEventTicketPriceDTO> getAllByEventId(Long eventId, String username);
-    Optional<ClubEventTicketPrice> getLowPriceEntityForEventDance(EventEntity event);
-    Optional<ClubEventTicketPrice> getLowPriceEntityForEventTablePlace(EventEntity event);
     BigDecimal getLowPriceForEventDance(EventEntity eventEntity);
     BigDecimal getLowPriceForEventTablePlace(EventEntity eventEntity);
+    Optional<ClubEventTicketPrice> getLowPriceForEventByPriceType(EventEntity event, EventTicketPriceType eventTicketPriceType);
 }

@@ -57,12 +57,8 @@ public class OrderEntity extends AbstractEntity {
 	List<MenuItemPricesHasOrders> itemPricesHasOrders = new ArrayList<>();
 
 	@ManyToOne
-	@JoinColumn(name = "club_event_ticket_price_dance_id")
-	private ClubEventTicketPrice clubEventTicketPriceDance;
-
-	@ManyToOne
-	@JoinColumn(name = "club_event_ticket_price_table_id")
-	private ClubEventTicketPrice clubEventTicketPriceTable;
+	@JoinColumn(name = "club_event_ticket_price_id")
+	private ClubEventTicketPrice clubEventTicketPrice;
 
 	@Column(name = "enter_time")
 	private LocalDateTime enterTime;

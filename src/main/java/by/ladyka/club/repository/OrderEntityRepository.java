@@ -17,5 +17,5 @@ public interface OrderEntityRepository extends JpaRepository<OrderEntity, Long> 
 	List<OrderEntity> findAllByEventEntityIdAndTicketType(Long eventId, TicketType ticketType);
 	List<OrderEntity> findTop5ByEventEntityIdAndUuidContains(Long eventId, String uuid);
 
-	long countByClubEventTicketPriceDanceOrClubEventTicketPriceTable(ClubEventTicketPrice clubEventTicketPriceDance, ClubEventTicketPrice clubEventTicketPriceTable);
+	long countByClubEventTicketPrice(ClubEventTicketPrice clubEventTicketPrice);
 }

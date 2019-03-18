@@ -10,6 +10,7 @@ import by.ladyka.club.dto.report.TicketOrderReportDto;
 import by.ladyka.club.dto.tikets.*;
 import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventEntity;
+import by.ladyka.club.entity.EventTicketPriceType;
 import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.entity.menu.MenuItemPricesHasOrders;
 import by.ladyka.club.entity.order.OrderEntity;
@@ -272,22 +273,22 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 		BigDecimal costTablePlace = BigDecimal.valueOf(0);
 
 		if(dto.getDanceFloor() > 0){
-            ClubEventTicketPrice clubEventTicketPriceDance = clubEventTicketPriceService.getLowPriceEntityForEventDance(eventEntity)
+            ClubEventTicketPrice clubEventTicketPriceDance = clubEventTicketPriceService.getLowPriceForEventByPriceType(eventEntity, EventTicketPriceType.dance)
                     .orElseThrow(() -> new RuntimeException("tickets are no longer sold"));
             if(clubEventTicketPriceDance.getCost().compareTo(dto.getEvent().getCostDance()) != 0){
                 throw new RuntimeException("tickets at this price is no longer on sale");
             }
-			orderEntity.setClubEventTicketPriceDance(clubEventTicketPriceDance);
+			orderEntity.setClubEventTicketPrice(clubEventTicketPriceDance);
             costDance = clubEventTicketPriceDance.getCost();
         }
 
         if(collect.size() > 0){
-            ClubEventTicketPrice clubEventTicketPriceTable = clubEventTicketPriceService.getLowPriceEntityForEventTablePlace(eventEntity)
+            ClubEventTicketPrice clubEventTicketPriceTable = clubEventTicketPriceService.getLowPriceForEventByPriceType(eventEntity, EventTicketPriceType.table)
                     .orElseThrow(() -> new RuntimeException("tickets are no longer sold"));
             if(clubEventTicketPriceTable.getCost().compareTo(dto.getEvent().getCostTablePlace()) != 0){
                 throw new RuntimeException("tickets at this price is no longer on sale");
             }
-            orderEntity.setClubEventTicketPriceTable(clubEventTicketPriceTable);
+            orderEntity.setClubEventTicketPrice(clubEventTicketPriceTable);
             costTablePlace = clubEventTicketPriceTable.getCost();
         }
 
@@ -326,8 +327,9 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 	}
 
 	private long amount(OrderEntity orderEntity) {
-		final BigDecimal costDance = orderEntity.getClubEventTicketPriceDance().getCost();
-		final BigDecimal costTablePlace = orderEntity.getClubEventTicketPriceTable().getCost();
+		final EventEntity eventEntity = orderEntity.getEventEntity();
+		final BigDecimal costDance = clubEventTicketPriceService.getLowPriceForEventDance(eventEntity);
+		final BigDecimal costTablePlace = clubEventTicketPriceService.getLowPriceForEventTablePlace(eventEntity );
 		return amount(orderEntity.getDance(), orderEntity.getTableNumbers().size(), costDance, costTablePlace).longValue() * 100;
 	}
 

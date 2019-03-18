@@ -34,8 +34,6 @@ public class ClubEventTicketPrice extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity modifiedBy;
-    @OneToMany(mappedBy = "clubEventTicketPriceDance")
-    private List<OrderEntity> danceOrders;
-    @OneToMany(mappedBy = "clubEventTicketPriceTable")
-    private List<OrderEntity> tableOrders;
+    @OneToMany(mappedBy = "clubEventTicketPrice")
+    private List<OrderEntity> orders;
 }

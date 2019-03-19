@@ -2,21 +2,21 @@ USERS:
 - id: 1
   username: "admin"
   enabled: 1
-  accountNonExpired: 1
-  accountNonLocked: 1
-  credentialsNonExpired: 1
+  account_non_expired: 1
+  account_non_locked: 1
+  credentials_non_expired: 1
 - id: 2
   username: "concert"
   enabled: 1
-  accountNonExpired: 1
-  accountNonLocked: 1
-  credentialsNonExpired: 1
+  account_non_expired: 1
+  account_non_locked: 1
+  credentials_non_expired: 1
 - id: 3
   username: "user"
   enabled: 1
-  accountNonExpired: 1
-  accountNonLocked: 1
-  credentialsNonExpired: 1
+  account_non_expired: 1
+  account_non_locked: 1
+  credentials_non_expired: 1
 AUTHORITIES:
 - authority: "admin"
   username: "admin"

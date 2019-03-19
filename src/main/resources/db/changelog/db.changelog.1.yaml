@@ -6,3 +6,28 @@ databaseChangeLog:
         - dropColumn:
             columnName: alias
             tableName: club_event
+  - changeSet:
+      id: 2019-03-19-add-price-columns-to-order
+      author: Yury Golikov
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: club_event_ticket_price_dance_id
+                  type: BIGINT
+              - column:
+                  name: club_event_ticket_price_table_id
+                  type: BIGINT
+            tableName: ticket_order
+        - addForeignKeyConstraint:
+            baseColumnNames: club_event_ticket_price_dance_id
+            baseTableName: ticket_order
+            constraintName: fk_ticket_order_club_event_ticket_price_dance_id
+            referencedColumnNames: id
+            referencedTableName: club_event_ticket_price
+        - addForeignKeyConstraint:
+            baseColumnNames: club_event_ticket_price_table_id
+            baseTableName: ticket_order
+            constraintName: fk_ticket_order_club_event_ticket_price_table_id
+            referencedColumnNames: id
+            referencedTableName: club_event_ticket_price

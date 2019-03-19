@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class ClubEventTicketPriceDTO {
     private Long id;
     private BigDecimal cost;
-    private Integer quantity;
+    private Long quantity;
     private EventTicketPriceType type;
     private Long eventId;
     private LocalDateTime startActiveTime;

@@ -58,32 +58,49 @@ public class ClubEventTicketPriceServiceImpl implements ClubEventTicketPriceServ
         UserEntity user = userService.getUserEntity(username);
         EventEntity event = eventsService.getEventById(requestDto.getEventId()).orElseThrow(() -> new RuntimeException("impossible to create a price for a non-existent event"));
         ClubEventTicketPrice clubEventTicketPrice;
-        if(eventsService.hasAccess(event, user)){
-            if (requestDto.getId() == null || requestDto.getId() < 1) {
-                clubEventTicketPrice = new ClubEventTicketPrice();
-                clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, null);
-            }else {
-                Optional<ClubEventTicketPrice> clubEventTicketPriceOptional = clubEventTicketPriceRepository.findById(requestDto.getId());
-                if(clubEventTicketPriceOptional.isPresent()){
-                    clubEventTicketPrice = clubEventTicketPriceOptional.get();
-                    if(orderEntityRepository.countByClubEventTicketPriceDanceOrClubEventTicketPriceTable(clubEventTicketPrice, clubEventTicketPrice) > 0){
-                        clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, new String[]{"cost", "type"});
-                    }else{
-                        clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, null);
-                    }
-                }else{
-                    final ClubEventTicketPrice clubEventTicketPriceNewed = new ClubEventTicketPrice();
-                    converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPriceNewed, null);
-                    clubEventTicketPriceNewed.setId(requestDto.getId());
-                    clubEventTicketPrice = clubEventTicketPriceNewed;
-                }
+        checkAccessUserToEvent(event, user);
+        if (requestDto.getId() == null || requestDto.getId() < 1) {
+            clubEventTicketPrice = createNewPrice(requestDto);
+        }else {
+            Optional<ClubEventTicketPrice> clubEventTicketPriceOptional = clubEventTicketPriceRepository.findById(requestDto.getId());
+            if(clubEventTicketPriceOptional.isPresent()){
+                clubEventTicketPrice = changePrice(requestDto, clubEventTicketPriceOptional.get());
+            }else{
+                clubEventTicketPrice =  createNewPriceWithParticularId(requestDto);
             }
-            clubEventTicketPrice.setModifiedBy(user);
-            clubEventTicketPrice = clubEventTicketPriceRepository.save(clubEventTicketPrice);
-            return converterClubEventTicketPriceService.toDto(clubEventTicketPrice);
-        }else{
+
+        }
+        clubEventTicketPrice.setModifiedBy(user);
+        clubEventTicketPrice = clubEventTicketPriceRepository.save(clubEventTicketPrice);
+        return converterClubEventTicketPriceService.toDto(clubEventTicketPrice);
+    }
+
+    private void checkAccessUserToEvent(EventEntity event, UserEntity user){
+        if(!eventsService.hasAccess(event, user)){
             throw new AccessControlException("This has't access of this event");
         }
+    }
+
+    private ClubEventTicketPrice createNewPriceWithParticularId(ClubEventTicketPriceDTO requestDto) {
+        final ClubEventTicketPrice clubEventTicketPriceNewed = new ClubEventTicketPrice();
+        converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPriceNewed, null);
+        clubEventTicketPriceNewed.setId(requestDto.getId());
+        return clubEventTicketPriceNewed;
+    }
+
+    private ClubEventTicketPrice createNewPrice(ClubEventTicketPriceDTO requestDto){
+        ClubEventTicketPrice clubEventTicketPrice = new ClubEventTicketPrice();
+        clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, null);
+        return clubEventTicketPrice;
+    }
+
+    private ClubEventTicketPrice changePrice(ClubEventTicketPriceDTO requestDto, ClubEventTicketPrice clubEventTicketPrice){
+        if(orderEntityRepository.countByClubEventTicketPriceDanceOrClubEventTicketPriceTable(clubEventTicketPrice, clubEventTicketPrice) > 0){
+            clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, new String[]{"cost", "type"});
+        }else{
+            clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, null);
+        }
+        return clubEventTicketPrice;
     }
 
     @Override

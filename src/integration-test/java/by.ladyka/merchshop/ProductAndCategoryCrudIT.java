@@ -348,23 +348,23 @@ public class ProductAndCategoryCrudIT implements Replacer {
             }
     )
 
-    @WithMockUser(username = "shop", authorities = ClubRole.ROLE_SHOP)
+    @WithMockUser(username = "user", authorities = ClubRole.ROLE_USER)
     public void trulala2() throws Exception {
 
         System.out.println(mvc.perform(
-                get("/api/admin/merchshop/product-category")
+                get("/api/merchshop/product-category")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("parentid", "4")
+                        .param("parentid", "1")
 
         ).andReturn().getResponse().getContentAsString());
 
 
         System.out.println(mvc.perform(
-                get("/api/admin/merchshop/product")
+                get("/api/merchshop/product")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .param("page", "1")
+                        .param("page", "2")
                         .param("size", "2")
-                        .param("categoryid", "7")
+                        .param("categoryid", "4")
 
         ).andReturn().getResponse().getContentAsString());
     }*/

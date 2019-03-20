@@ -40,4 +40,8 @@ public class ProductService {
     public Page<ProductDTO> getByCategoryId(Integer page, Integer size, Long categoryId) {
         return productRepository.findProductByCategory(categoryId, PageRequest.of(page, size)).map(converterProductService::toDto);
     }
+
+    public Page<ProductDTO> getByCategoryIdAndIsVisible(Integer page, Integer size, Long categoryId) {
+        return productRepository.findProductByCategoryAndIsVisible(categoryId, PageRequest.of(page, size)).map(converterProductService::toDto);
+    }
 }

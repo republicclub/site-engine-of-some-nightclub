@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface ProductCategoryRepository  extends JpaRepository<ProductCategory, Long> {
     List<ProductCategory> findAllByParentProductCategory(ProductCategory parentProductCategory);
+    List<ProductCategory> findAllByParentProductCategoryAndVisibleIsTrue(ProductCategory parentProductCategory);
 }

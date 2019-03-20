@@ -44,4 +44,8 @@ public class ProductCategoryService {
     public List<ProductCategoryDTO> getSubcategoriesByParentCategoryId(Long parentCategoryId) {
         return productCategoryRepository.findAllByParentProductCategory(productCategoryRepository.getOne(parentCategoryId)).stream().map(converterProductCategoryService::toDto).collect(Collectors.toList());
     }
+
+    public List<ProductCategoryDTO> getSubcategoriesByParentCategoryIdAndIsVisible(Long parentCategoryId) {
+        return productCategoryRepository.findAllByParentProductCategoryAndVisibleIsTrue(productCategoryRepository.getOne(parentCategoryId)).stream().map(converterProductCategoryService::toDto).collect(Collectors.toList());
+    }
 }

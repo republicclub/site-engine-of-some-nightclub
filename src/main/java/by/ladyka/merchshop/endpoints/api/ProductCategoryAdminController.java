@@ -63,7 +63,6 @@ public class ProductCategoryAdminController {
         return result;
     }
 
-    //subcategory
     @GetMapping(params = { "parentid" })
     @Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_SHOP})
     public @ResponseBody

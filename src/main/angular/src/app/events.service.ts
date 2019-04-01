@@ -4,7 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of as observableOf} from 'rxjs';
 import {catchError, tap} from 'rxjs/operators';
 import {MainEventPage} from "./dto/mainEventPage";
-import {Event, EventListResult} from "./dto/event";
+import {EventDto, EventListResult} from "./dto/eventDto";
 import {ResponseEntity} from "./dto/ResponseEntity";
 
 const httpOptions = {
@@ -34,16 +34,16 @@ export class EventsService {
     return this.http.get<EventListResult>(requestUrl);
   }
 
-  save(event: Event): Observable<Event> {
-    return this.http.post<Event>(this.eventsRestAdminUrl, JSON.stringify(event), httpOptions)
+  save(event: EventDto): Observable<EventDto> {
+    return this.http.post<EventDto>(this.eventsRestAdminUrl, JSON.stringify(event), httpOptions)
       .pipe(
-        catchError(this.handleError('saveEvent', new Event()))
+        catchError(this.handleError('saveEvent', new EventDto()))
       );
   }
 
-  getEvent(eventId: number): Observable<Event> {
+  getEvent(eventId: number): Observable<EventDto> {
     let url = this.eventsRestUrl + '?id=' + eventId;
-    return this.http.get<Event>(url)
+    return this.http.get<EventDto>(url)
       .pipe();
   }
 

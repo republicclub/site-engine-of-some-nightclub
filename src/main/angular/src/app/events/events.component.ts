@@ -1,5 +1,5 @@
 import {Component, HostListener, OnInit} from '@angular/core';
-import {Event} from '../dto/event';
+import {EventDto} from '../dto/eventDto';
 import {EventReport} from "../dto/eventGallery";
 import {EventRelevant} from "../dto/eventRelevant";
 import {EventsService} from "../events.service";
@@ -12,12 +12,12 @@ import 'moment/locale/ru';
   styleUrls: ['./events.component.css']
 })
 export class EventsComponent implements OnInit {
-  today: Event[];
-  tomorrow: Event[];
-  currentAndNextWeek: Event[];
-  currentMonth: Event[];
-  nextMonth: Event[];
-  nextNextMonth: Event[];
+  today: EventDto[];
+  tomorrow: EventDto[];
+  currentAndNextWeek: EventDto[];
+  currentMonth: EventDto[];
+  nextMonth: EventDto[];
+  nextNextMonth: EventDto[];
   relevant: EventRelevant[];
   gallery: EventReport[];
   currentDate: string;

@@ -3,12 +3,12 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {TicketOrder} from "../../dto/ticketOrder";
 import {OrderTicketService} from "../../services/tickets/order-ticket.service";
-import {Event} from "../../dto/event";
+import {EventDto} from "../../dto/eventDto";
 import {UserPersonDataService} from "../../user-cabinet/user-person-data.service";
 import {UserPersonDataDto} from "../../user-cabinet/dto/userPersonDataDto";
 
 export interface OrderTicketsModalData {
-  event: Event;
+  event: EventDto;
 }
 
 export class TableDto {

@@ -1,10 +1,10 @@
-import {Event} from "./event";
+import {EventDto} from "./eventDto";
 import {TableDto} from "../orders/order-tickets/order-tickets.component";
 
 export class TicketOrder {
   public totalMoney : number;
   public danceFloor: number;
-  public event: Event;
+  public event: EventDto;
   public placeSeats: number;
   public name: string;
   public surname: string;

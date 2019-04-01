@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsService} from "../events.service";
-import {Event} from "../dto/event";
+import {EventDto} from "../dto/eventDto";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -10,14 +10,14 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class EventPageComponent implements OnInit {
   private eventService: EventsService;
-  event: Event;
+  event: EventDto;
 
   constructor(private activatedRoute: ActivatedRoute, eventService: EventsService) {
     this.eventService = eventService;
   }
 
   ngOnInit() {
-    this.event = new Event();
+    this.event = new EventDto();
     let id = +this.activatedRoute.snapshot.paramMap.get('id');
     this.eventService.getEvent(id)
       .subscribe(responce => {

@@ -56,4 +56,20 @@ public class ClubEventTicketPriceAdminController {
         return new ResponseEntity<>(new BaseListResultDto<>(prices), HttpStatus.OK);
     }
 
+    @DeleteMapping
+    public @ResponseBody
+    Map<String, Object> delete(Principal principal, HttpServletRequest httpServletRequest, @RequestParam Long priceId) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("input", priceId);
+        try {
+            result.put("success", true);
+            result.put("data", clubEventTicketPriceService.delete(priceId, principal.getName()));
+        } catch (Exception ex) {
+            result.put("message", ex.getLocalizedMessage());
+            result.put("success", false);
+            logger.error("Error", ex);
+        }
+        return result;
+    }
+
 }

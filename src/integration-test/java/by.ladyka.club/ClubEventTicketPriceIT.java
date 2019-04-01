@@ -76,9 +76,9 @@ public class ClubEventTicketPriceIT implements Replacer {
     public void whenCreateValidEventTicketPrice_thenItMustBeCreated() throws Exception {
 
         ClubEventTicketPriceDTO clubEventTicketPriceDTO = new ClubEventTicketPriceDTO();
-        clubEventTicketPriceDTO.setType(EventTicketPriceType.dance);
+        clubEventTicketPriceDTO.setTypePrice(EventTicketPriceType.dance);
         clubEventTicketPriceDTO.setCost(BigDecimal.valueOf(250L));
-        clubEventTicketPriceDTO.setQuantity(100);
+        clubEventTicketPriceDTO.setQuantity(100L);
         clubEventTicketPriceDTO.setStartActiveTime(LocalDateTime.now().minusHours(1));
         clubEventTicketPriceDTO.setEndActiveTime(LocalDateTime.now().plusDays(10));
         clubEventTicketPriceDTO.setEventId(1L);
@@ -105,7 +105,7 @@ public class ClubEventTicketPriceIT implements Replacer {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO.getQuantity())))
                 .andExpect(jsonPath("$.items[0].cost", is(clubEventTicketPriceDTO.getCost().intValue())))
-                .andExpect(jsonPath("$.items[0].type", is(clubEventTicketPriceDTO.getType().toString())))
+                .andExpect(jsonPath("$.items[0].typePrice", is(clubEventTicketPriceDTO.getTypePrice().toString())))
                 .andExpect(jsonPath("$.items[0].eventId", is(clubEventTicketPriceDTO.getEventId().intValue())))
                 //TODO: resolve problem with serialized LocalDataTime format
                 /*.andExpect(jsonPath("$.items[0].startActiveTime", is(clubEventTicketPriceDTO.getStartActiveTime().toString())))
@@ -127,9 +127,9 @@ public class ClubEventTicketPriceIT implements Replacer {
         ClubEventTicketPriceDTO clubEventTicketPriceDTO_forUpdate = new ClubEventTicketPriceDTO();
         clubEventTicketPriceDTO_forUpdate.setId(1L);
         clubEventTicketPriceDTO_forUpdate.setEventId(1L);
-        clubEventTicketPriceDTO_forUpdate.setType(EventTicketPriceType.table);
+        clubEventTicketPriceDTO_forUpdate.setTypePrice(EventTicketPriceType.table);
         clubEventTicketPriceDTO_forUpdate.setCost(BigDecimal.valueOf(600L));
-        clubEventTicketPriceDTO_forUpdate.setQuantity(400);
+        clubEventTicketPriceDTO_forUpdate.setQuantity(400L);
         clubEventTicketPriceDTO_forUpdate.setStartActiveTime(_YESTERDAY_);
         clubEventTicketPriceDTO_forUpdate.setEndActiveTime(LocalDateTime.now().minusHours(1));
 
@@ -153,7 +153,7 @@ public class ClubEventTicketPriceIT implements Replacer {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO_forUpdate.getQuantity())))
-                .andExpect(jsonPath("$.items[0].type", is(clubEventTicketPriceDTO_forUpdate.getType().toString())))
+                .andExpect(jsonPath("$.items[0].typePrice", is(clubEventTicketPriceDTO_forUpdate.getTypePrice().toString())))
                 .andExpect(jsonPath("$.items[0].cost", is(clubEventTicketPriceDTO_forUpdate.getCost().intValue())))
                 //TODO: resolve problem with serialized LocalDataTime format
                 /*.andExpect(jsonPath("$.items[0].startActiveTime", is(clubEventTicketPriceDTO_forUpdate.getStartActiveTime().toString())))
@@ -176,9 +176,9 @@ public class ClubEventTicketPriceIT implements Replacer {
         ClubEventTicketPriceDTO clubEventTicketPriceDTO_forUpdate = new ClubEventTicketPriceDTO();
         clubEventTicketPriceDTO_forUpdate.setId(1L);
         clubEventTicketPriceDTO_forUpdate.setEventId(1L);
-        clubEventTicketPriceDTO_forUpdate.setType(EventTicketPriceType.table);
+        clubEventTicketPriceDTO_forUpdate.setTypePrice(EventTicketPriceType.table);
         clubEventTicketPriceDTO_forUpdate.setCost(BigDecimal.valueOf(600L));
-        clubEventTicketPriceDTO_forUpdate.setQuantity(400);
+        clubEventTicketPriceDTO_forUpdate.setQuantity(400L);
         clubEventTicketPriceDTO_forUpdate.setStartActiveTime(_YESTERDAY_);
         clubEventTicketPriceDTO_forUpdate.setEndActiveTime(LocalDateTime.now().minusHours(1));
 
@@ -202,7 +202,7 @@ public class ClubEventTicketPriceIT implements Replacer {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO_forUpdate.getQuantity())))
-                .andExpect(jsonPath("$.items[0].type", is(EventTicketPriceType.dance.toString())))
+                .andExpect(jsonPath("$.items[0].typePrice", is(EventTicketPriceType.dance.toString())))
                 .andExpect(jsonPath("$.items[0].cost", is(550D)))
                 //TODO: resolve problem with serialized LocalDataTime format
                 /*.andExpect(jsonPath("$.items[0].startActiveTime", is(clubEventTicketPriceDTO_forUpdate.getStartActiveTime().toString())))

@@ -10,6 +10,7 @@ import by.ladyka.club.repository.OrderEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.math.BigDecimal;
 import java.security.AccessControlException;
 import java.time.LocalDateTime;
@@ -65,7 +66,7 @@ public class ClubEventTicketPriceServiceImpl implements ClubEventTicketPriceServ
 					clubEventTicketPrice = clubEventTicketPriceOptional.get();
 
 					if (orderEntityRepository.countByClubEventTicketPrice(clubEventTicketPrice) > 0) {
-						clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, new String[]{"cost", "type"});
+						clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, new String[]{"cost", "typePrice"});
 					} else {
 						clubEventTicketPrice = converterClubEventTicketPriceService.toEntity(requestDto, clubEventTicketPrice, null);
 					}
@@ -91,6 +92,16 @@ public class ClubEventTicketPriceServiceImpl implements ClubEventTicketPriceServ
 				event,
 				eventTicketPriceType
 		);
+	}
+
+	@Override
+	public boolean delete(Long priceId, String username) {
+		final UserEntity userEntity = userService.getUserEntity(username);
+		final ClubEventTicketPrice price = clubEventTicketPriceRepository.findById(priceId).orElseThrow(EntityNotFoundException::new);
+		price.setModifiedBy(userEntity);
+		price.setVisible(Boolean.FALSE);
+		clubEventTicketPriceRepository.save(price);
+		return true;
 	}
 
 	@Override

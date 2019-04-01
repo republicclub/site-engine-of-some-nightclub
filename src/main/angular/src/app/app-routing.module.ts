@@ -29,6 +29,7 @@ import {SingInComponent} from "./auth/sing-in/sing-in.component";
 import {SingUpComponent} from "./auth/sing-up/sing-up.component";
 import {PersonalInfoComponent} from "./user-cabinet/personal-info/personal-info.component";
 import {SettingsMainComponent} from "./admin/settings/settings-main/settings-main.component";
+import {AdminEventPriceComponent} from "./admin/events/admin-event-price/admin-event-price.component";
 
 const routes: Routes = [
   {path: '', component: EventsComponent},
@@ -46,6 +47,7 @@ const routes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'admin-order-list', component: AdminOrderListComponent},
   {path: 'admin-events-list', component: EventsListComponent},
+  {path: 'admin/event/:id/price', component: AdminEventPriceComponent},
   {path: 'admin-event-view', component: EventViewComponent},
   {path: 'admin-events', component: EventsAdminPageComponent},
   {path: 'admin-news', component: NewsSummaryComponent},

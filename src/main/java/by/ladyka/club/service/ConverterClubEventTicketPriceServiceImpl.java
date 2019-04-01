@@ -18,6 +18,8 @@ public class ConverterClubEventTicketPriceServiceImpl implements ConverterClubEv
         ClubEventTicketPriceDTO dto = new ClubEventTicketPriceDTO();
         BeanUtils.copyProperties(entity, dto);
         dto.setEventId(entity.getEvent().getId());
+        dto.setModifiedBy(entity.getModifiedBy().getPublishName());
+        dto.setTypePrice(entity.getType());
         return dto;
     }
 
@@ -26,6 +28,7 @@ public class ConverterClubEventTicketPriceServiceImpl implements ConverterClubEv
         BeanUtils.copyProperties(dto, targetEntity, ignoreProperties);
         EventEntity event = eventsService.getEventById(dto.getEventId()).orElseThrow(() -> new RuntimeException("could not find ClubEvent with current eventId"));
         targetEntity.setEvent(event);
+        targetEntity.setType(dto.getTypePrice());
         event.getTicketPrices().add(targetEntity);
         return targetEntity;
     }

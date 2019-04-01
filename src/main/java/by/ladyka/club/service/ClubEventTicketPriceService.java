@@ -15,4 +15,5 @@ public interface ClubEventTicketPriceService {
     BigDecimal getLowPriceForEventDance(EventEntity eventEntity);
     BigDecimal getLowPriceForEventTablePlace(EventEntity eventEntity);
     Optional<ClubEventTicketPrice> getLowPriceForEventByPriceType(EventEntity event, EventTicketPriceType eventTicketPriceType);
+    boolean delete(Long priceId, String username);
 }

@@ -1,7 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {MenuCategoryDto} from "../../dto/menuCategoryDto";
-import {Event} from "../../dto/event";
+import {EventDto} from "../../dto/eventDto";
 import {MenuService} from "../../menu.service";
 import * as moment from "moment";
 import {MenuOrder} from "../../dto/menuOrder";
@@ -22,7 +22,7 @@ export class MenuOrderComponent implements OnInit {
   orderDetailsFormGroup: FormGroup;
 
   menuCategories: MenuCategoryDto[];
-  events: Event[];
+  events: EventDto[];
   order = new MenuOrder();
   orderComplete: boolean;
 

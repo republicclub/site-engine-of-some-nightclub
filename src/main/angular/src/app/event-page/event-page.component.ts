@@ -9,19 +9,16 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./event-page.component.css']
 })
 export class EventPageComponent implements OnInit {
-  private eventService: EventsService;
-  event: EventDto;
+  event: EventDto = new EventDto();
 
-  constructor(private activatedRoute: ActivatedRoute, eventService: EventsService) {
-    this.eventService = eventService;
+  constructor(private activatedRoute: ActivatedRoute, private eventService: EventsService) {
   }
 
   ngOnInit() {
-    this.event = new EventDto();
     let id = +this.activatedRoute.snapshot.paramMap.get('id');
     this.eventService.getEvent(id)
-      .subscribe(responce => {
-        this.event = responce;
+      .subscribe(response => {
+        this.event = response;
         if (!this.event.buyTicketUrl) {
           this.event.buyTicketUrl = "/cashbox";
         }

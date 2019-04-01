@@ -26,7 +26,9 @@ export class AppComponent {
         this.isUser = (this.isConcert || ('user' == user.role))
       });
     const loader = document.getElementsByClassName('lds-roller')[0];
-    loader.parentElement.removeChild(loader);
+    if (loader) {
+      loader.parentElement.removeChild(loader);
+    }
     const indexHtmlLoaded = window['indexHtmlLoaded'];
     const currentDate = new Date();
     const seconds = (currentDate.getTime() - indexHtmlLoaded.getTime());

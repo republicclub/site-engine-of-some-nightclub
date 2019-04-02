@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {EventsService} from "../../events.service";
-import {Event} from "../../dto/event";
+import {EventDto} from "../../dto/eventDto";
 
 @Component({
   selector: 'app-disco',
@@ -8,17 +8,17 @@ import {Event} from "../../dto/event";
   styleUrls: ['./disco.component.css']
 })
 export class DiscoComponent implements OnInit {
-  eventFirst: Event;
-  eventSecond: Event;
-  eventThird: Event;
+  eventFirst: EventDto;
+  eventSecond: EventDto;
+  eventThird: EventDto;
 
   constructor(private eventService: EventsService) {
   }
 
   ngOnInit() {
-    this.eventFirst = new Event();
-    this.eventSecond = new Event();
-    this.eventThird = new Event();
+    this.eventFirst = new EventDto();
+    this.eventSecond = new EventDto();
+    this.eventThird = new EventDto();
 
     this.eventService.getDiscoEvents()
       .subscribe(responce => {

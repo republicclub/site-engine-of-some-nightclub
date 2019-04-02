@@ -1,6 +1,9 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+/*dl-date-time-picker*/
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import '~open-iconic/font/css/open-iconic-bootstrap.css';
+
 @font-face {
   font-family: 'Humanist';
   src: url('/assets/fonts/Humanist.ttf');
@@ -977,4 +980,9 @@ body {
 
 .order-btn-face {
   float: right;
+}
+
+
+.text-align-right {
+  text-align: right;
 }

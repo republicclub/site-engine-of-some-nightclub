@@ -95,6 +95,11 @@ import {QRCodeModule} from "angularx-qrcode";
 import {UserCabinetModule} from "./user-cabinet/user-cabinet.module";
 import {SettingsMainComponent} from './admin/settings/settings-main/settings-main.component';
 import {SettingsService} from "./services/settings/settings.service";
+import {AdminEventPriceComponent} from './admin/events/admin-event-price/admin-event-price.component';
+import {PriceService} from "./services/price/price.service";
+import {ConfirmationDialogComponent} from './common-components/confirmation-dialog/confirmation-dialog.component';
+import {ConfirmationDialogService} from "./common-components/confirmation-dialog/confirmation-dialog.service";
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   imports: [
@@ -142,6 +147,7 @@ import {SettingsService} from "./services/settings/settings.service";
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    NgbModule.forRoot(),
     NgxUploaderModule,
     QRCodeModule,
     ReactiveFormsModule,
@@ -150,10 +156,12 @@ import {SettingsService} from "./services/settings/settings.service";
   ],
   declarations: [
     AdminComponent,
+    AdminEventPriceComponent,
     AdminOrderListComponent,
     AppComponent,
     BepaidDialog,
     ClubComponent,
+    ConfirmationDialogComponent,
     EventPageComponent,
     EventReportComponent,
     EventsAdminPageComponent,
@@ -190,17 +198,23 @@ import {SettingsService} from "./services/settings/settings.service";
   ],
   providers: [
     AuthService,
+    ConfirmationDialogService,
     EventReportService,
     EventsService,
     FeedbackService,
     MenuService,
     NewsService,
     OrderTicketService,
+    PriceService,
     PhotoReportService,
     SettingsService,
     StatisticService
   ],
-  entryComponents: [BepaidDialog, OrderTicketsComponent],
+  entryComponents: [
+    BepaidDialog,
+    ConfirmationDialogComponent,
+    OrderTicketsComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

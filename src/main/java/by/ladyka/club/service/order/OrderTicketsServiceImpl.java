@@ -8,7 +8,9 @@ import by.ladyka.club.config.CustomSettings;
 import by.ladyka.club.dto.menu.TicketOrderDto;
 import by.ladyka.club.dto.report.TicketOrderReportDto;
 import by.ladyka.club.dto.tikets.*;
+import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventEntity;
+import by.ladyka.club.entity.EventTicketPriceType;
 import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.entity.menu.MenuItemPricesHasOrders;
 import by.ladyka.club.entity.order.OrderEntity;
@@ -266,7 +268,31 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 		orderEntity.setItemPricesHasOrders(items);
 		final EventEntity eventEntity = eventService.getEventById(dto.getEvent().getId()).orElseThrow(RuntimeException::new);
 		orderEntity.setEventEntity(eventEntity);
-		orderEntity.setTotalOrder(amount(dto.getDanceFloor(), collect.size(), clubEventTicketPriceService.getLowPriceForEventDance(eventEntity), clubEventTicketPriceService.getLowPriceForEventTablePlace(eventEntity)));
+
+		BigDecimal costDance = BigDecimal.valueOf(0);
+		BigDecimal costTablePlace = BigDecimal.valueOf(0);
+
+		if(dto.getDanceFloor() > 0){
+            ClubEventTicketPrice clubEventTicketPriceDance = clubEventTicketPriceService.getLowPriceForEventByPriceType(eventEntity, EventTicketPriceType.dance)
+                    .orElseThrow(() -> new RuntimeException("tickets are no longer sold"));
+            if(clubEventTicketPriceDance.getCost().compareTo(dto.getEvent().getCostDance()) != 0){
+                throw new RuntimeException("tickets at this price is no longer on sale");
+            }
+			orderEntity.setClubEventTicketPrice(clubEventTicketPriceDance);
+            costDance = clubEventTicketPriceDance.getCost();
+        }
+
+        if(collect.size() > 0){
+            ClubEventTicketPrice clubEventTicketPriceTable = clubEventTicketPriceService.getLowPriceForEventByPriceType(eventEntity, EventTicketPriceType.table)
+                    .orElseThrow(() -> new RuntimeException("tickets are no longer sold"));
+            if(clubEventTicketPriceTable.getCost().compareTo(dto.getEvent().getCostTablePlace()) != 0){
+                throw new RuntimeException("tickets at this price is no longer on sale");
+            }
+            orderEntity.setClubEventTicketPrice(clubEventTicketPriceTable);
+            costTablePlace = clubEventTicketPriceTable.getCost();
+        }
+
+		orderEntity.setTotalOrder(amount(dto.getDanceFloor(), collect.size(), costDance, costTablePlace));
 
 		if (username != null) {
 			UserEntity bookUser = userService.getUserEntity(username);

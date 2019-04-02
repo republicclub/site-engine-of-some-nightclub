@@ -1,0 +1,9 @@
+CLUB_EVENT_TICKET_PRICE:
+- id: 1
+  cost: 550
+  quantity: 300
+  type: "dance"
+  event_id: 1
+  start_active_time: _YESTERDAY_
+  end_active_time: _PLUS_5_HOURS_
+  version: 1

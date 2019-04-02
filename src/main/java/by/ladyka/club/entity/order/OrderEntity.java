@@ -2,6 +2,7 @@ package by.ladyka.club.entity.order;
 
 import by.ladyka.bepaid.dto.GatewayStatus;
 import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventEntity;
 import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.entity.menu.MenuItemPricesHasOrders;
@@ -54,6 +55,10 @@ public class OrderEntity extends AbstractEntity {
 	private List<OrderItemEntity> tableNumbers = new ArrayList<>();
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
 	List<MenuItemPricesHasOrders> itemPricesHasOrders = new ArrayList<>();
+
+	@ManyToOne
+	@JoinColumn(name = "club_event_ticket_price_id")
+	private ClubEventTicketPrice clubEventTicketPrice;
 
 	@Column(name = "enter_time")
 	private LocalDateTime enterTime;

@@ -131,3 +131,14 @@ databaseChangeLog:
               - column:
                   name: parent_product_category_id
             tableName: merchshop_product_category
+
+  - changeSet:
+      id: 2019-03-17-fill-mised
+      author: Andrei Ladyka
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: club_event_ticket_price_id
+                  type: BIGINT
+            tableName: ticket_order

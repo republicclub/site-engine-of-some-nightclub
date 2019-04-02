@@ -1,6 +1,6 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {EventsService} from "../../../events.service";
-import {Event} from "../../../dto/event";
+import {EventDto} from "../../../dto/eventDto";
 import {MatPaginator, MatSort, MatTableDataSource} from "@angular/material";
 import {catchError, map, startWith, switchMap} from "rxjs/operators";
 import {merge, of as observableOf} from 'rxjs';
@@ -19,10 +19,10 @@ export class EventsListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  events: Event[] = [];
+  events: EventDto[] = [];
 
   @Output() onRowSelected = new EventEmitter();
-  private dataSource: MatTableDataSource<Event>;
+  private dataSource: MatTableDataSource<EventDto>;
 
   constructor(private eventsService: EventsService) {
   }
@@ -71,7 +71,7 @@ export class EventsListComponent implements OnInit {
       ).subscribe(data => this.events = data);
   }
 
-  handleRowClick(row: Event) {
+  handleRowClick(row: EventDto) {
     this.onRowSelected.emit(row);
   }
 

@@ -1,5 +1,6 @@
 package by.ladyka.club.entity;
 
+import by.ladyka.club.entity.order.OrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,4 +34,6 @@ public class ClubEventTicketPrice extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity modifiedBy;
+    @OneToMany(mappedBy = "clubEventTicketPrice")
+    private List<OrderEntity> orders;
 }

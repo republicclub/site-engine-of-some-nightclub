@@ -13,5 +13,9 @@
     "target": "http://localhost:28010",
     "secure": false,
     "logLevel": "debug"
+  },
+  "/files" : {
+    "target": "http://qa.republic-club.by",
+    "logLevel": "debug"
   }
 }

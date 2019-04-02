@@ -8,6 +8,9 @@ import by.ladyka.merchshop.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class ProductCategoryService {
 
@@ -36,5 +39,13 @@ public class ProductCategoryService {
         productCategory.setVisible(false);
         productCategoryRepository.save(productCategory);
         return productCategoryDTO;
+    }
+
+    public List<ProductCategoryDTO> getSubcategoriesByParentCategoryId(Long parentCategoryId) {
+        return productCategoryRepository.findAllByParentProductCategory(productCategoryRepository.getOne(parentCategoryId)).stream().map(converterProductCategoryService::toDto).collect(Collectors.toList());
+    }
+
+    public List<ProductCategoryDTO> getSubcategoriesByParentCategoryIdAndIsVisible(Long parentCategoryId) {
+        return productCategoryRepository.findAllByParentProductCategoryAndVisibleIsTrue(productCategoryRepository.getOne(parentCategoryId)).stream().map(converterProductCategoryService::toDto).collect(Collectors.toList());
     }
 }

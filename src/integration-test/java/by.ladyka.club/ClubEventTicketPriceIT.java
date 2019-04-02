@@ -103,7 +103,7 @@ public class ClubEventTicketPriceIT implements Replacer {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO.getQuantity())))
+                .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO.getQuantity().intValue())))
                 .andExpect(jsonPath("$.items[0].cost", is(clubEventTicketPriceDTO.getCost().intValue())))
                 .andExpect(jsonPath("$.items[0].typePrice", is(clubEventTicketPriceDTO.getTypePrice().toString())))
                 .andExpect(jsonPath("$.items[0].eventId", is(clubEventTicketPriceDTO.getEventId().intValue())))
@@ -152,7 +152,7 @@ public class ClubEventTicketPriceIT implements Replacer {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO_forUpdate.getQuantity())))
+                .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO_forUpdate.getQuantity().intValue())))
                 .andExpect(jsonPath("$.items[0].typePrice", is(clubEventTicketPriceDTO_forUpdate.getTypePrice().toString())))
                 .andExpect(jsonPath("$.items[0].cost", is(clubEventTicketPriceDTO_forUpdate.getCost().intValue())))
                 //TODO: resolve problem with serialized LocalDataTime format
@@ -201,7 +201,7 @@ public class ClubEventTicketPriceIT implements Replacer {
         )
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO_forUpdate.getQuantity())))
+                .andExpect(jsonPath("$.items[0].quantity", is(clubEventTicketPriceDTO_forUpdate.getQuantity().intValue())))
                 .andExpect(jsonPath("$.items[0].typePrice", is(EventTicketPriceType.dance.toString())))
                 .andExpect(jsonPath("$.items[0].cost", is(550D)))
                 //TODO: resolve problem with serialized LocalDataTime format

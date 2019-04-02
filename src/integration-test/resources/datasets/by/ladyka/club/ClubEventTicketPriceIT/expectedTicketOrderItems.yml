@@ -1,5 +1,5 @@
 TICKET_ORDER_ITEM:
 - id: 7
   place: 10
-  tableNumber: 15
+  table_number: 15
   order_id: 7

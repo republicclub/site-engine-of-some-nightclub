@@ -96,6 +96,7 @@ task integrationTest(type: Test) {
 	testClassesDirs = sourceSets.integrationTest.output.classesDirs
 	classpath = sourceSets.integrationTest.runtimeClasspath
 	mustRunAfter test
+	outputs.upToDateWhen { false }
 }
 
 check.dependsOn integrationTest

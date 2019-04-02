@@ -131,7 +131,7 @@ public class ClubEventTicketPriceIT implements Replacer {
         clubEventTicketPriceDTO_forUpdate.setCost(BigDecimal.valueOf(600L));
         clubEventTicketPriceDTO_forUpdate.setQuantity(400L);
         clubEventTicketPriceDTO_forUpdate.setStartActiveTime(_YESTERDAY_);
-        clubEventTicketPriceDTO_forUpdate.setEndActiveTime(LocalDateTime.now().minusHours(1));
+        clubEventTicketPriceDTO_forUpdate.setEndActiveTime(LocalDateTime.now().plusHours(10L));
 
         String clubEventTicketPriceJson = new ObjectMapper()
                 .setSerializationInclusion(JsonInclude.Include.NON_NULL)

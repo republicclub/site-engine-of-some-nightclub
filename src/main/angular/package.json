@@ -1,6 +1,6 @@
 {
   "name": "nclub-engine",
-  "version": "0.5.0r",
+  "version": "0.6.0r",
   "private": true,
   "description": "Night club engine!",
   "scripts": {

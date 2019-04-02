@@ -48,7 +48,7 @@ public class ClubEventTicketPriceAdminController {
         return result;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     @Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT})
     public @ResponseBody
     ResponseEntity<BaseListResultDto<ClubEventTicketPriceDTO>> get(Principal principal, HttpServletRequest httpServletRequest, @RequestParam Long eventId) {

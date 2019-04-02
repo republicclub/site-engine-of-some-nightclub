@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.6.RELEASE'
+		springBootVersion = '2.1.3.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -18,7 +18,7 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'by.ladyka'
-version = '0.5.0r'
+version = '0.6.0r'
 sourceCompatibility = 1.8
 
 repositories {
@@ -40,6 +40,7 @@ dependencies {
 	compile "net.sf.jasperreports:jasperreports:$jasperreportsVersion"
 	compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
 	compileOnly('org.projectlombok:lombok')
+	annotationProcessor ('org.projectlombok:lombok')
 	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
 	compile group: 'org.thymeleaf', name: 'thymeleaf'
 	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5'

@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = {ClubApplication.class})
 @AutoConfigureMockMvc
-//@DBRider
+@DBRider
 @DBUnit(replacers = ProductAndCategoryCrudIT.class)
 public class ProductAndCategoryCrudIT implements Replacer {
 

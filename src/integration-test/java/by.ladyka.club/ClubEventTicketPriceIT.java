@@ -18,6 +18,7 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.core.replacers.Replacer;
 import com.github.database.rider.spring.api.DBRider;
 import org.dbunit.dataset.ReplacementDataSet;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +65,7 @@ public class ClubEventTicketPriceIT implements Replacer {
     @Autowired
     private MockMvc mvc;
 
+    @Ignore
     @Test
     @Transactional
     @DataSet(
@@ -112,6 +114,7 @@ public class ClubEventTicketPriceIT implements Replacer {
                 .andExpect(jsonPath("$.items[0].endActiveTime", is(clubEventTicketPriceDTO.getEndActiveTime().toString())))*/;
     }
 
+    @Ignore
     @Test
     @Transactional
     @DataSet(
@@ -160,6 +163,7 @@ public class ClubEventTicketPriceIT implements Replacer {
                 .andExpect(jsonPath("$.items[0].endActiveTime", is(clubEventTicketPriceDTO_forUpdate.getEndActiveTime().toString())))*/;
     }
 
+    @Ignore
     @Test
     @Transactional
     @DataSet(
@@ -209,6 +213,7 @@ public class ClubEventTicketPriceIT implements Replacer {
                 .andExpect(jsonPath("$.items[0].endActiveTime", is(clubEventTicketPriceDTO_forUpdate.getEndActiveTime().toString())))*/;
     }
 
+    @Ignore
     @Test
     @Transactional
     @DataSet(
@@ -235,6 +240,7 @@ public class ClubEventTicketPriceIT implements Replacer {
     }
 
 
+    @Ignore
     @Test
     @Transactional
     @DataSet(

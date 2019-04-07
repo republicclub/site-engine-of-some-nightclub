@@ -1,0 +1,22 @@
+MERCHSHOP_PRODUCT_CATEGORY:
+- id: 1
+  visible: 1
+  version: 1
+- id: 2
+  name: "Some product name 2"
+  description: "Some product description 2"
+  parent_product_category_id: 1
+  visible: 1
+  version: 1
+- id: 3
+  name: "Some product name 3"
+  description: "Some product description 3"
+  parent_product_category_id: 1
+  visible: 1
+  version: 1
+- id: 4
+  name: "Some product name 4"
+  description: "Some product description 4"
+  parent_product_category_id: 2
+  visible: 1
+  version: 1

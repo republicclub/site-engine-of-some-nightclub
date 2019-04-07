@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FilesRepository extends JpaRepository<FileEntity, Long> {
+    FileEntity findFirstByFilePath(String filePath);
 }

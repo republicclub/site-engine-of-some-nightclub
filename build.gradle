@@ -58,7 +58,7 @@ dependencies {
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	testCompile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
-    testCompile group: 'org.springframework.security', name: 'spring-security-test'
+	testCompile group: 'org.springframework.security', name: 'spring-security-test'
 	testCompile group: 'commons-io', name: 'commons-io', version: '2.6'
 	testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
 	testCompile group: 'com.h2database', name: 'h2'
@@ -70,7 +70,6 @@ dependencies {
 
 
 }
-
 
 
 

@@ -1,0 +1,5 @@
+MERCHSHOP_PRODUCT_CATEGORY:
+- id: 4
+  name: "Some product name 4"
+  description: "Some description of category UPDATED"
+  parent_product_category_id: 3

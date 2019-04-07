@@ -2,30 +2,30 @@ TICKET_ORDER_ITEM:
 - id: 1
   version: 1
   place: 645231
-  tableNumber: 45631
+  table_number: 45631
   order_id: 1
 - id: 2
   version: 1
   place: 645232
-  tableNumber: 45632
+  table_number: 45632
   order_id: 1
 - id: 3
   version: 1
   place: 645233
-  tableNumber: 45633
+  table_number: 45633
   order_id: 1
 - id: 4
   version: 1
   place: 645234
-  tableNumber: 45634
+  table_number: 45634
   order_id: 3
 - id: 5
   version: 1
   place: 645235
-  tableNumber: 45635
+  table_number: 45635
   order_id: 4
 - id: 6
   version: 1
   place: 645236
-  tableNumber: 45636
+  table_number: 45636
   order_id: 5

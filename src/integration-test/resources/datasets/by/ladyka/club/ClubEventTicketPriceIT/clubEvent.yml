@@ -1,13 +1,13 @@
 CLUB_EVENT:
 - id: 1
   name: "Тестовое Название мероприятия"
-  startEvent: _YESTERDAY_
-  endEvent: _PLUS_5_HOURS_
-  republicPay: 1
+  start_event: _YESTERDAY_
+  end_event: _PLUS_5_HOURS_
+  republic_pay: 1
   recommendation: 0
 - id: 2
   name: "Тестовое Название мероприятия 2"
-  startEvent: _YESTERDAY_
-  endEvent: _PLUS_5_HOURS_
-  republicPay: 1
+  start_event: _YESTERDAY_
+  end_event: _PLUS_5_HOURS_
+  republic_pay: 1
   recommendation: 0

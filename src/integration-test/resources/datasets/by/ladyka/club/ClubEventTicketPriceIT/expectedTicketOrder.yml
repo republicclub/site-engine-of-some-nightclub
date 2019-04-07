@@ -1,7 +1,7 @@
 TICKET_ORDER:
 - id: 7
   dance: 3
-  eventId: 1
+  event_id: 1
   ticket_type: 0
   club_event_ticket_price_dance_id: 4
   club_event_ticket_price_table_id: 6

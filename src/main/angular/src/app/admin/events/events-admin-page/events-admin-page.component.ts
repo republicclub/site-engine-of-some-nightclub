@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Event} from "../../../dto/event";
+import {EventDto} from "../../../dto/eventDto";
 import {EventsService} from "../../../events.service";
 import {EventTicketsReportDto} from "../../../dto/tickets/eventTicketsReportDto";
 import {OrderTicketService} from "../../../services/tickets/order-ticket.service";
@@ -12,7 +12,7 @@ import {OrderTicketService} from "../../../services/tickets/order-ticket.service
 export class EventsAdminPageComponent implements OnInit {
   viewEvents: boolean;
   viewEvent: boolean;
-  event: Event;
+  event: EventDto;
   tickets: EventTicketsReportDto;
 
   constructor(private eventsService: EventsService, private orderTicketService: OrderTicketService) {
@@ -21,11 +21,11 @@ export class EventsAdminPageComponent implements OnInit {
   ngOnInit() {
     this.viewEvents = true;
     this.viewEvent = false;
-    this.event = new Event();
+    this.event = new EventDto();
     this.tickets = new EventTicketsReportDto();
   }
 
-  handleRowSelected(row: Event) {
+  handleRowSelected(row: EventDto) {
     this.event = row;
     this.viewEvent = true;
     this.viewEvents = false;
@@ -39,12 +39,12 @@ export class EventsAdminPageComponent implements OnInit {
   }
 
   createNewEvent() {
-    this.event = new Event();
+    this.event = new EventDto();
     this.viewEvent = true;
     this.viewEvents = false;
   }
 
-  saveEvent(event: Event) {
+  saveEvent(event: EventDto) {
     this.eventsService.save(event).subscribe(event => {
       this.event = event;
     });
@@ -57,7 +57,7 @@ export class EventsAdminPageComponent implements OnInit {
           alert("Удалено!");
           this.viewEvents = true;
           this.viewEvent = false;
-          this.event = new Event();
+          this.event = new EventDto();
         }
       });
   }

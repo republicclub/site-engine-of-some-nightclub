@@ -12,10 +12,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -46,10 +46,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -66,14 +66,14 @@ databaseChangeLog:
             name: method
             type: VARCHAR(255)
         - column:
-            name: requestBody
+            name: request_body
+            type: LONGTEXT
+        - column:
+            name: request_id
             type: VARCHAR(255)
         - column:
-            name: requestId
-            type: VARCHAR(255)
-        - column:
-            name: responseBody
-            type: VARCHAR(255)
+            name: response_body
+            type: LONGTEXT
         - column:
             name: url
             type: VARCHAR(255)
@@ -91,10 +91,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -106,40 +106,40 @@ databaseChangeLog:
             name: alias
             type: VARCHAR(255)
         - column:
-            name: buyTicketUrl
+            name: buy_ticket_url
             type: VARCHAR(255)
         - column:
             name: cost
             type: DECIMAL(19, 2)
         - column:
-            name: costText
+            name: cost_text
             type: LONGTEXT
         - column:
-            name: coverUri
+            name: cover_uri
             type: VARCHAR(255)
         - column:
             name: description
             type: LONGTEXT
         - column:
-            name: endEvent
+            name: end_event
             type: datetime
         - column:
             name: name
             type: VARCHAR(255)
         - column:
-            name: startEvent
+            name: start_event
             type: datetime
         - column:
             name: recommendation
             type: BIT(1)
         - column:
-            name: republicPay
+            name: republic_pay
             type: BIT(1)
         - column:
-            name: costDance
+            name: cost_dance
             type: DECIMAL(19, 2)
         - column:
-            name: costTablePlace
+            name: cost_table_place
             type: DECIMAL(19, 2)
         tableName: club_event
 - changeSet:
@@ -155,6 +155,27 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
+            name: cost
+            type: DECIMAL(19, 2)
+        - column:
+            name: quantity
+            type: BIGINT
+        - column:
+            name: type
+            type: VARCHAR(255)
+        - column:
+            name: event_id
+            type: BIGINT
+        - column:
+            name: start_active_time
+            type: datetime
+        - column:
+            name: end_active_time
+            type: datetime
+        - column:
+            name: user_id
+            type: BIGINT
+        - column:
             name: createdDate
             type: datetime
         - column:
@@ -167,17 +188,31 @@ databaseChangeLog:
             name: visible
             type: BIT(1)
         - column:
-            name: coverUri
-            type: VARCHAR(255)
+            name: created_date
+            type: timestamp
         - column:
-            name: name
-            type: VARCHAR(255)
-        - column:
-            name: startEvent
+            name: last_modified_date
             type: datetime
-        tableName: event_report
+        tableName: club_event_ticket_price
 - changeSet:
     id: 2018-11-23-data-generate-5
+    author: Vasyan
+    changes:
+    - createTable:
+        columns:
+        - column:
+            constraints:
+              nullable: false
+            name: event_id
+            type: BIGINT
+        - column:
+            constraints:
+              nullable: false
+            name: user_id
+            type: BIGINT
+        tableName: event_concert_access
+- changeSet:
+    id: 2018-11-23-data-generate-6
     author: Vasyan
     changes:
     - createTable:
@@ -189,16 +224,44 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            constraints:
-              nullable: false
-            defaultValueComputed: CURRENT_TIMESTAMP
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
+            name: last_modified_date
+            type: datetime
+        - column:
+            name: version
+            type: BIGINT
+        - column:
+            name: visible
+            type: BIT(1)
+        - column:
+            name: cover_uri
+            type: VARCHAR(255)
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: start_event
+            type: datetime
+        tableName: event_report
+- changeSet:
+    id: 2018-11-23-data-generate-7
+    author: Vasyan
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
             constraints:
-              nullable: false
-            defaultValueComputed: CURRENT_TIMESTAMP
-            name: lastModifiedDate
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: created_date
+            type: datetime
+        - column:
+            name: last_modified_date
             type: datetime
         - column:
             constraints:
@@ -213,7 +276,7 @@ databaseChangeLog:
             name: height
             type: BIGINT
         - column:
-            name: imageUrl
+            name: image_url
             type: VARCHAR(255)
         - column:
             name: size
@@ -225,74 +288,6 @@ databaseChangeLog:
             name: event_report
             type: BIGINT
         tableName: event_report_image
-- changeSet:
-    id: 2018-11-23-data-generate-6
-    author: Vasyan
-    changes:
-    - createTable:
-        columns:
-        - column:
-            autoIncrement: true
-            constraints:
-              primaryKey: true
-            name: id
-            type: BIGINT
-        - column:
-            name: createdDate
-            type: datetime
-        - column:
-            name: lastModifiedDate
-            type: datetime
-        - column:
-            name: version
-            type: BIGINT
-        - column:
-            name: visible
-            type: BIT(1)
-        - column:
-            name: description
-            type: VARCHAR(255)
-        - column:
-            name: email
-            type: VARCHAR(255)
-        - column:
-            name: name
-            type: VARCHAR(255)
-        - column:
-            name: phone
-            type: VARCHAR(255)
-        tableName: feedback
-- changeSet:
-    id: 2018-11-23-data-generate-7
-    author: Vasyan
-    changes:
-    - createTable:
-        columns:
-        - column:
-            autoIncrement: true
-            constraints:
-              primaryKey: true
-            name: id
-            type: BIGINT
-        - column:
-            name: createdDate
-            type: datetime
-        - column:
-            name: lastModifiedDate
-            type: datetime
-        - column:
-            name: version
-            type: BIGINT
-        - column:
-            name: visible
-            type: BIT(1)
-        - column:
-            name: filePath
-            type: VARCHAR(255)
-        - column:
-            name: user
-            type: TINYBLOB
-        tableName: files_users
 - changeSet:
     id: 2018-11-23-data-generate-8
     author: Vasyan
@@ -306,10 +301,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -318,21 +313,18 @@ databaseChangeLog:
             name: visible
             type: BIT(1)
         - column:
-            name: active
-            type: BIT(1)
-        - column:
-            name: categoryType
-            type: INT
-        - column:
             name: description
+            type: LONGTEXT
+        - column:
+            name: email
             type: VARCHAR(255)
         - column:
             name: name
             type: VARCHAR(255)
         - column:
-            name: parentId
-            type: BIGINT
-        tableName: menu_category
+            name: phone
+            type: VARCHAR(255)
+        tableName: feedback
 - changeSet:
     id: 2018-11-23-data-generate-9
     author: Vasyan
@@ -346,10 +338,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -358,21 +350,12 @@ databaseChangeLog:
             name: visible
             type: BIT(1)
         - column:
-            name: active
-            type: BIT(1)
-        - column:
-            name: description
+            name: file_path
             type: VARCHAR(255)
         - column:
-            name: descriptionProportions
-            type: VARCHAR(255)
-        - column:
-            name: name
-            type: VARCHAR(255)
-        - column:
-            name: categoryId
+            name: user_id
             type: BIGINT
-        tableName: menu_item
+        tableName: files_users
 - changeSet:
     id: 2018-11-23-data-generate-10
     author: Vasyan
@@ -386,10 +369,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -401,18 +384,18 @@ databaseChangeLog:
             name: active
             type: BIT(1)
         - column:
-            name: endTime
-            type: datetime
+            name: category_type
+            type: INT
         - column:
-            name: startTime
-            type: datetime
+            name: description
+            type: LONGTEXT
         - column:
-            name: value
-            type: DECIMAL(19, 2)
+            name: name
+            type: VARCHAR(255)
         - column:
-            name: itemId
+            name: parent_id
             type: BIGINT
-        tableName: menu_item_price
+        tableName: menu_category
 - changeSet:
     id: 2018-11-23-data-generate-11
     author: Vasyan
@@ -426,10 +409,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -438,17 +421,21 @@ databaseChangeLog:
             name: visible
             type: BIT(1)
         - column:
-            constraints:
-              nullable: false
-            name: count
-            type: INT
+            name: active
+            type: BIT(1)
         - column:
-            name: itemPriceId
-            type: BIGINT
+            name: description
+            type: LONGTEXT
         - column:
-            name: orderId
+            name: description_proportions
+            type: LONGTEXT
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: category_id
             type: BIGINT
-        tableName: menu_item_price_has_order
+        tableName: menu_item
 - changeSet:
     id: 2018-11-23-data-generate-12
     author: Vasyan
@@ -462,10 +449,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -474,14 +461,87 @@ databaseChangeLog:
             name: visible
             type: BIT(1)
         - column:
-            name: arrivalTime
-            type: VARCHAR(255)
+            name: active
+            type: BIT(1)
         - column:
-            name: bcCode
+            name: end_time
+            type: datetime
+        - column:
+            name: start_time
+            type: datetime
+        - column:
+            name: value
+            type: DECIMAL(19, 2)
+        - column:
+            name: item_id
+            type: BIGINT
+        tableName: menu_item_price
+- changeSet:
+    id: 2018-11-23-data-generate-13
+    author: Vasyan
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: created_date
+            type: datetime
+        - column:
+            name: last_modified_date
+            type: datetime
+        - column:
+            name: version
+            type: BIGINT
+        - column:
+            name: visible
+            type: BIT(1)
+        - column:
+            constraints:
+              nullable: false
+            name: count
+            type: INT
+        - column:
+            name: item_price_id
+            type: BIGINT
+        - column:
+            name: order_id
+            type: BIGINT
+        tableName: menu_item_price_has_order
+- changeSet:
+    id: 2018-11-23-data-generate-14
+    author: Vasyan
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: created_date
+            type: datetime
+        - column:
+            name: last_modified_date
+            type: datetime
+        - column:
+            name: version
+            type: BIGINT
+        - column:
+            name: visible
+            type: BIT(1)
+        - column:
+            name: arrival_time
             type: VARCHAR(255)
         - column:
             name: description
-            type: VARCHAR(255)
+            type: LONGTEXT
         - column:
             name: email
             type: VARCHAR(255)
@@ -495,13 +555,13 @@ databaseChangeLog:
             name: phone
             type: VARCHAR(255)
         - column:
-            name: tableNumber
+            name: table_number
             type: INT
         - column:
-            name: eventId
+            name: event_id
             type: BIGINT
         - column:
-            name: payStatus
+            name: pay_status
             type: VARCHAR(255)
         - column:
             name: token
@@ -519,7 +579,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: menu_order
 - changeSet:
-    id: 2018-11-23-data-generate-13
+    id: 2018-11-23-data-generate-15
     author: Vasyan
     changes:
     - createTable:
@@ -531,10 +591,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -549,7 +609,7 @@ databaseChangeLog:
             name: description
             type: LONGTEXT
         - column:
-            name: descriptionPreview
+            name: description_preview
             type: LONGTEXT
         - column:
             name: image
@@ -558,11 +618,11 @@ databaseChangeLog:
             name: title
             type: VARCHAR(255)
         - column:
-            name: ownerId
+            name: owner_id
             type: BIGINT
         tableName: news
 - changeSet:
-    id: 2018-11-23-data-generate-14
+    id: 2018-11-23-data-generate-16
     author: Vasyan
     changes:
     - createTable:
@@ -574,10 +634,41 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
+            type: datetime
+        - column:
+            name: version
+            type: BIGINT
+        - column:
+            name: visible
+            type: BIT(1)
+        - column:
+            name: settings_key
+            type: VARCHAR(255)
+        - column:
+            name: settings_value
+            type: VARCHAR(1023)
+        tableName: site_settings
+- changeSet:
+    id: 2018-11-23-data-generate-17
+    author: Vasyan
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              primaryKey: true
+            name: id
+            type: BIGINT
+        - column:
+            name: created_date
+            type: datetime
+        - column:
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -593,7 +684,7 @@ databaseChangeLog:
             type: BIGINT
         - column:
             name: description
-            type: VARCHAR(255)
+            type: LONGTEXT
         - column:
             name: email
             type: VARCHAR(255)
@@ -601,7 +692,7 @@ databaseChangeLog:
             name: name
             type: VARCHAR(255)
         - column:
-            name: payStatus
+            name: pay_status
             type: VARCHAR(255)
         - column:
             name: phone
@@ -622,11 +713,26 @@ databaseChangeLog:
             name: uuid
             type: VARCHAR(255)
         - column:
-            name: eventId
+            name: event_id
             type: BIGINT
+        - column:
+            name: acceptor_user_id
+            type: BIGINT
+        - column:
+            name: enter_time
+            type: datetime
+        - column:
+            name: order_sum
+            type: DECIMAL(19, 2)
+        - column:
+            name: book_user_id
+            type: BIGINT
+        - column:
+            name: ticket_type
+            type: INT
         tableName: ticket_order
 - changeSet:
-    id: 2018-11-23-data-generate-15
+    id: 2018-11-23-data-generate-18
     author: Vasyan
     changes:
     - createTable:
@@ -638,10 +744,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -657,14 +763,14 @@ databaseChangeLog:
         - column:
             constraints:
               nullable: false
-            name: tableNumber
+            name: table_number
             type: INT
         - column:
             name: order_id
             type: BIGINT
         tableName: ticket_order_item
 - changeSet:
-    id: 2018-11-23-data-generate-16
+    id: 2018-11-23-data-generate-19
     author: Vasyan
     changes:
     - createTable:
@@ -676,10 +782,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -688,29 +794,29 @@ databaseChangeLog:
             name: visible
             type: BIT(1)
         - column:
-            name: appCodeName
+            name: app_code_name
             type: VARCHAR(255)
         - column:
-            name: appName
+            name: app_name
             type: VARCHAR(255)
         - column:
-            name: appVersion
+            name: app_version
             type: VARCHAR(255)
         - column:
             constraints:
               nullable: false
-            name: cookieEnabled
+            name: cookie_enabled
             type: BIT(1)
         - column:
             name: language
             type: VARCHAR(255)
         - column:
-            name: localAddr
+            name: local_addr
             type: VARCHAR(255)
         - column:
             constraints:
               nullable: false
-            name: onLine
+            name: on_line
             type: BIT(1)
         - column:
             name: platform
@@ -719,7 +825,7 @@ databaseChangeLog:
             name: protocol
             type: VARCHAR(255)
         - column:
-            name: remoteAddr
+            name: remote_addr
             type: VARCHAR(255)
         - column:
             constraints:
@@ -727,11 +833,11 @@ databaseChangeLog:
             name: seconds
             type: INT
         - column:
-            name: userAgent
+            name: user_agent
             type: VARCHAR(255)
         tableName: user_data_statistic
 - changeSet:
-    id: 2018-11-23-data-generate-17
+    id: 2018-11-23-data-generate-20
     author: Vasyan
     changes:
     - createTable:
@@ -743,10 +849,10 @@ databaseChangeLog:
             name: id
             type: BIGINT
         - column:
-            name: createdDate
+            name: created_date
             type: datetime
         - column:
-            name: lastModifiedDate
+            name: last_modified_date
             type: datetime
         - column:
             name: version
@@ -755,16 +861,16 @@ databaseChangeLog:
             name: visible
             type: BIT(1)
         - column:
-            name: accountNonExpired
+            name: account_non_expired
             type: BIT(1)
         - column:
-            name: accountNonLocked
+            name: account_non_locked
             type: BIT(1)
         - column:
             name: birthday
             type: datetime
         - column:
-            name: credentialsNonExpired
+            name: credentials_non_expired
             type: BIT(1)
         - column:
             name: enabled
@@ -787,19 +893,32 @@ databaseChangeLog:
         - column:
             name: email
             type: VARCHAR(255)
+        - column:
+            name: phone
+            type: VARCHAR(255)
         tableName: users
 - changeSet:
-    id: 2018-11-23-data-generate-18
+    id: 2018-11-23-data-generate-21
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: categoryId
+            name: event_id
+        indexName: FKae3egx7nh40736uipvf4v02u5
+        tableName: event_concert_access
+- changeSet:
+    id: 2018-11-23-data-generate-22
+    author: Vasyan
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: category_id
         indexName: FKaxaescdgxv56ipvf8m5ohdrwl
         tableName: menu_item
 - changeSet:
-    id: 2018-11-23-data-generate-19
+    id: 2018-11-23-data-generate-23
     author: Vasyan
     changes:
     - createIndex:
@@ -809,47 +928,57 @@ databaseChangeLog:
         indexName: FKbf0dd84s990vewt058jfdalqi
         tableName: event_report_image
 - changeSet:
-    id: 2018-11-23-data-generate-20
+    id: 2018-11-23-data-generate-24
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: parentId
+            name: acceptor_user_id
+        indexName: FKcok5692damkh4wtxh8gfjnovf
+        tableName: ticket_order
+- changeSet:
+    id: 2018-11-23-data-generate-25
+    author: Vasyan
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: parent_id
         indexName: FKgu4ei6hck47jy0lybf5dabibb
         tableName: menu_category
 - changeSet:
-    id: 2018-11-23-data-generate-21
+    id: 2018-11-23-data-generate-26
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: eventId
+            name: event_id
         indexName: FKhegrw1l8wvs5xai9r5p07u807
         tableName: menu_order
 - changeSet:
-    id: 2018-11-23-data-generate-22
+    id: 2018-11-23-data-generate-27
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: itemId
+            name: item_id
         indexName: FKi9vasyddh37dd975wh958j8qv
         tableName: menu_item_price
 - changeSet:
-    id: 2018-11-23-data-generate-23
+    id: 2018-11-23-data-generate-28
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: orderId
+            name: order_id
         indexName: FKjpymf2kwwueuu3pythsuweqae
         tableName: menu_item_price_has_order
 - changeSet:
-    id: 2018-11-23-data-generate-24
+    id: 2018-11-23-data-generate-29
     author: Vasyan
     changes:
     - createIndex:
@@ -859,37 +988,57 @@ databaseChangeLog:
         indexName: FKk91upmbueyim93v469wj7b2qh
         tableName: authorities
 - changeSet:
-    id: 2018-11-23-data-generate-25
+    id: 2018-11-23-data-generate-30
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: ownerId
+            name: owner_id
         indexName: FKkohcfmlrg2f6jyj1vrxxqyfpg
         tableName: news
 - changeSet:
-    id: 2018-11-23-data-generate-26
+    id: 2018-11-23-data-generate-31
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: eventId
+            name: user_id
+        indexName: FKme8mnwn5orgboqrj6wv3q2wth
+        tableName: event_concert_access
+- changeSet:
+    id: 2018-11-23-data-generate-32
+    author: Vasyan
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: event_id
         indexName: FKnqj7cjv44ruwyor6xrgrihe7t
         tableName: ticket_order
 - changeSet:
-    id: 2018-11-23-data-generate-27
+    id: 2018-11-23-data-generate-33
     author: Vasyan
     changes:
     - createIndex:
         columns:
         - column:
-            name: itemPriceId
+            name: item_price_id
         indexName: FKpkwuequm17x4eyq8t72c2fs1r
         tableName: menu_item_price_has_order
 - changeSet:
-    id: 2018-11-23-data-generate-28
+    id: 2018-11-23-data-generate-34
+    author: Vasyan
+    changes:
+    - createIndex:
+        columns:
+        - column:
+            name: user_id
+        indexName: FKrineex3cm5rqk3gr91rt4uqdp
+        tableName: files_users
+- changeSet:
+    id: 2018-11-23-data-generate-35
     author: Vasyan
     changes:
     - createIndex:

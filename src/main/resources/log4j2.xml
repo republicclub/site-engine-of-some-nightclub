@@ -37,6 +37,11 @@
 			<AppenderRef ref="ConsoleAppender"/>
 		</Logger>
 
+		<Logger name="h2database" level="info" additivity="false">
+			<AppenderRef ref="ConsoleAppender"/>
+		</Logger>
+
+
 		<Root level="info">
 			<AppenderRef ref="ConsoleAppender"/>
 			<AppenderRef ref="FileAppender"/>

@@ -1,7 +1,7 @@
-import {Event} from "./event";
+import {EventDto} from "./eventDto";
 import {MenuCategoryDto} from "./menuCategoryDto";
 
 export class MenuPageSummary {
   categories: MenuCategoryDto[];
-  events: Event[];
+  events: EventDto[];
 }

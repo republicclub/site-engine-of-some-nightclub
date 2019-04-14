@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -35,6 +36,7 @@ public class EventEntity extends AbstractEntity {
 	private Boolean republicPay;
 
 	@OneToMany(mappedBy = "event")
+	@Where(clause = "visible = true")
 	private List<ClubEventTicketPrice> ticketPrices = new ArrayList<>();
 	@Deprecated
 	private BigDecimal costDance;
@@ -50,9 +52,6 @@ public class EventEntity extends AbstractEntity {
 			joinColumns = {@JoinColumn(name = "event_id")},
 			inverseJoinColumns = {@JoinColumn(name = "user_id")})
 	private List<UserEntity> accessEdit = new ArrayList<>();
-
-	@Deprecated
-	private String alias;
 
 	@Deprecated
 	private BigDecimal cost;

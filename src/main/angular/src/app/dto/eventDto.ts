@@ -1,4 +1,4 @@
-export class Event {
+export class EventDto {
   id: number;
   cost: number;
   costText: string;
@@ -15,6 +15,6 @@ export class Event {
 }
 
 export class EventListResult {
-  items: Event[];
+  items: EventDto[];
   total: number
 }

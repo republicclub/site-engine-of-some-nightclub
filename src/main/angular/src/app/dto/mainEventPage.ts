@@ -1,14 +1,14 @@
 import {EventRelevant} from "./eventRelevant";
 import {EventReport} from "./eventGallery";
-import {Event} from "./event";
+import {EventDto} from "./eventDto";
 
 export class MainEventPage {
-  today: Event[];
-  tomorrow: Event[];
-  currentAndNextWeek: Event[];
-  currentMonth: Event[];
-  nextMonth: Event[];
-  nextNextMonth: Event[];
+  today: EventDto[];
+  tomorrow: EventDto[];
+  currentAndNextWeek: EventDto[];
+  currentMonth: EventDto[];
+  nextMonth: EventDto[];
+  nextNextMonth: EventDto[];
   relevant: EventRelevant[];
   gallery: EventReport[];
 }

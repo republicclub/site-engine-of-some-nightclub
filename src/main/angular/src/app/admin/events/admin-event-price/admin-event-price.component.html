@@ -1,0 +1,126 @@
+<h2 [hidden]="(event.id>0)">
+  События {{eventId}} не существует!
+</h2>
+<div class="content-wrapper" *ngIf="(event.id>1)">
+  <div class="block bill-farther">
+    <div class="block menu-page info-page">
+
+      <h1>
+        Отображение события № {{event.id}}
+        <div class="h-line"></div>
+      </h1>
+      <div class="event">
+        <div class="img">
+          <a>
+            <img src="{{event.coverUri}}" alt="">
+          </a>
+        </div>
+        <div class="info">
+          <span class="date">{{event.startEvent}}</span>
+          <h2>
+            <a>
+              {{event.name}}
+              <span class="type"></span>
+            </a>
+          </h2>
+          <p class="e2e-inner-html-bound" [innerHTML]="event.description">
+          </p>
+          <div class="tickets">
+            <h4>БИЛЕТЫ</h4>
+            <div class="tickets-list">
+              <span class="e2e-inner-html-bound" [innerHTML]="event.costText"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--end sidebar-->
+  <div class="clearfix"></div>
+  <div class="mat-button" [hidden]="editMode" (click)="create()">Создать</div>
+  <div *ngFor="let price of prices">
+    <div class="price-block">
+      <div class="price-blockTableRow">
+        <div class="price-blockTableCell text-align-right">Стоимость BYN</div>
+        <div [hidden]="isHiddenPriceFormField(price)" class="price-blockTableCell">{{price.cost}}</div>
+        <div [hidden]="!isHiddenPriceFormField(price)" class="price-blockTableCell">
+          <input type="number" min="1" [(ngModel)]="price.cost">
+        </div>
+      </div>
+      <div class="price-blockTableRow">
+        <div class="price-blockTableCell text-align-right">Начало действия цены</div>
+        <div [hidden]="isHiddenPriceFormField(price)"
+             class="price-blockTableCell">
+          {{price.startActiveTime | date:DATE_TIME_PATTERN }}
+        </div>
+        <div [hidden]="!isHiddenPriceFormField(price)" class="price-blockTableCell">
+          <dl-date-time-picker
+            (change)="hideStartActiveTimePicker = true"
+            [hidden]="hideStartActiveTimePicker"
+            [(ngModel)]="price.startActiveTime"
+          >
+            {{price.startActiveTime}}
+          </dl-date-time-picker>
+          <div [hidden]="!hideStartActiveTimePicker">
+            <input
+              (click)="hideStartActiveTimePicker = false"
+              (focus)="hideStartActiveTimePicker = false"
+              [value]="price.startActiveTime | date:DATE_TIME_PATTERN "
+            />
+          </div>
+        </div>
+      </div>
+      <div class="price-blockTableRow">
+        <div class="price-blockTableCell text-align-right">Окончание действия цены</div>
+        <div [hidden]="isHiddenPriceFormField(price)"
+             class="price-blockTableCell">{{price.endActiveTime| date:DATE_TIME_PATTERN }}</div>
+        <div [hidden]="!isHiddenPriceFormField(price)" class="price-blockTableCell">
+          <dl-date-time-picker
+            (change)="hideEndActiveTimePicker = true"
+            [hidden]="hideEndActiveTimePicker"
+            [(ngModel)]="price.endActiveTime"
+          ></dl-date-time-picker>
+          <div [hidden]="!hideEndActiveTimePicker">
+            <input
+              [value]="price.endActiveTime | date:DATE_TIME_PATTERN "
+              (click)="hideEndActiveTimePicker = false"
+              (focus)="hideEndActiveTimePicker = false"
+            >
+          </div>
+        </div>
+      </div>
+      <div class="price-blockTableRow">
+        <div class="price-blockTableCell text-align-right">Кол-во билетов</div>
+        <div [hidden]="isHiddenPriceFormField(price)" class="price-blockTableCell">{{price.quantity}}</div>
+        <div [hidden]="!isHiddenPriceFormField(price)" class="price-blockTableCell">
+          <input type="number" min="0" [(ngModel)]="price.quantity">
+        </div>
+      </div>
+      <div class="price-blockTableRow">
+        <div class="price-blockTableCell text-align-right">Тип билета</div>
+        <div [hidden]="isHiddenPriceFormField(price)" class="price-blockTableCell">{{price.typePrice}}</div>
+        <div [hidden]="!isHiddenPriceFormField(price)" class="price-blockTableCell">
+          <mat-form-field>
+            <mat-select placeholder="Select" [(ngModel)]="price.typePrice">
+              <mat-option value="table">Столик</mat-option>
+              <mat-option value="dance">Танцпол</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="price-blockTableRow">
+        <div class="price-blockTableCell text-align-right">Изменено</div>
+        <div class="price-blockTableCell">{{price.modifiedBy}}</div>
+      </div>
+      <div class="price-blockTableRow" [hidden]="editMode">
+        <div class="mat-button" (click)="editPrice(price)">Изменить</div>
+        <div class="mat-button" (click)="deletePrice(price)">Удалить</div>
+      </div>
+      <div class="price-blockTableRow" [hidden]="!isHiddenPriceFormField(price)">
+        <div class="mat-button" (click)="savePrice(price)">Сохранить</div>
+        <div class="mat-button" (click)="ngOnInit()">Отменить сохранение</div>
+      </div>
+    </div>
+  </div>
+</div>

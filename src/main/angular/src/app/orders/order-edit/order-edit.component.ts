@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {MenuOrder} from "../../dto/menuOrder";
 import {Table} from "../../dto/table";
 import {MenuCategoryDto} from "../../dto/menuCategoryDto";
-import {Event} from "../../dto/event";
+import {EventDto} from "../../dto/eventDto";
 import {MenuService} from "../../menu.service";
 
 @Component({
@@ -14,7 +14,7 @@ export class OrderEditComponent implements OnInit {
 
   @Input() order: MenuOrder;
   @Input() menuCategories: MenuCategoryDto[];
-  @Input() events: Event[];
+  @Input() events: EventDto[];
   @Input() tableNumbers: Table[];
 
   constructor(private menuService: MenuService) { }

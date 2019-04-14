@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MenuService} from "../../menu.service";
 import * as moment from "moment";
 import {MenuCategoryDto} from "../../dto/menuCategoryDto";
-import {Event} from "../../dto/event";
+import {EventDto} from "../../dto/eventDto";
 import {MenuOrder} from "../../dto/menuOrder";
 
 export class AdminOrderListWrapper {
@@ -18,7 +18,7 @@ export class AdminOrderListWrapper {
 export class AdminOrderListComponent implements OnInit {
   wrapper: AdminOrderListWrapper;
   menuCategories: MenuCategoryDto[];
-  events: Event[];
+  events: EventDto[];
   model: MenuOrder;
   orders: MenuOrder[];
 

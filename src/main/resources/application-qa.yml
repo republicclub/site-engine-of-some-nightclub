@@ -5,9 +5,9 @@ club:
     domain: http://qa.republic-club.by
 server:
   port: 28011
-datasource:
-  database: afishaqa
 spring:
   liquibase:
     contexts: qa
+  datasource:
+    database: afishaqa
 debug: true

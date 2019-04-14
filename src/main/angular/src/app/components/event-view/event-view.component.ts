@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewContainerRef} from '@angular/core';
-import {Event} from "../../dto/event";
+import {EventDto} from "../../dto/eventDto";
 import * as moment from "moment";
 import {ToastsManager} from "ng6-toastr";
 import {MatDialog} from "@angular/material";
@@ -17,7 +17,7 @@ export class EventViewComponent implements OnInit {
   @Output() onEventSaveButtonClick = new EventEmitter();
   @Output() onEventDeleteButtonClick = new EventEmitter();
   @Output() onEventCloseButtonClick = new EventEmitter();
-  @Input() event: Event = new Event();
+  @Input() event: EventDto = new EventDto();
   @Input() readOnly: boolean;
   @Input() tickets: EventTicketsReportDto;
 
@@ -45,7 +45,7 @@ export class EventViewComponent implements OnInit {
     this.viewEvent = b;
   }
 
-  saveEvent(event: Event) {
+  saveEvent(event: EventDto) {
     this.onEventSaveButtonClick.emit(event);
   }
 

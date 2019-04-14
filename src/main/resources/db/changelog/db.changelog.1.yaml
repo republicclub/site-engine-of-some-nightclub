@@ -1,0 +1,157 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2019-03-12-remove-club_event-alias-field
+      author: Andrei Ladyka
+      changes:
+        - dropColumn:
+            columnName: alias
+            tableName: club_event
+  - changeSet:
+      id: 2019-03-14-add-product-category-table
+      author: Yury Golikov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: created_date
+                  type: datetime
+              - column:
+                  name: last_modified_date
+                  type: datetime
+              - column:
+                  name: version
+                  type: BIGINT
+              - column:
+                  name: visible
+                  type: BIT(1)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: LONGTEXT
+              - column:
+                  name: parent_product_category_id
+                  type: BIGINT
+                  constraints:
+                    nullable: true
+                    foreignKeyName: fk_merchshop_product_category
+                    references: merchshop_product_category(id)
+            tableName: merchshop_product_category
+  - changeSet:
+      id: 2019-03-14-add-merchshop-product-table
+      author: Yury Golikov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: created_date
+                  type: datetime
+              - column:
+                  name: last_modified_date
+                  type: datetime
+              - column:
+                  name: version
+                  type: BIGINT
+              - column:
+                  name: visible
+                  type: BIT(1)
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+              - column:
+                  name: description
+                  type: LONGTEXT
+              - column:
+                  name: cost
+                  type: DECIMAL(19, 2)
+              - column:
+                  name: size
+                  type: VARCHAR(255)
+              - column:
+                  name: product_category_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_merchshop_product_category_merchshop_product
+                    references: merchshop_product_category(id)
+            tableName: merchshop_product
+  - changeSet:
+      id: 2019-03-14-add-product-images-table
+      author: Yury Golikov
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: product_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_merchshop_product_merchshop_product_images
+                    references: merchshop_product(id)
+              - column:
+                  name: file_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_files_users_merchshop_product_images
+                    references: files_users(id)
+            tableName: merchshop_product_images
+        - addPrimaryKey:
+            columnNames: product_id, file_id
+            constraintName: pk_merchshop_product_images
+            tableName: merchshop_product_images
+  - changeSet:
+      id: 2019-03-14-add-main-category
+      author: Yury Golikov
+      changes:
+        - insert:
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: visible
+                  valueBoolean: "true"
+              - column:
+                  name: version
+                  value: 1
+              - column:
+                  name: parent_product_category_id
+            tableName: merchshop_product_category
+
+  - changeSet:
+      id: 2019-03-17-fill-mised
+      author: Andrei Ladyka
+      changes:
+        - addColumn:
+            columns:
+              - column:
+                  name: club_event_ticket_price_id
+                  type: BIGINT
+            tableName: ticket_order
+
+  - changeSet:
+      id: 2019-04-14-update-app_version-field
+      author: Andrei Ladyka
+      changes:
+        - modifyDataType:
+            columnName: app_version
+            newDataType: VARCHAR(4096)
+            tableName: user_data_statistic
+        - modifyDataType:
+            columnName: user_agent
+            newDataType: VARCHAR(4096)
+            tableName: user_data_statistic

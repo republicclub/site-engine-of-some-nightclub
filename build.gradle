@@ -57,10 +57,54 @@ dependencies {
 	compile "org.liquibase:liquibase-core:$liquibaseVersion"
 
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile group: 'org.jsoup', name: 'jsoup', version: '1.8.3'
+	testCompile group: 'org.jsoup', name: 'jsoup', version: '1.11.3'
+	testCompile group: 'org.springframework.security', name: 'spring-security-test'
+	testCompile group: 'commons-io', name: 'commons-io', version: '2.6'
+	testCompile group: 'com.fasterxml.jackson.core', name: 'jackson-databind'
+	testCompile group: 'com.h2database', name: 'h2'
+	testCompile group: 'com.github.database-rider', name: 'rider-core', version: '1.5.2'
+	testCompile (group: 'com.github.database-rider', name: 'rider-spring', version: '1.5.2'){
+		exclude group: 'org.slf4j', module: 'slf4j-simple'
+	}
+	testCompile group: 'org.dbunit', name: 'dbunit', version: '2.6.0'
+
 
 }
 
+
+
+
+sourceSets {
+	integrationTest {
+		java {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+			srcDir file('src/integration-test/java')
+		}
+		resources.srcDir file('src/integration-test/resources')
+	}
+}
+
+configurations {
+	integrationTestCompile.extendsFrom testCompile
+	integrationTestRuntime.extendsFrom testRuntime
+}
+
+task integrationTest(type: Test) {
+	description = 'Runs the integration tests.'
+	group = 'verification'
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	classpath = sourceSets.integrationTest.runtimeClasspath
+	mustRunAfter test
+	outputs.upToDateWhen { false }
+}
+
+check.dependsOn integrationTest
+
 test {
-	environment "spring.profiles.active", "test"
+	systemProperty "spring.profiles.active", "test"
+}
+
+integrationTest {
+	systemProperty "spring.profiles.active", "integration-test"
 }

@@ -1,0 +1,11 @@
+debug: true
+club:
+  site:
+    domain: http://localhost
+spring:
+  datasource:
+    database: afisha
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:${spring.datasource.database};DB_CLOSE_DELAY=-1;MODE=MySQL
+    username: sa
+    password: sa

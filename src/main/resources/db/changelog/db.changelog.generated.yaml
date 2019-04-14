@@ -353,9 +353,6 @@ databaseChangeLog:
             name: file_path
             type: VARCHAR(255)
         - column:
-            name: user
-            type: TINYBLOB
-        - column:
             name: user_id
             type: BIGINT
         tableName: files_users

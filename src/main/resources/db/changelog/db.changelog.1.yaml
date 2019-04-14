@@ -142,28 +142,16 @@ databaseChangeLog:
                   name: club_event_ticket_price_id
                   type: BIGINT
             tableName: ticket_order
+
   - changeSet:
-      id: 2019-03-19-add-price-columns-to-order
-      author: Yury Golikov
+      id: 2019-04-14-update-app_version-field
+      author: Andrei Ladyka
       changes:
-        - addColumn:
-            columns:
-              - column:
-                  name: club_event_ticket_price_dance_id
-                  type: BIGINT
-              - column:
-                  name: club_event_ticket_price_table_id
-                  type: BIGINT
-            tableName: ticket_order
-        - addForeignKeyConstraint:
-            baseColumnNames: club_event_ticket_price_dance_id
-            baseTableName: ticket_order
-            constraintName: fk_ticket_order_club_event_ticket_price_dance_id
-            referencedColumnNames: id
-            referencedTableName: club_event_ticket_price
-        - addForeignKeyConstraint:
-            baseColumnNames: club_event_ticket_price_table_id
-            baseTableName: ticket_order
-            constraintName: fk_ticket_order_club_event_ticket_price_table_id
-            referencedColumnNames: id
-            referencedTableName: club_event_ticket_price
+        - modifyDataType:
+            columnName: app_version
+            newDataType: VARCHAR(4096)
+            tableName: user_data_statistic
+        - modifyDataType:
+            columnName: user_agent
+            newDataType: VARCHAR(4096)
+            tableName: user_data_statistic

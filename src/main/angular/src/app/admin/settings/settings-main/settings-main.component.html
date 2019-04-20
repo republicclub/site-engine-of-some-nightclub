@@ -3,11 +3,9 @@
     <h1>Настройки сайта</h1>
     <form (ngSubmit)="onSubmit()" #heroForm="ngForm">
       <div class="form-group">
-        <label for="bannerActive">bannerActive</label>
-        <input type="checkbox" class="form-control" id="bannerActive"
-               required
-               [(ngModel)]="settingsSiteDto.bannerActive" name="bannerActive"
-               #bannerActive="ngModel">
+        <mat-checkbox [(ngModel)]="settingsSiteDto.bannerActive">
+          Баннер вверху активный
+        </mat-checkbox>
       </div>
       <div class="form-group" [hidden]="!settingsSiteDto.bannerActive">
         <label for="bannerEventId">bannerEventId</label>

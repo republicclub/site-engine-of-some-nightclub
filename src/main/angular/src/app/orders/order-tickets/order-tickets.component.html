@@ -244,23 +244,15 @@
       </div>
 
       <div class="form-check">
-
-        <input type="checkbox" class="form-check-input" id="rulesCheck"
-               [(ngModel)]="ticketOrder.rulesCheck" name="rulesCheck"
-               #rulesCheck="ngModel"
-               required>
-        <label class="form-check-label" for="rulesCheck">Я обязуюсь не нарушать: <a href="/rules" target="_blank"><u><b>правила
-          клуба RE:PUBLIC</b></u></a></label>
+        <mat-checkbox [(ngModel)]="ticketOrder.rulesCheck">
+          Я обязуюсь не нарушать: <a href="/rules" target="_blank"><u><b>правила клуба RE:PUBLIC</b></u></a>
+        </mat-checkbox>
       </div>
 
       <div class="form-check">
-
-        <input type="checkbox" class="form-check-input" id="offerCheck"
-               [(ngModel)]="ticketOrder.offerCheck" name="offerCheck"
-               #offerCheck="ngModel"
-               required>
-        <label class="form-check-label" for="rulesCheck">Я принимаю: <a href="/public-offer" target="_blank"><u><b>Договор
-          публичной оферты клуба RE:PUBLIC</b></u></a></label>
+        <mat-checkbox [(ngModel)]="ticketOrder.offerCheck">
+          Я принимаю: <a href="/public-offer" target="_blank"><u><b>Договор публичной оферты клуба RE:PUBLIC</b></u></a>
+        </mat-checkbox>
       </div>
       <div>
         <button mat-button matStepperPrevious color="accent">Назад</button>

@@ -17,6 +17,7 @@ spring:
       max-request-size: 128MB
   thymeleaf:
     enabled: true
+    prefix: classpath:/templates
 server:
   port: 28010
 log4j:

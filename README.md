@@ -26,3 +26,4 @@ Fron part
 * Java camelCase
 * Use tabs instead spaces
 * Maximum method length is 20 lines.
+* CTRL + ALT + L

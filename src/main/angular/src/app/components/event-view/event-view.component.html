@@ -100,26 +100,14 @@
           >
         </div>
         <div class="form-group">
-          <label for="recommendation">Отображать в рекомендациях</label>
-          <input
-            type="checkbox"
-            class="form-control checkbox"
-            id="recommendation"
-            [(ngModel)]="event.recommendation"
-            name="recommendation"
-            #recommendation="ngModel"
-          >
+          <mat-checkbox [(ngModel)]="event.recommendation">
+            Отображать в рекомендациях
+          </mat-checkbox>
         </div>
         <div class="form-group">
-          <label for="republicPay">Принимать платежи</label>
-          <input
-            type="checkbox"
-            class="form-control checkbox"
-            id="republicPay"
-            [(ngModel)]="event.republicPay"
-            name="republicPay"
-            #republicPay="ngModel"
-          >
+          <mat-checkbox [(ngModel)]="event.republicPay">
+            Принимать платежи
+          </mat-checkbox>
         </div>
         <div class="form-group">
           <label for="costDance">Стоимость. Танцпол</label>

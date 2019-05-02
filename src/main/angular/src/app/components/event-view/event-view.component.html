@@ -78,7 +78,8 @@
           <img src="{{event.coverUri}}" alt="" style="max-width: 100px ; max-height: 100px">
           <br>
           <label class="upload-button">
-            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)" [uploadInput]="uploadInput" id="coverUri">
+            <input type="file" ngFileSelect [options]="options" (uploadOutput)="onUploadOutput($event)"
+                   [uploadInput]="uploadInput" id="coverUri">
             выбрать новую афишу
           </label>
 
@@ -99,16 +100,20 @@
                  placeholder="Ссылка на страницу покупки билетов"
           >
         </div>
-        <div class="form-group">
-          <mat-checkbox [(ngModel)]="event.recommendation">
-            Отображать в рекомендациях
-          </mat-checkbox>
-        </div>
-        <div class="form-group">
-          <mat-checkbox [(ngModel)]="event.republicPay">
-            Принимать платежи
-          </mat-checkbox>
-        </div>
+        <mat-card>
+          <mat-card-content>
+            <div class="form-group">
+              <mat-checkbox [(ngModel)]="event.recommendation" name="recommendation">
+                Отображать в рекомендациях
+              </mat-checkbox>
+            </div>
+            <div class="form-group">
+              <mat-checkbox [(ngModel)]="event.republicPay" name="republicPay">
+                Принимать платежи
+              </mat-checkbox>
+            </div>
+          </mat-card-content>
+        </mat-card>
         <div class="form-group">
           <label for="costDance">Стоимость. Танцпол</label>
           <div id="costDance">{{event.costDance}}</div>
@@ -129,11 +134,11 @@
     <div class="block bill-farther">
       <div class="block menu-page info-page">
 
-        <h1 [hidden]="(!(event.id>0)) || readOnly" >
+        <h1 [hidden]="(!(event.id>0)) || readOnly">
           Отображение события № {{event.id}}
           <div class="h-line"></div>
         </h1>
-        <h1 [hidden]="(event.id>0)" >
+        <h1 [hidden]="(event.id>0)">
           Новое событие
           <div class="h-line"></div>
         </h1>
@@ -156,8 +161,11 @@
             </p>
             <div class="tickets">
               <h4>БИЛЕТЫ</h4>
-              <div class="btn order-btn-face" (click)="openOrderModalWindow()" *ngIf="event.republicPay && (event.costTablePlace>2)">Купить билет</div>
-              <a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face" *ngIf="!event.republicPay || (event.costTablePlace<2)">Купить билет</a>
+              <div class="btn order-btn-face" (click)="openOrderModalWindow()"
+                   *ngIf="event.republicPay && (event.costTablePlace>2)">Купить билет
+              </div>
+              <a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face"
+                 *ngIf="!event.republicPay || (event.costTablePlace<2)">Купить билет</a>
               <!--<a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face">Купить билет</a>-->
               <div class="tickets-list">
                 <span class="e2e-inner-html-bound" [innerHTML]="event.costText"></span>

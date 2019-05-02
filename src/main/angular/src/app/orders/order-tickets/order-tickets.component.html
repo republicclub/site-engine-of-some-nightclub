@@ -242,18 +242,21 @@
                   #description="ngModel"
                   placeholder="Введите Ваши дополнительные пожелания. Например, время прибытия, если заказываете столик."> </textarea>
       </div>
+      <mat-card>
+        <mat-card-content>
+          <div class="form-check">
+            <mat-checkbox [(ngModel)]="ticketOrder.rulesCheck" name="rulesCheck">
+              Я обязуюсь не нарушать: <a href="/rules" target="_blank"><u><b>правила клуба RE:PUBLIC</b></u></a>
+            </mat-checkbox>
+          </div>
 
-      <div class="form-check">
-        <mat-checkbox [(ngModel)]="ticketOrder.rulesCheck">
-          Я обязуюсь не нарушать: <a href="/rules" target="_blank"><u><b>правила клуба RE:PUBLIC</b></u></a>
-        </mat-checkbox>
-      </div>
-
-      <div class="form-check">
-        <mat-checkbox [(ngModel)]="ticketOrder.offerCheck">
-          Я принимаю: <a href="/public-offer" target="_blank"><u><b>Договор публичной оферты клуба RE:PUBLIC</b></u></a>
-        </mat-checkbox>
-      </div>
+          <div class="form-check">
+            <mat-checkbox [(ngModel)]="ticketOrder.offerCheck" name="offerCheck">
+              Я принимаю: <a href="/public-offer" target="_blank"><u><b>Договор публичной оферты клуба RE:PUBLIC</b></u></a>
+            </mat-checkbox>
+          </div>
+        </mat-card-content>
+      </mat-card>
       <div>
         <button mat-button matStepperPrevious color="accent">Назад</button>
         <button mat-button matStepperNext color="primary">Далее</button>
@@ -277,7 +280,7 @@
         </div>
       </div>
       Сумма к оплате : {{totalMoney}}<br>
-        При возникновении проблем с оплатой звоните по номеру +375 (29) 130 63 77<br>
+      При возникновении проблем с оплатой звоните по номеру +375 (29) 130 63 77<br>
       <div>
         <button mat-button matStepperPrevious color="accent">Назад</button>
         <button mat-raised-button color="primary"

@@ -119,7 +119,11 @@
 </div>
 
 <div class="form-check">
-  <mat-checkbox [(ngModel)]="order.rulesCheck">
-    Я обязуюсь не нарушать <a href="/rules" target="_blank"><u><b>правила клуба RE:PUBLIC</b></u></a>
-  </mat-checkbox>
+  <mat-card>
+    <mat-card-content>
+      <mat-checkbox [(ngModel)]="order.rulesCheck" name="rulesCheck">
+        Я обязуюсь не нарушать <a href="/rules" target="_blank"><u><b>правила клуба RE:PUBLIC</b></u></a>
+      </mat-checkbox>
+    </mat-card-content>
+  </mat-card>
 </div>

@@ -12,6 +12,9 @@ export class EventPageComponent implements OnInit {
   event: EventDto = new EventDto();
 
   constructor(private activatedRoute: ActivatedRoute, private eventService: EventsService) {
+    this.event.recommendation = false;
+    this.event.republicPay = false;
+
   }
 
   ngOnInit() {

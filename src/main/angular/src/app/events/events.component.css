@@ -19,3 +19,133 @@
 .right-sidebar .block h4 {
   color: #cf7a19
 }
+
+
+.block.interesting {
+  padding: 20px 0
+}
+
+.block.interesting .list {
+  overflow: hidden
+}
+
+.block.interesting .list li {
+  border-top: 1px solid #c8c8c8;
+  border-bottom: 1px solid #c8c8c8;
+  margin-top: 10px
+}
+
+.block.interesting .list li:first-child {
+  margin-top: 0
+}
+
+.block.interesting .list li .info {
+  width: 100px;
+  float: left;
+  text-align: center;
+  padding: 10px 20px
+}
+
+.block.interesting .list li .info span {
+  display: block;
+  font-family: 'Humanist-bold';
+  font-size: 10px;
+  line-height: 20px;
+  text-transform: uppercase;
+  color: #797979
+}
+
+.block.interesting .list li .info .date {
+  font-size: 60px;
+  line-height: 60px;
+  font-family: 'Humanist'
+}
+
+.block.interesting .list li .info .day {
+  border-bottom: 1px solid #c8c8c8
+}
+
+.block.interesting .list li .title {
+  width: 260px;
+  height: 140px;
+  padding-left: 140px
+}
+
+.block.interesting .list li .title .img {
+  position: relative;
+  width: 260px;
+  height: 140px;
+  overflow: hidden
+}
+
+.block.interesting .list li .title .img img {
+  max-width: 260px
+}
+
+.block.interesting .list li .title a {
+  position: absolute;
+  display: table;
+  top: 0;
+  right: 0;
+  width: 260px;
+  height: 50px;
+  padding: 100px 20px 15px;
+  font-family: 'Humanist-bold';
+  font-size: 20px;
+  line-height: 25px;
+  color: #fff;
+  background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0, #000 100%);
+  background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0, #000 100%);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0, #000 100%);
+  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#00000000', endColorstr='#000000', GradientType=0)
+}
+
+.block.interesting .list li .title a:hover {
+  color: #cf7a19
+}
+
+.block.interesting .list li .title a span {
+  display: table-cell;
+  vertical-align: bottom
+}
+
+
+.block.last-gallery {
+  margin-top: 20px;
+  padding-bottom: 40px;
+  margin-bottom: 20px;
+  background: #f0f0f0;
+  font-family: 'Humanist'
+}
+
+.block.last-gallery .list li {
+  padding-top: 20px
+}
+
+.block.last-gallery .list li:first-child {
+  padding-top: 0
+}
+
+.block.last-gallery .list .img {
+  width: 140px;
+  height: 100px;
+  overflow: hidden;
+  float: left
+}
+
+.block.last-gallery .list .img img {
+  max-width: 140px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px
+}
+
+.block.last-gallery .list .info {
+  padding-left: 160px
+}
+
+.block.last-gallery .list .info .date {
+  color: #797979;
+  display: block;
+  padding: 3px 0 10px
+}

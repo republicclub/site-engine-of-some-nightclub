@@ -99,16 +99,7 @@
                  placeholder="Ссылка на страницу покупки билетов"
           >
         </div>
-        <div class="form-group">
-          <mat-checkbox [(ngModel)]="event.recommendation">
-            Отображать в рекомендациях
-          </mat-checkbox>
-        </div>
-        <div class="form-group">
-          <mat-checkbox [(ngModel)]="event.republicPay">
-            Принимать платежи
-          </mat-checkbox>
-        </div>
+
         <div class="form-group">
           <label for="costDance">Стоимость. Танцпол</label>
           <div id="costDance">{{event.costDance}}</div>
@@ -119,6 +110,21 @@
         </div>
         <button type="submit" (click)="saveEvent(event)" class="btn btn-primary">Сохранить</button>
       </form>
+
+      <mat-card>
+        <mat-card-content>
+          <section>
+            <mat-checkbox [(ngModel)]="event.recommendation">Отображать в рекомендациях</mat-checkbox>
+          </section>
+          <section>
+            <mat-checkbox [(ngModel)]="event.republicPay">Принимать платежи</mat-checkbox>
+          </section>
+          <section>
+            <a href="/admin/event/{{event.id}}/price" target="_blank">Настройка стоимости билетов</a>
+          </section>
+        </mat-card-content>
+      </mat-card>
+
       Продано:<br>
       {{tickets.danceCount}} мест на танцпол<br>
       {{tickets.tablePlacesCount}} мест за столики

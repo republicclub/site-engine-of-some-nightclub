@@ -12,4 +12,5 @@ public interface UserService {
 	String getRole(UserEntity userEntity);
 	UserPersonalDto getUserFull(String username);
 	UserPersonalDto saveUserFull(UserPersonalDto dto, String name);
+	void sendNewPasswordRequest(String usernameOrEmail);
 }

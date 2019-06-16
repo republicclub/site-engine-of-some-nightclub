@@ -59,4 +59,10 @@ public class UserController {
 		}
 	}
 
+	@PostMapping(value = "sendnewpasswordrequest")
+	public ResponseEntity<Boolean> sendNewPasswordRequest(String usernameOrEmail) {
+		userService.sendNewPasswordRequest(usernameOrEmail);
+		return ResponseEntity.ok(true);
+	}
+
 }

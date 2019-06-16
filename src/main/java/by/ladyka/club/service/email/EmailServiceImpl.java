@@ -9,6 +9,7 @@ import by.ladyka.club.entity.menu.MenuOrder;
 import by.ladyka.club.entity.order.OrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,6 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,6 +25,7 @@ import java.util.Locale;
 public class EmailServiceImpl implements EmailService {
 
 	public static final String ORDER_EMAIL = "orders@republic-club.by";
+	private static final String CLUB_NAME = "REPUBLIC CLUB";
 
 	@Qualifier("republic")
 	@Autowired
@@ -34,24 +35,33 @@ public class EmailServiceImpl implements EmailService {
 	private TemplateEngine templateEngine;
 	@Autowired
 	private CustomSettings settings;
+	@Autowired
+	private RecoverPasswordService recoverPasswordService;
+
+	@Value("${spring.profiles.active}")
+	private String profile;
 
 	@Override
 	public void sendOrderToOwner(MenuOrder order) {
-		String subject = "RE:PUBLIC Заказ № " + order.getId();
+		String subject = CLUB_NAME + " Заказ № " + order.getId();
 		sendMessage(subject, order.getEmail(), ORDER_EMAIL, buildOrderText(order));
 
 	}
 
 	@Override
 	public void sendFeedBack(FeedBackEntity feedBack) {
-		String subject = "RE:PUBLIC Отзыв № " + feedBack.getId();
+		String subject = CLUB_NAME + " Отзыв № " + feedBack.getId();
 		try {
 			MimeMessage message = emailSender.createMimeMessage();
 			message.setSubject(subject);
 			MimeMessageHelper helper;
 			helper = new MimeMessageHelper(message, true, "utf-8");
-			helper.setTo("feedback@republic-club.by");
-			helper.setBcc("kra160462@gmail.com");
+			if ("prod".equals(profile)) {
+				helper.setBcc("kra160462@gmail.com");
+				helper.setTo("feedback@republic-club.by");
+			} else {
+				helper.setTo("qa@republic-club.by");
+			}
 			helper.setCc(feedBack.getEmail());
 			helper.setText(buildFeedbackText(feedBack), true);
 			new Thread(() -> emailSender.send(message)).start();
@@ -62,7 +72,7 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void sendSingInLetter(UserEntity entity) {
-		String subject = String.format("RE:PUBLIC. Подтверждение регистрации %s.", entity.getUsername());
+		String subject = String.format(CLUB_NAME + ". Подтверждение регистрации %s.", entity.getUsername());
 		try {
 			MimeMessage message = emailSender.createMimeMessage();
 			message.setSubject(subject);
@@ -78,7 +88,7 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void sendOrderToOwner(OrderEntity order) {
-		String subject = "RE:PUBLIC Заказ № " + order.getId();
+		String subject = CLUB_NAME + " Заказ № " + order.getId();
 		String to = order.getEmail();
 		String cc = ORDER_EMAIL;
 		String text = buildOrderText(order);
@@ -87,7 +97,16 @@ public class EmailServiceImpl implements EmailService {
 
 	@Override
 	public void sendAlertToAdmin(String message) {
-		sendMessage("RE:PUBLIC Проблемы с дисковым пространством", settings.getEmailAdmin(), settings.getEmailAdmin(), message);
+		sendMessage(CLUB_NAME + " Проблемы с дисковым пространством", settings.getEmailAdmin(), null, message);
+	}
+
+	@Override
+	public void sendLinkChangePassword(String email) {
+		sendMessage(CLUB_NAME + " Изменение пароля от учетной записи.", email, buildChangePasswordAccountBody(email));
+	}
+
+	private void sendMessage(String subject, String to, String text) {
+		sendMessage(subject, to, null, text);
 	}
 
 	private void sendMessage(String subject, String to, String cc, String text) {
@@ -97,7 +116,9 @@ public class EmailServiceImpl implements EmailService {
 			MimeMessageHelper helper;
 			helper = new MimeMessageHelper(message, true, "utf-8");
 			helper.setTo(to);
-			helper.setCc(cc);
+			if (cc != null) {
+				helper.setCc(cc);
+			}
 			helper.setText(text, true);
 			new Thread(() -> emailSender.send(message)).start();
 		} catch (MessagingException ex) {
@@ -120,7 +141,7 @@ public class EmailServiceImpl implements EmailService {
 		ctx.setVariable("code", entity.getFatherName());
 		ctx.setVariable("siteUrl", settings.getSiteDomain());
 		ctx.setVariable("username", entity.getUsername());
-		ctx.setVariable("currentDate", new Date());
+
 		return templateEngine.process("email/singin.html", ctx);
 	}
 
@@ -128,7 +149,6 @@ public class EmailServiceImpl implements EmailService {
 		final Locale.Builder builder = new Locale.Builder();
 		final Context ctx = new Context(builder.build());
 		ctx.setVariable("feedback", feedBack);
-		ctx.setVariable("currentDate", new Date());
 		return templateEngine.process("email/feedback.html", ctx);
 	}
 
@@ -138,7 +158,17 @@ public class EmailServiceImpl implements EmailService {
 		ctx.setVariable("order", order);
 		final List<MenuItemPricesHasOrders> itemPricesHasOrders = order.getItemPricesHasOrders();
 		ctx.setVariable("food", itemPricesHasOrders);
-		ctx.setVariable("currentDate", new Date());
+
 		return templateEngine.process("email/orderCustomer.html", ctx);
 	}
+
+	private String buildChangePasswordAccountBody(String email) {
+		final Locale.Builder builder = new Locale.Builder();
+		final Context ctx = new Context(builder.build());
+		ctx.setVariable("token", recoverPasswordService.createToken(email));
+		ctx.setVariable("email", email);
+		ctx.setVariable("domain", settings.getSiteDomain());
+		return templateEngine.process("email/recover_password_url.html", ctx);
+	}
+
 }

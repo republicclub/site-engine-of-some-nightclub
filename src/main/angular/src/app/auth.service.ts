@@ -26,4 +26,9 @@ export class AuthService {
     let url = '/api/user/singin';
     return this.http.post<ResponseEntity>(url, user, httpOptions);
   }
+
+  sendNewPassword(usernameOrEmail: string) {
+    let url = '/api/user/sendnewpasswordrequest?usernameOrEmail=' + usernameOrEmail;
+    return this.http.post<ResponseEntity>(url, {}, httpOptions)
+  }
 }

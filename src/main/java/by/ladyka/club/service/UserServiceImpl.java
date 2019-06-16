@@ -114,4 +114,10 @@ public class UserServiceImpl implements UserService {
 		dto.setAuthorities(user.getAuthorities().stream().map(AuthorityEntity::getAuthority).collect(Collectors.toList()));
 		return dto;
 	}
+
+	@Override
+	public void sendNewPasswordRequest(String usernameOrEmail) {
+		final UserEntity user = userEntityRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+		emailService.sendLinkChangePassword(user.getEmail());
+	}
 }

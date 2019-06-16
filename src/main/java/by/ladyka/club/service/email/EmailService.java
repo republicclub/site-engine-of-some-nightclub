@@ -18,4 +18,6 @@ public interface EmailService {
 	void sendOrderToOwner(OrderEntity orderEntity);
 
 	void sendAlertToAdmin(String message);
+
+	void sendLinkChangePassword(String email);
 }

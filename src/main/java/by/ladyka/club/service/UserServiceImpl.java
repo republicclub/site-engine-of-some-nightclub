@@ -118,6 +118,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void sendNewPasswordRequest(String usernameOrEmail) {
 		final UserEntity user = userEntityRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
-		emailService.sendLinkChangePassword(user.getEmail());
+		emailService.sendLinkChangePassword(user.getEmail(), user.getName());
 	}
 }

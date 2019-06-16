@@ -101,8 +101,8 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendLinkChangePassword(String email) {
-		sendMessage(CLUB_NAME + " Изменение пароля от учетной записи.", email, buildChangePasswordAccountBody(email));
+	public void sendLinkChangePassword(String email, String name) {
+		sendMessage(CLUB_NAME + " Изменение пароля от учетной записи.", email, buildChangePasswordAccountBody(email, name));
 	}
 
 	private void sendMessage(String subject, String to, String text) {
@@ -162,11 +162,12 @@ public class EmailServiceImpl implements EmailService {
 		return templateEngine.process("email/orderCustomer.html", ctx);
 	}
 
-	private String buildChangePasswordAccountBody(String email) {
+	private String buildChangePasswordAccountBody(String email, String name) {
 		final Locale.Builder builder = new Locale.Builder();
 		final Context ctx = new Context(builder.build());
 		ctx.setVariable("token", recoverPasswordService.createToken(email));
 		ctx.setVariable("email", email);
+		ctx.setVariable("name", name);
 		ctx.setVariable("domain", settings.getSiteDomain());
 		return templateEngine.process("email/recover_password_url.html", ctx);
 	}

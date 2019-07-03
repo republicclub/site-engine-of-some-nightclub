@@ -28,7 +28,17 @@ export class AuthService {
   }
 
   sendNewPassword(usernameOrEmail: string) {
-    let url = '/api/user/sendnewpasswordrequest?usernameOrEmail=' + usernameOrEmail;
+    let url = '/api/user/password/token/request?usernameOrEmail=' + usernameOrEmail;
+    return this.http.post<ResponseEntity>(url, {}, httpOptions)
+  }
+
+  getUserByResetToken(token: string) {
+    let url = '/api/user/password/token/check?token=' + token;
+    return this.http.post<ResponseEntity>(url, {}, httpOptions)
+  }
+
+  updatePassword(token: string, password: string) {
+    let url = '/api/user/password/token/update?token=' + token + '&password=' + password;
     return this.http.post<ResponseEntity>(url, {}, httpOptions)
   }
 }

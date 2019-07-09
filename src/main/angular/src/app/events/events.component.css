@@ -149,12 +149,8 @@
   display: block;
   padding: 3px 0 10px
 }
-@media (max-width: 600px) {
-  /*fix img*/
-  .block.bill-farther .event .img a {
-    background-color: #ccc;
-  }
-  /*fix img*/
+@media (max-width: 500px) {
+
   .block.bill-farther .event .img {
     margin-right: 5px;
   }

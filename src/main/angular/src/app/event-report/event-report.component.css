@@ -127,3 +127,21 @@ text-align: center;
 max-width: 760px;
 max-height: 760px;
 }
+
+@media (max-width: 999px) {
+  .block.gallery-page {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .block.gallery-page .foto-list {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .block.gallery-page .foto-list li {
+    width: unset;
+  }
+  .block.gallery-page .foto-list li img {
+    max-width: 100%;
+    height: auto;
+  }
+}

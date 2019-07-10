@@ -195,9 +195,6 @@
     flex-direction: column;
 
   }
-  .block.bill-farther .event .info .tickets .tickets-list {
-    width: unset;
-  }
   .block.bill-month ul.event-list li {
     display: -webkit-flex;
     display: -moz-flex;

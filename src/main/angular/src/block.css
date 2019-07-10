@@ -36,8 +36,6 @@
   display: block;
   width: 120px;
   height: 170px;
-  /*fix img*/
-  background: green;
 }
 
 .block.bill-day .event .img img {
@@ -384,11 +382,7 @@
 .block.info-page .img-list li .info h3 {
   color: #cf7a19
 }
-/* fix image */
-.block.bill-farther .event .img a {
-  background-color: green;
-}
-/* fix image */
+
 @media (max-width: 500px) {
   .block.bill-farther .event .info {
     padding-left: unset;

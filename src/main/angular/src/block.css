@@ -382,3 +382,16 @@
 .block.info-page .img-list li .info h3 {
   color: #cf7a19
 }
+/* fix image */
+.block.bill-farther .event .img a {
+  background-color: green;
+}
+/* fix image */
+@media (max-width: 500px) {
+  .block.bill-farther .event .info {
+    padding-left: unset;
+  }
+  .block.bill-farther .event .img {
+    float: unset;
+  }
+}

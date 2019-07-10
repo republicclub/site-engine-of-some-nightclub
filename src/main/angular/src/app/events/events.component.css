@@ -150,7 +150,9 @@
   padding: 3px 0 10px
 }
 @media (max-width: 500px) {
-
+  .block.bill-day .event .info {
+    padding-left: unset;
+  }
   .block.bill-farther .event .img {
     margin-right: 5px;
   }

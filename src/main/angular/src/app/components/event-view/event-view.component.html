@@ -145,7 +145,7 @@
           <div class="h-line"></div>
         </h1>
         <div class="event">
-          <div class="img">
+          <div data-toggle="modal" data-target="#exampleModalCenter" class="img">
             <a routerLink="/event/{{event.id}}">
               <img src="{{event.coverUri}}" alt="">
             </a>
@@ -177,8 +177,19 @@
         </div>
       </div>
     </div>
-
   </div>
   <!--end sidebar-->
   <div class="clearfix"></div>
 </div>
+<!-- modal afisha preview -->
+<div class="modal-mask">
+  <div class="modal-wrapper">
+    <div class="modal-container">
+      <img class="modal-image" src="http://republic-club.by/{{event.coverUri}}" alt="">
+      <button class="modal-default-button">
+        закрыть
+      </button>
+    </div>
+  </div>
+</div>
+

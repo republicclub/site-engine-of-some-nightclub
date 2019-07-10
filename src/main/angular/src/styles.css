@@ -26,7 +26,7 @@ address, caption, cite, code, dfn, em, strong, th, var {
   font-weight: 400
 }
 
-ol, ul {
+ol, ul, li {
   list-style: none outside none
 }
 
@@ -154,7 +154,6 @@ input {
 }
 
 .btn.fix-w-m {
-  width: 150px;
   padding: 0 10px;
 }
 
@@ -197,9 +196,15 @@ body {
 }
 
 .order-btn-face {
-  float: right;
+  -ms-align-self: flex-end;
+  align-self: flex-end;
+  padding: 0 10px;
 }
-
+@media (max-width: 500px) {
+  .order-btn-face {
+    align-self: center;
+  }
+}
 
 .text-align-right {
   text-align: right;

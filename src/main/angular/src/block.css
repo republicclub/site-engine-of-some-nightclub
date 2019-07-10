@@ -11,6 +11,9 @@
   float: none;
   padding: 20px 0
 }
+.block.bill-day ul {
+  padding: 0;
+}
 
 .block.bill-day .clearfix {
   margin: 0 40px
@@ -18,21 +21,23 @@
 
 .block.bill-day .event {
   padding: 0 0 20px 0;
-  float: left;
-  margin-left: 40px;
   font-family: 'Humanist'
 }
 
 .block.bill-day .event .img {
   width: 120px;
   height: 170px;
-  float: left
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .block.bill-day .event .img a {
   display: block;
   width: 120px;
-  height: 170px
+  height: 170px;
+  /*fix img*/
+  background: green;
 }
 
 .block.bill-day .event .img img {
@@ -389,6 +394,9 @@
     padding-left: unset;
   }
   .block.bill-farther .event .img {
+    float: unset;
+  }
+  .block.bill-day .event .img {
     float: unset;
   }
 }

@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Setter
 @Table(name = "feedback")
 @EntityListeners(AuditingEntityListener.class)
-public class FeedBackEntity extends AbstractEntity {
+public class FeedBackEntity extends BasicEntity {
 	private String name;
 	private String email;
 	private String phone;

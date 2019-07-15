@@ -1,6 +1,6 @@
 package by.ladyka.merchshop.entity;
 
-import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.BasicEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Table(name = "merchshop_product_category")
 @EntityListeners(AuditingEntityListener.class)
-public class ProductCategory  extends AbstractEntity {
+public class ProductCategory  extends BasicEntity {
     private String name;
     @Lob
     private String description;

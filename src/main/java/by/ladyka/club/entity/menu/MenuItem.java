@@ -1,6 +1,6 @@
 package by.ladyka.club.entity.menu;
 
-import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.BasicEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "menu_item")
 @EntityListeners(AuditingEntityListener.class)
-public class MenuItem extends AbstractEntity {
+public class MenuItem extends BasicEntity {
 	private String name;
 	@Lob
 	private String description;

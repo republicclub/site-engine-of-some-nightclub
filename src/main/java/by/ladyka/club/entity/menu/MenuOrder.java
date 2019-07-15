@@ -1,7 +1,7 @@
 package by.ladyka.club.entity.menu;
 
 import by.ladyka.bepaid.dto.GatewayStatus;
-import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.BasicEntity;
 import by.ladyka.club.entity.EventEntity;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,8 +21,8 @@ import java.util.UUID;
 @Table(name = "menu_order")
 @EntityListeners(AuditingEntityListener.class)
 @ToString
-@Deprecated
-public class MenuOrder extends AbstractEntity {
+@Deprecated //TicketOrderEntity
+public class MenuOrder extends BasicEntity {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "order")
 	List<MenuItemPricesHasOrders> itemPricesHasOrders = new ArrayList<>();
 	private String name;

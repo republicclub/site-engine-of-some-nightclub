@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "files_users")
 @EntityListeners(AuditingEntityListener.class)
-public class FileEntity  extends AbstractEntity {
+public class FileEntity  extends BasicEntity {
     private String filePath;
 
     @ManyToOne

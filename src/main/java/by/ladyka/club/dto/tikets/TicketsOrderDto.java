@@ -5,14 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.AssertTrue;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.List;
 
 @Getter
 @Setter
 public class TicketsOrderDto {
-
 	private EventDTO event;
 	private Long danceFloor;
 	private int placeSeats;
@@ -21,16 +19,13 @@ public class TicketsOrderDto {
 	private String email;
 	private String phone;
 	private String description;
-//	@AssertTrue
+	@AssertTrue
 	private Boolean rulesCheck;
-//	@AssertTrue
-	private Boolean  offerCheck;
+	@AssertTrue
+	private Boolean offerCheck;
 	private List<TicketTableDto> tables;
-
-
 	private Long id;
-//	private Map<Long, Integer> food = new LinkedHashMap<>();
-//	private Map<Long, BigDecimal> foodPrice = new LinkedHashMap<>();
+	private MenuFoodOrder menuFoodOrder;
 	private String uuid;
 	private String payStatus;
 

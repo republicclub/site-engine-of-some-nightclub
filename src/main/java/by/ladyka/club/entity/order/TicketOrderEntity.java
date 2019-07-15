@@ -1,11 +1,11 @@
 package by.ladyka.club.entity.order;
 
 import by.ladyka.bepaid.dto.GatewayStatus;
-import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.BasicEntity;
 import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventEntity;
 import by.ladyka.club.entity.UserEntity;
-import by.ladyka.club.entity.menu.MenuItemPricesHasOrders;
+import by.ladyka.club.entity.menu.MenuItemPricesHasTicketOrder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,7 +26,7 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 @ToString
 @NoArgsConstructor
-public class OrderEntity extends AbstractEntity {
+public class TicketOrderEntity extends BasicEntity {
 	private String name;
 	private String surname;
 	private String email;
@@ -51,10 +51,10 @@ public class OrderEntity extends AbstractEntity {
 
 	//Paid Values
 	private Long dance;
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "orderEntity")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "ticketOrderEntity")
 	private List<OrderItemEntity> tableNumbers = new ArrayList<>();
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
-	List<MenuItemPricesHasOrders> itemPricesHasOrders = new ArrayList<>();
+	List<MenuItemPricesHasTicketOrder> itemPricesHasOrders = new ArrayList<>();
 
 	@ManyToOne
 	@JoinColumn(name = "club_event_ticket_price_id")
@@ -74,7 +74,7 @@ public class OrderEntity extends AbstractEntity {
 	@Column(name = "ticket_type")
 	private TicketType ticketType;
 
-	public OrderEntity(OrderEntity entity) {
+	public TicketOrderEntity(TicketOrderEntity entity) {
 		this.name = entity.getName();
 		this.surname = entity.getSurname();
 		this.email = entity.getEmail();

@@ -146,7 +146,7 @@
         </h1>
         <div class="event">
           <div data-toggle="modal" data-target="#exampleModalCenter" class="img">
-            <a routerLink="/event/{{event.id}}">
+            <a (click)="showFullPoster = true">
               <img src="{{event.coverUri}}" alt="">
             </a>
           </div>
@@ -182,11 +182,11 @@
   <div class="clearfix"></div>
 </div>
 <!-- modal afisha preview -->
-<div class="modal-mask">
+<div class="modal-mask" *ngIf="showFullPoster">
   <div class="modal-wrapper">
     <div class="modal-container">
       <img class="modal-image" src="{{event.coverUri}}" alt="">
-      <button class="modal-default-button">
+      <button class="modal-default-button" (click)="showFullPoster = false">
         закрыть
       </button>
     </div>

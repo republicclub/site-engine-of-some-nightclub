@@ -1,8 +1,7 @@
 package by.ladyka.club.repository;
 
 import by.ladyka.club.entity.ClubEventTicketPrice;
-import by.ladyka.club.entity.EventEntity;
-import by.ladyka.club.entity.order.OrderEntity;
+import by.ladyka.club.entity.order.TicketOrderEntity;
 import by.ladyka.club.entity.order.TicketType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,11 +10,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface OrderEntityRepository extends JpaRepository<OrderEntity, Long> {
-	Optional<OrderEntity> findByUuid(String uuid);
+public interface OrderEntityRepository extends JpaRepository<TicketOrderEntity, Long> {
+	Optional<TicketOrderEntity> findByUuid(String uuid);
 
-	List<OrderEntity> findAllByEventEntityIdAndTicketType(Long eventId, TicketType ticketType);
-	List<OrderEntity> findTop5ByEventEntityIdAndUuidContains(Long eventId, String uuid);
+	List<TicketOrderEntity> findAllByEventEntityIdAndTicketType(Long eventId, TicketType ticketType);
+	List<TicketOrderEntity> findTop5ByEventEntityIdAndUuidContains(Long eventId, String uuid);
 
 	long countByClubEventTicketPrice(ClubEventTicketPrice clubEventTicketPrice);
 }

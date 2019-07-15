@@ -5,8 +5,9 @@ import by.ladyka.club.config.CustomSettings;
 import by.ladyka.club.entity.FeedBackEntity;
 import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.entity.menu.MenuItemPricesHasOrders;
+import by.ladyka.club.entity.menu.MenuItemPricesHasTicketOrder;
 import by.ladyka.club.entity.menu.MenuOrder;
-import by.ladyka.club.entity.order.OrderEntity;
+import by.ladyka.club.entity.order.TicketOrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,7 +88,7 @@ public class EmailServiceImpl implements EmailService {
 	}
 
 	@Override
-	public void sendOrderToOwner(OrderEntity order) {
+	public void sendOrderToOwner(TicketOrderEntity order) {
 		String subject = CLUB_NAME + " Заказ № " + order.getId();
 		String to = order.getEmail();
 		String cc = ORDER_EMAIL;
@@ -126,10 +127,10 @@ public class EmailServiceImpl implements EmailService {
 		}
 	}
 
-	private String buildOrderText(OrderEntity order) {
+	private String buildOrderText(TicketOrderEntity order) {
 		final Context ctx = new Context(new Locale.Builder().build());
 		ctx.setVariable("order", order);
-		final List<MenuItemPricesHasOrders> itemPricesHasOrders = order.getItemPricesHasOrders();
+		final List<MenuItemPricesHasTicketOrder> itemPricesHasOrders = order.getItemPricesHasOrders();
 		ctx.setVariable("food", itemPricesHasOrders);
 		ctx.setVariable("domain", settings.getSiteDomain());
 		return templateEngine.process("email/ticket_order_customer.html", ctx);

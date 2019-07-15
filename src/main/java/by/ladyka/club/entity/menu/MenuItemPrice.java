@@ -1,6 +1,6 @@
 package by.ladyka.club.entity.menu;
 
-import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.BasicEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Table(name = "menu_item_price")
 @EntityListeners(AuditingEntityListener.class)
-public class MenuItemPrice extends AbstractEntity {
+public class MenuItemPrice extends BasicEntity {
 	private LocalDateTime startTime;
 	private LocalDateTime endTime;
 	private BigDecimal value;

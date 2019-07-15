@@ -1,6 +1,6 @@
 package by.ladyka.merchshop.entity;
 
-import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.BasicEntity;
 import by.ladyka.club.entity.FileEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "merchshop_product")
 @EntityListeners(AuditingEntityListener.class)
-public class Product extends AbstractEntity {
+public class Product extends BasicEntity {
     private BigDecimal cost;
     private String name;
     @Lob

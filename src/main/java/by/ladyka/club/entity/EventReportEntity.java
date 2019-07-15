@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 @Table(name = "event_report")
 @EntityListeners(AuditingEntityListener.class)
-public class EventReportEntity extends AbstractEntity {
+public class EventReportEntity extends BasicEntity {
 	private LocalDateTime startEvent;
 	private String name;
 	private String coverUri;

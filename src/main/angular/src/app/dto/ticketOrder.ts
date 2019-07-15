@@ -1,5 +1,6 @@
 import {EventDto} from "./eventDto";
 import {TableDto} from "../orders/order-tickets/order-tickets.component";
+import {MenuFoodOrder} from "./menuFoodOrder";
 
 export class TicketOrder {
   public totalMoney : number;
@@ -14,5 +15,6 @@ export class TicketOrder {
   public rulesCheck: boolean;
   public offerCheck: boolean;
   public tables: TableDto[];
+  public menuFoodOrder: MenuFoodOrder;
 
 }

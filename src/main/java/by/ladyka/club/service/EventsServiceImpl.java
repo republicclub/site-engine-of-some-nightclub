@@ -4,7 +4,7 @@ import by.ladyka.club.config.constant.ClubRole;
 import by.ladyka.club.dto.AppUser;
 import by.ladyka.club.dto.EventDTO;
 import by.ladyka.club.dto.EventRelevantDTO;
-import by.ladyka.club.entity.AbstractEntity;
+import by.ladyka.club.entity.BasicEntity;
 import by.ladyka.club.entity.AuthorityEntity;
 import by.ladyka.club.entity.EventEntity;
 import by.ladyka.club.entity.UserEntity;
@@ -83,14 +83,14 @@ public class EventsServiceImpl implements EventsService {
 				//TODO Use Page and visible in query!!!
 				return eventRepository.findByDescriptionContainingOrNameContainingOrCostTextContaining(filter, filter, filter, pg)
 						.stream()
-						.filter(AbstractEntity::getVisible)
+						.filter(BasicEntity::getVisible)
 						.map(event -> converterEventService.toEventDto(event))
 						.collect(Collectors.toList());
 			}
 			case ClubRole.ROLE_CONCERT: {
 				return eventRepository.findByNameContainingAndAccessEditContains(filter, Collections.singletonList(user), pg)
 						.stream()
-						.filter(AbstractEntity::getVisible).map(event -> converterEventService.toEventDto(event))
+						.filter(BasicEntity::getVisible).map(event -> converterEventService.toEventDto(event))
 						.collect(Collectors.toList());
 			}
 		}

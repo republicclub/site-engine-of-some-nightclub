@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @MappedSuperclass
-public class AbstractEntity {
+public abstract class BasicEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -20,9 +20,11 @@ public class AbstractEntity {
 	private Long version;
 
 	@CreatedDate
+	@Column(name = "created_date")
 	private LocalDateTime createdDate;
 
 	@LastModifiedDate
+	@Column(name = "last_modified_date")
 	private LocalDateTime lastModifiedDate;
 
 	private Boolean visible = Boolean.TRUE;

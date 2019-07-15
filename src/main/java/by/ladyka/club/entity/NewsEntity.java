@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "news")
 @EntityListeners(AuditingEntityListener.class)
-public class NewsEntity extends AbstractEntity {
+public class NewsEntity extends BasicEntity {
 
 	private String title;
 	@Lob

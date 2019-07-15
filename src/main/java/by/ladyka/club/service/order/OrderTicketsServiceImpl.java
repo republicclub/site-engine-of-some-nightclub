@@ -12,14 +12,14 @@ import by.ladyka.club.entity.ClubEventTicketPrice;
 import by.ladyka.club.entity.EventEntity;
 import by.ladyka.club.entity.EventTicketPriceType;
 import by.ladyka.club.entity.UserEntity;
-import by.ladyka.club.entity.menu.MenuItemPricesHasOrders;
-import by.ladyka.club.entity.order.OrderEntity;
+import by.ladyka.club.entity.order.TicketOrderEntity;
 import by.ladyka.club.entity.order.OrderItemEntity;
 import by.ladyka.club.entity.order.TicketType;
 import by.ladyka.club.repository.OrderEntityRepository;
 import by.ladyka.club.repository.OrderItemEntityRepository;
 import by.ladyka.club.service.ClubEventTicketPriceService;
 import by.ladyka.club.service.EventsService;
+import by.ladyka.club.service.TicketKitchenService;
 import by.ladyka.club.service.UserService;
 import by.ladyka.club.service.email.EmailService;
 import org.apache.commons.codec.binary.StringUtils;
@@ -62,6 +62,8 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 	private EmailService emailService;
 	@Autowired
 	private ClubEventTicketPriceService clubEventTicketPriceService;
+	@Autowired
+	private TicketKitchenService ticketKitchenService;
 
 	@Override
 	public List<TicketTableDto> getTables(Long eventId) {
@@ -79,7 +81,7 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 			ticketTableDto.setPlaces(places);
 			tables.add(ticketTableDto);
 		}
-		orderItemEntityRepository.findByOrderEntityEventEntityId(eventId).forEach(orderItemEntity -> {
+		orderItemEntityRepository.findByTicketOrderEntityEventEntityId(eventId).forEach(orderItemEntity -> {
 			for (TicketTableDto table : tables) {
 				if (table.getTableNumber() == orderItemEntity.getTableNumber()) {
 					List<TicketPlaceDto> places = table.getPlaces();
@@ -96,11 +98,11 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 
 	@Override
 	public String bookAndPay(@Valid TicketsOrderDto dto, String username) {
-		OrderEntity orderEntity = storeOrder(dto, username);
-		PaymentTokenDto paymentTokenDto = getPaymentTokenDto(orderEntity);
+		TicketOrderEntity ticketOrderEntity = storeOrder(dto, username);
+		PaymentTokenDto paymentTokenDto = getPaymentTokenDto(ticketOrderEntity);
 		final String token = paymentTokenDto.getCheckout().getToken();
-		orderEntity.setToken(token);
-		orderEntityRepository.save(orderEntity);
+		ticketOrderEntity.setToken(token);
+		orderEntityRepository.save(ticketOrderEntity);
 		return paymentTokenDto.getCheckout().getRedirectUrl();
 	}
 
@@ -125,10 +127,10 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 
 	}
 
-	private void splitOrderSendEmails(OrderEntity orderEntity) {
-		final Long dance = orderEntity.getDance();
+	private void splitOrderSendEmails(TicketOrderEntity ticketOrderEntity) {
+		final Long dance = ticketOrderEntity.getDance();
 		for (int i = 0; i < dance; i++) {
-			OrderEntity danceTicket = new OrderEntity(orderEntity);
+			TicketOrderEntity danceTicket = new TicketOrderEntity(ticketOrderEntity);
 			danceTicket.setNewUuid();
 			danceTicket.setDance(1L);
 			danceTicket.setTableNumbers(Collections.emptyList());
@@ -138,9 +140,9 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 			emailService.sendOrderToOwner(danceTicket);
 		}
 
-		final List<OrderItemEntity> tableNumbers = orderEntity.getTableNumbers();
+		final List<OrderItemEntity> tableNumbers = ticketOrderEntity.getTableNumbers();
 		tableNumbers.forEach(tablePlace -> {
-			OrderEntity tableTicket = new OrderEntity(orderEntity);
+			TicketOrderEntity tableTicket = new TicketOrderEntity(ticketOrderEntity);
 			tableTicket.setNewUuid();
 			tableTicket.setDance(0L);
 			tableTicket.setTableNumbers(Collections.emptyList());
@@ -149,7 +151,7 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 			tableTicket = orderEntityRepository.save(tableTicket);
 
 			OrderItemEntity orderItemEntity = new OrderItemEntity();
-			orderItemEntity.setOrderEntity(tableTicket);
+			orderItemEntity.setTicketOrderEntity(tableTicket);
 			orderItemEntity.setPlace(tablePlace.getPlace());
 			orderItemEntity.setTableNumber(tablePlace.getTableNumber());
 			orderItemEntityRepository.save(orderItemEntity);
@@ -163,24 +165,24 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 	@Override
 	public TicketOrderDto getOrder(String uuid) {
 
-		final OrderEntity orderEntity = orderEntityRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("UUID is invalid"));
-		return orderEntityConverter.toDto(orderEntity, true);
+		final TicketOrderEntity ticketOrderEntity = orderEntityRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("UUID is invalid"));
+		return orderEntityConverter.toDto(ticketOrderEntity, true);
 
 	}
 
 	@Override
 	public EventTicketsReportDto getReport(Long eventId) {
 		EventTicketsReportDto reportDto = new EventTicketsReportDto();
-		final List<OrderEntity> orders = orderEntityRepository.findAllByEventEntityIdAndTicketType(eventId, TicketType.TICKET);
+		final List<TicketOrderEntity> orders = orderEntityRepository.findAllByEventEntityIdAndTicketType(eventId, TicketType.TICKET);
 		Long dc = orders
 				.stream()
-				.map(OrderEntity::getDance)
+				.map(TicketOrderEntity::getDance)
 				.mapToLong(Long::longValue)
 				.sum();
 		reportDto.setDanceCount(dc);
 		int tpc = orders
 				.stream()
-				.map(OrderEntity::getTableNumbers)
+				.map(TicketOrderEntity::getTableNumbers)
 				.map(List::size)
 				.mapToInt(Integer::intValue)
 				.sum();
@@ -192,7 +194,7 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 	public List<TicketsOrderDto> getTickets(String username, Long eventId, String filter) {
 		UserEntity userEntity = userService.getUserEntity(username);
 		EventEntity event = eventService.getEventById(eventId).orElseThrow(EntityNotFoundException::new);
-		List<OrderEntity> tickets = Collections.emptyList();
+		List<TicketOrderEntity> tickets = Collections.emptyList();
 		final String role = userService.getRole(userEntity);
 		switch (role) {
 			case ClubRole.ROLE_CONCERT: {
@@ -216,22 +218,22 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 	@Override
 	public Boolean acceptTicket(String username, String uuid) {
 		UserEntity userEntity = userService.getUserEntity(username);
-		final OrderEntity orderEntity = orderEntityRepository.findByUuid(uuid).orElseThrow(EntityNotFoundException::new);
-		if (orderEntity.getEnterTime() != null) {
+		final TicketOrderEntity ticketOrderEntity = orderEntityRepository.findByUuid(uuid).orElseThrow(EntityNotFoundException::new);
+		if (ticketOrderEntity.getEnterTime() != null) {
 			throw new RuntimeException("Билет уже активирован!");
 		}
-		orderEntity.setEnterTime(LocalDateTime.now());
-		orderEntity.setAcceptor(userEntity);
-		orderEntityRepository.save(orderEntity);
+		ticketOrderEntity.setEnterTime(LocalDateTime.now());
+		ticketOrderEntity.setAcceptor(userEntity);
+		orderEntityRepository.save(ticketOrderEntity);
 		return true;
 	}
 
 	@Override
 	public TicketOrderReportDto getOrderReport(String uuid) {
-		final OrderEntity orderEntity = orderEntityRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("UUID is invalid"));
-		final TicketOrderDto ticketOrderDto = orderEntityConverter.toDto(orderEntity, true);
+		final TicketOrderEntity ticketOrderEntity = orderEntityRepository.findByUuid(uuid).orElseThrow(() -> new RuntimeException("UUID is invalid"));
+		final TicketOrderDto ticketOrderDto = orderEntityConverter.toDto(ticketOrderEntity, true);
 		TicketOrderReportDto order = new TicketOrderReportDto(ticketOrderDto);
-		String coverUri = orderEntity.getEventEntity().getCoverUri();
+		String coverUri = ticketOrderEntity.getEventEntity().getCoverUri();
 		if (coverUri.indexOf("/file") == 0) {
 			coverUri = customSettings.getSiteDomain() + coverUri;
 		}
@@ -239,22 +241,22 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 		return order;
 	}
 
-	private OrderEntity storeOrder(@Valid TicketsOrderDto dto, String username) {
-		OrderEntity orderEntity = new OrderEntity();
-		orderEntity.setName(dto.getName());
-		orderEntity.setSurname(dto.getSurname());
-		orderEntity.setEmail(dto.getEmail());
-		orderEntity.setPhone(dto.getPhone());
-		orderEntity.setDescription(dto.getDescription());
-		orderEntity.setDance(dto.getDanceFloor());
-		final List<OrderItemEntity> collect = dto.getTables()
+	private TicketOrderEntity storeOrder(@Valid TicketsOrderDto dto, String username) {
+		TicketOrderEntity ticketOrderEntity = new TicketOrderEntity();
+		ticketOrderEntity.setName(dto.getName());
+		ticketOrderEntity.setSurname(dto.getSurname());
+		ticketOrderEntity.setEmail(dto.getEmail());
+		ticketOrderEntity.setPhone(dto.getPhone());
+		ticketOrderEntity.setDescription(dto.getDescription());
+		ticketOrderEntity.setDance(dto.getDanceFloor());
+		final List<OrderItemEntity> orderItems = dto.getTables()
 				.stream().map(ticketTableDto -> {
 					final int tableNumber = ticketTableDto.getTableNumber();
 					return ticketTableDto.getPlaces().stream()
 							.filter(place -> TicketPlaceStatus.BOOKING.equals(place.getStatus()))
 							.map(place -> {
 								OrderItemEntity orderItemEntity = new OrderItemEntity();
-								orderItemEntity.setOrderEntity(orderEntity);
+								orderItemEntity.setTicketOrderEntity(ticketOrderEntity);
 								orderItemEntity.setTableNumber(tableNumber);
 								orderItemEntity.setPlace(place.getPlaceNumber());
 								return orderItemEntity;
@@ -262,15 +264,10 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 				})
 				.flatMap(Collection::stream)
 				.collect(Collectors.toList());
-		orderEntity.setTableNumbers(collect);
+		ticketOrderEntity.setTableNumbers(orderItems);
 
-		List<MenuItemPricesHasOrders> items = new ArrayList<>();
-		orderEntity.setItemPricesHasOrders(items);
 		final EventEntity eventEntity = eventService.getEventById(dto.getEvent().getId()).orElseThrow(RuntimeException::new);
-		orderEntity.setEventEntity(eventEntity);
-
-		BigDecimal costDance = BigDecimal.valueOf(0);
-		BigDecimal costTablePlace = BigDecimal.valueOf(0);
+		ticketOrderEntity.setEventEntity(eventEntity);
 
 		if(dto.getDanceFloor() > 0){
             ClubEventTicketPrice clubEventTicketPriceDance = clubEventTicketPriceService.getLowPriceForEventByPriceType(eventEntity, EventTicketPriceType.dance)
@@ -278,44 +275,43 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
             if(clubEventTicketPriceDance.getCost().compareTo(dto.getEvent().getCostDance()) != 0){
                 throw new RuntimeException("tickets at this price is no longer on sale");
             }
-			orderEntity.setClubEventTicketPrice(clubEventTicketPriceDance);
-            costDance = clubEventTicketPriceDance.getCost();
+			ticketOrderEntity.setClubEventTicketPrice(clubEventTicketPriceDance);
         }
 
-        if(collect.size() > 0){
+        if(orderItems.size() > 0){
             ClubEventTicketPrice clubEventTicketPriceTable = clubEventTicketPriceService.getLowPriceForEventByPriceType(eventEntity, EventTicketPriceType.table)
                     .orElseThrow(() -> new RuntimeException("tickets are no longer sold"));
             if(clubEventTicketPriceTable.getCost().compareTo(dto.getEvent().getCostTablePlace()) != 0){
                 throw new RuntimeException("tickets at this price is no longer on sale");
             }
-            orderEntity.setClubEventTicketPrice(clubEventTicketPriceTable);
-            costTablePlace = clubEventTicketPriceTable.getCost();
+            ticketOrderEntity.setClubEventTicketPrice(clubEventTicketPriceTable);
         }
 
-		orderEntity.setTotalOrder(amount(dto.getDanceFloor(), collect.size(), costDance, costTablePlace));
+		ticketOrderEntity.setTotalOrder(amount(ticketOrderEntity));
 
 		if (username != null) {
 			UserEntity bookUser = userService.getUserEntity(username);
-			orderEntity.setBookUser(bookUser);
+			ticketOrderEntity.setBookUser(bookUser);
 		}
-		orderEntity.setTicketType(TicketType.ORDER);
-		orderEntityRepository.saveAndFlush(orderEntity);
-		orderItemEntityRepository.saveAll(collect);
-		return orderEntity;
+		ticketOrderEntity.setTicketType(TicketType.ORDER);
+		orderEntityRepository.saveAndFlush(ticketOrderEntity);
+		ticketKitchenService.storeMenuItems(dto, ticketOrderEntity);
+		orderItemEntityRepository.saveAll(orderItems);
+		return ticketOrderEntity;
 	}
 
-	private PaymentTokenDto getPaymentTokenDto(OrderEntity orderEntity) {
-		final String requestId = OrderEntity.class.getName() + orderEntity.getUuid();
-		final String redirectUrl = String.format("%s" + API_ORDER_BEPAID + "/callback/%s", customSettings.getSiteDomain(), orderEntity.getUuid());
+	private PaymentTokenDto getPaymentTokenDto(TicketOrderEntity ticketOrderEntity) {
+		final String requestId = TicketOrderEntity.class.getName() + ticketOrderEntity.getUuid();
+		final String redirectUrl = String.format("%s" + API_ORDER_BEPAID + "/callback/%s", customSettings.getSiteDomain(), ticketOrderEntity.getUuid());
 		PaymentTokenDto paymentTokenDto = bePaidApi.getPaymentTokenDto(
-				amount(orderEntity),
-				orderEntity.getEmail(),
-				orderEntity.getSurname(),
-				orderEntity.getName(),
-				orderEntity.getPhone(),
+				amount(ticketOrderEntity),
+				ticketOrderEntity.getEmail(),
+				ticketOrderEntity.getSurname(),
+				ticketOrderEntity.getName(),
+				ticketOrderEntity.getPhone(),
 				redirectUrl,
 				customSettings.getBePaidPaymentTest(),
-				String.format("Оплата заказа №%d | RE:Public Club", orderEntity.getId())
+				String.format("Оплата заказа №%d | RE:Public Club", ticketOrderEntity.getId())
 		);
 		try {
 			paymentTokenDto = bePaidApi.getOrderToken(paymentTokenDto, requestId);
@@ -326,15 +322,15 @@ public class OrderTicketsServiceImpl implements OrderTicketsService {
 		return paymentTokenDto;
 	}
 
-	private long amount(OrderEntity orderEntity) {
-		final EventEntity eventEntity = orderEntity.getEventEntity();
+	private BigDecimal amount(TicketOrderEntity ticketOrderEntity) {
+		final EventEntity eventEntity = ticketOrderEntity.getEventEntity();
 		final BigDecimal costDance = clubEventTicketPriceService.getLowPriceForEventDance(eventEntity);
 		final BigDecimal costTablePlace = clubEventTicketPriceService.getLowPriceForEventTablePlace(eventEntity );
-		return amount(orderEntity.getDance(), orderEntity.getTableNumbers().size(), costDance, costTablePlace).longValue() * 100;
-	}
 
-
-	private BigDecimal amount(Long dance, int table, final BigDecimal costDance, final BigDecimal costTablePlace) {
-		return costDance.multiply(new BigDecimal(dance)).add(costTablePlace.multiply(new BigDecimal(table)));
+		long danceCount = ticketOrderEntity.getDance();
+		int tablePlaces = ticketOrderEntity.getTableNumbers().size();
+		BigDecimal amount = costDance.multiply(new BigDecimal(danceCount)).add(costTablePlace.multiply(new BigDecimal(tablePlaces)));
+		amount = amount.add(ticketKitchenService.amount(ticketOrderEntity));
+		return amount;
 	}
 }

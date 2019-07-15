@@ -1,6 +1,6 @@
 package by.ladyka.club.entity;
 
-import by.ladyka.club.entity.order.OrderEntity;
+import by.ladyka.club.entity.order.TicketOrderEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,7 +19,7 @@ import java.util.List;
 @Entity
 @Table(name = "club_event_ticket_price")
 @EntityListeners(AuditingEntityListener.class)
-public class ClubEventTicketPrice extends AbstractEntity {
+public class ClubEventTicketPrice extends BasicEntity {
     private BigDecimal cost;
     private Long quantity;
     @Enumerated(EnumType.STRING)
@@ -35,5 +35,5 @@ public class ClubEventTicketPrice extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private UserEntity modifiedBy;
     @OneToMany(mappedBy = "clubEventTicketPrice")
-    private List<OrderEntity> orders;
+    private List<TicketOrderEntity> orders;
 }

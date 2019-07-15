@@ -110,6 +110,7 @@ import {StatisticService} from "./services/statistic/statistic.service";
 import {OrderTicketService} from "./services/tickets/order-ticket.service";
 import {ShopMainComponent} from './shop/shop-main/shop-main.component';
 import {UserCabinetModule} from "./user-cabinet/user-cabinet.module";
+import { OrderMenuFoodComponent } from './orders/order-menu-food/order-menu-food.component';
 
 @NgModule({
   imports: [
@@ -205,7 +206,8 @@ import {UserCabinetModule} from "./user-cabinet/user-cabinet.module";
     SingUpComponent,
     TopBannerComponent,
     SettingsMainComponent,
-    PasswordRestoreComponent
+    PasswordRestoreComponent,
+    OrderMenuFoodComponent
   ],
   providers: [
     AuthService,

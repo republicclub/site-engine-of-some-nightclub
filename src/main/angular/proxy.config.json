@@ -16,6 +16,8 @@
   },
   "/files" : {
     "target": "http://qa.republic-club.by",
+    "secure": false,
+    "changeOrigin": true,
     "logLevel": "debug"
   }
 }

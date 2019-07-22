@@ -155,3 +155,39 @@ databaseChangeLog:
             columnName: user_agent
             newDataType: VARCHAR(4096)
             tableName: user_data_statistic
+  - changeSet:
+      id: 2019-07-15-menu_item_price_has_ticket_order-new-version-of-food-order
+      author: Andrei Ladyka
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: created_date
+                  type: datetime
+              - column:
+                  name: last_modified_date
+                  type: datetime
+              - column:
+                  name: version
+                  type: BIGINT
+              - column:
+                  name: visible
+                  type: BIT(1)
+              - column:
+                  constraints:
+                    nullable: false
+                  name: count
+                  type: INT
+              - column:
+                  name: item_price_id
+                  type: BIGINT
+              - column:
+                  name: order_id
+                  type: BIGINT
+            tableName: menu_item_price_has_ticket_order

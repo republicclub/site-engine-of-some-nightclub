@@ -262,6 +262,21 @@
         <button mat-button matStepperNext color="primary">Далее</button>
       </div>
     </mat-step>
+    <mat-step *ngIf="tablePlaceExists()">
+      <ng-template matStepLabel>Предзаказ блюд</ng-template>
+      В данном разделе можете заказать блюда, которые будут поданы к Вашему приходу. <br>
+      При заказе блюд онлайн Вы полуите 10% скидку на них!<br>
+      Обязательно укажите, во сколько планируете прийти в коментирии к заказу. <br>
+      <div>
+        <button mat-button matStepperPrevious color="accent">Назад</button>
+        <button mat-button matStepperNext color="primary">Далее</button>
+      </div>
+      <app-order-menu-food [order]="menuFoodOrder"></app-order-menu-food>
+      <div>
+        <button mat-button matStepperPrevious color="accent">Назад</button>
+        <button mat-button matStepperNext color="primary">Далее</button>
+      </div>
+    </mat-step>
     <mat-step>
       <ng-template matStepLabel>Превью заказа</ng-template>
       Данные покупателя : <br>
@@ -283,8 +298,11 @@
       При возникновении проблем с оплатой звоните по номеру +375 (29) 130 63 77<br>
       <div>
         <button mat-button matStepperPrevious color="accent">Назад</button>
-        <button mat-raised-button color="primary"
-                (click)="payTicketOrder()">Оплатить заказ онлайн {{totalMoney}} BYN
+        <button mat-raised-button color="primary" *ngIf="!tablePlaceExists()"
+                (click)="payTicketOrder()">Оплатить заказ {{totalMoney}} BYN
+        </button>
+        <button mat-raised-button color="primary" *ngIf="tablePlaceExists()"
+                (click)="payTicketOrder()">Оплатить заказ {{totalMoney}} BYN (с учетом 10% скидки на меню)
         </button>
       </div>
     </mat-step>

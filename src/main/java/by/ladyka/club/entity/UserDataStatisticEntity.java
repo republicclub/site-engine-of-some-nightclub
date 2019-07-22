@@ -17,7 +17,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_data_statistic")
 @EntityListeners(AuditingEntityListener.class)
-public class UserDataStatisticEntity  extends AbstractEntity {
+public class UserDataStatisticEntity  extends BasicEntity {
 
 	String appCodeName;
 	String appName;

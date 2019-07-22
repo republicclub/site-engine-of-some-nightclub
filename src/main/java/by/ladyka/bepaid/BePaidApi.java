@@ -8,6 +8,7 @@ import lombok.*;
 import org.apache.http.ParseException;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.URISyntaxException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -56,7 +57,7 @@ public class BePaidApi {
 		private String key;
 	}
 
-	public PaymentTokenDto getPaymentTokenDto(long amount, String email, String surname, String name, String phone, String redirectUrl, boolean test, String descriptionOrder) {
+	public PaymentTokenDto getPaymentTokenDto(BigDecimal amount, String email, String surname, String name, String phone, String redirectUrl, boolean test, String descriptionOrder) {
 		PaymentTokenDto dto = new PaymentTokenDto();
 		Checkout checkout = new Checkout();
 		checkout.setTest(test);
@@ -77,7 +78,7 @@ public class BePaidApi {
 		checkout.setSettings(settings);
 		OrderDto order = new OrderDto();
 		order.setCurrency("BYN");
-		order.setAmount(amount);
+		order.setAmount(amount.multiply(new BigDecimal(100)).longValue());
 		order.setDescription(descriptionOrder);
 		checkout.setOrder(order);
 

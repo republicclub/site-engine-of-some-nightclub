@@ -134,7 +134,7 @@
 
 
     <div class="block bill-farther">
-      <div class="block menu-page info-page">
+      <div class="menu-page info-page">
 
         <h1 [hidden]="(!(event.id>0)) || readOnly">
           Отображение события № {{event.id}}
@@ -145,8 +145,8 @@
           <div class="h-line"></div>
         </h1>
         <div class="event">
-          <div class="img">
-            <a routerLink="/event/{{event.id}}">
+          <div data-toggle="modal" data-target="#exampleModalCenter" class="img">
+            <a (click)="showFullPoster = true">
               <img src="{{event.coverUri}}" alt="">
             </a>
           </div>
@@ -166,19 +166,30 @@
               <div class="btn order-btn-face" (click)="openOrderModalWindow()"
                    *ngIf="event.republicPay && (event.costTablePlace>2)">Купить билет
               </div>
-              <a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face"
-                 *ngIf="!event.republicPay || (event.costTablePlace<2)">Купить билет</a>
               <!--<a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face">Купить билет</a>-->
               <div class="tickets-list">
                 <span class="e2e-inner-html-bound" [innerHTML]="event.costText"></span>
               </div>
+              <a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face"
+                 *ngIf="!event.republicPay || (event.costTablePlace<2)">Купить билет</a>
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </div>
   <!--end sidebar-->
   <div class="clearfix"></div>
 </div>
+<!-- modal afisha preview -->
+<div class="modal-mask" *ngIf="showFullPoster">
+  <div class="modal-wrapper">
+    <div class="modal-container">
+      <img class="modal-image" src="{{event.coverUri}}" alt="">
+      <button class="modal-default-button" (click)="showFullPoster = false">
+        закрыть
+      </button>
+    </div>
+  </div>
+</div>
+

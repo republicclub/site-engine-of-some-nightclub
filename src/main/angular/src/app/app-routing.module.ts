@@ -1,5 +1,6 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {PasswordRestoreComponent} from "./auth/password-restore/password-restore.component";
 import {EventsComponent} from "./events/events.component";
 import {ClubComponent} from "./club/club.component";
 import {MediaComponent} from "./media/media.component";
@@ -64,6 +65,7 @@ const routes: Routes = [
   {path: 'public-offer', component: PublicOfferComponent},
   {path: 'shop', component: ShopMainComponent},
   {path: 'private/person', component: PersonalInfoComponent},
+  {path: 'user/password/restore/:token', component: PasswordRestoreComponent},
   {
     path: '**', component: PageNotFoundComponent, data: { breadcrumb: 'page-not-found', roles: [] }
   }

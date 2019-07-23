@@ -26,4 +26,19 @@ export class AuthService {
     let url = '/api/user/singin';
     return this.http.post<ResponseEntity>(url, user, httpOptions);
   }
+
+  sendNewPassword(usernameOrEmail: string) {
+    let url = '/api/user/password/token/request?usernameOrEmail=' + usernameOrEmail;
+    return this.http.post<ResponseEntity>(url, {}, httpOptions)
+  }
+
+  getUserByResetToken(token: string) {
+    let url = '/api/user/password/token/check?token=' + token;
+    return this.http.post<ResponseEntity>(url, {}, httpOptions)
+  }
+
+  updatePassword(token: string, password: string) {
+    let url = '/api/user/password/token/update?token=' + token + '&password=' + password;
+    return this.http.post<ResponseEntity>(url, {}, httpOptions)
+  }
 }

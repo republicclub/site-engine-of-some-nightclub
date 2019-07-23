@@ -8,8 +8,9 @@ import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.repository.AuthorityRepository;
 import by.ladyka.club.repository.UserEntityRepository;
 import by.ladyka.club.service.email.EmailService;
+import by.ladyka.club.service.email.RecoverPasswordService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -18,14 +19,12 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-	@Autowired
-	UserEntityRepository userEntityRepository;
-	@Autowired
-	private EmailService emailService;
-
-	@Autowired
-	private AuthorityRepository authorityRepository;
+	private final UserEntityRepository userEntityRepository;
+	private final EmailService emailService;
+	private final AuthorityRepository authorityRepository;
+	private final RecoverPasswordService recoverPasswordService;
 
 	@Override
 	public UserDto getUser(String username) {
@@ -113,5 +112,31 @@ public class UserServiceImpl implements UserService {
 		BeanUtils.copyProperties(user, dto);
 		dto.setAuthorities(user.getAuthorities().stream().map(AuthorityEntity::getAuthority).collect(Collectors.toList()));
 		return dto;
+	}
+
+	@Override
+	public void sendNewPasswordRequest(String usernameOrEmail) {
+		final UserEntity user = userEntityRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail);
+		emailService.sendLinkChangePassword(user.getEmail(), user.getName());
+	}
+
+	@Override
+	public String getUserNameByRecoverToken(String token) {
+		final UserEntity userEntity = getUserEntityByToken(token);
+		return userEntity.getPublishName();
+	}
+
+	private UserEntity getUserEntityByToken(String token) {
+		String email = recoverPasswordService.getEmail(token);
+		return userEntityRepository
+				.findByEmail(email)
+				.orElseThrow(EntityNotFoundException::new);
+	}
+
+	@Override
+	public void updatePasswordByToken(String token, String password) {
+		final UserEntity user = getUserEntityByToken(token);
+		user.setPassword(password);
+		userEntityRepository.save(user);
 	}
 }

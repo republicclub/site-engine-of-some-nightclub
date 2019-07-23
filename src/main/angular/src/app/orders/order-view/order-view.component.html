@@ -50,7 +50,7 @@
   </div>
 
   <div class="mt-1" *ngIf="order.payStatus"><h3>Статус оплаты</h3></div>
-  <p class="lead" *ngIf="order.payStatus"> {{order.payStatus}}</p>
+  <p class="lead" *ngIf="order.payStatus"> {{order.payStatus == 'successful' ? 'Оплачено' : 'Не оплачено'}}</p>
   <div class="mt-1" *ngIf="order.tableNumber"><h3>Столик </h3></div>
   <p class="lead" *ngIf="order.tableNumber"> {{order.tableNumber}}</p>
   <div class="mt-1"><h3>Kомментарий к заказу</h3></div>

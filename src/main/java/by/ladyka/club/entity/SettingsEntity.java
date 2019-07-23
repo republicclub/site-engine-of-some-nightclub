@@ -18,7 +18,7 @@ import javax.persistence.Table;
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
 @AllArgsConstructor
-public class SettingsEntity extends AbstractEntity {
+public class SettingsEntity extends BasicEntity {
 	@Column(name = "settings_key")
 	private String key;
 	@Column(name = "settings_value")

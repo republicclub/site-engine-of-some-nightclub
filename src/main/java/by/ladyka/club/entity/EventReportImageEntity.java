@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @Table(name = "event_report_image")
 @EntityListeners(AuditingEntityListener.class)
-public class EventReportImageEntity extends AbstractEntity {
+public class EventReportImageEntity extends BasicEntity {
 	@ManyToOne
 	@JoinColumn(name = "event_report")
 	private EventReportEntity eventReport;

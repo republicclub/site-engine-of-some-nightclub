@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
-public class UserEntity extends AbstractEntity implements UserDetails {
+public class UserEntity extends BasicEntity implements UserDetails {
 
 	@Getter
 	@Setter

@@ -12,6 +12,8 @@ export class SingInComponent implements OnInit {
 
   passwordError: boolean;
   user: UserDto;
+  forgotPasswordFlag: boolean;
+  passwordSent: boolean;
 
   constructor(private authService: AuthService, private router: Router) {
   }
@@ -19,6 +21,8 @@ export class SingInComponent implements OnInit {
   ngOnInit() {
     this.passwordError = false;
     this.user = new UserDto();
+    this.forgotPasswordFlag = false;
+    this.passwordSent = false;
   }
 
   singUpClick() {
@@ -34,4 +38,15 @@ export class SingInComponent implements OnInit {
       })
   }
 
+  forgotPassword() {
+    this.forgotPasswordFlag = true;
+  }
+
+  sendNewPassword() {
+    this.forgotPasswordFlag = true;
+    this.passwordSent = true
+    this.authService.sendNewPassword(this.user.username)
+      .pipe()
+      .subscribe()
+  }
 }

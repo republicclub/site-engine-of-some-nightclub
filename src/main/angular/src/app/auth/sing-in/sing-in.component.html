@@ -1,15 +1,23 @@
 <div class="container">
-  <h2>Добро пожаловать в личный кабинет</h2>
+  <h2 [hidden]="forgotPasswordFlag">Добро пожаловать в личный кабинет</h2>
+  <h2 [hidden]="!forgotPasswordFlag">Восстановление доступа в личный кабинет</h2>
   <form autocomplete="off" method="POST">
 
-    <div class="input-group mb-3">
+    <div class="input-group mb-3" [hidden]="forgotPasswordFlag">
       <div class="input-group-prepend">
         <span class="input-group-text" id="username-span" >Имя пользователя</span>
       </div>
       <input type="text" class="form-control" name="username" placeholder="Введите имя пользователя" id="username"
              [(ngModel)]="user.username" #username="ngModel" aria-label="Username" aria-describedby="username">
     </div>
-    <div class="input-group mb-3">
+    <div class="input-group mb-3" [hidden]="!forgotPasswordFlag || passwordSent">
+      <div class="input-group-prepend">
+        <span class="input-group-text">@</span>
+      </div>
+      <input type="text" class="form-control" name="username" placeholder="Введите имя пользователя или адрес электронной почты"
+             [(ngModel)]="user.username" #username="ngModel" aria-label="Username" aria-describedby="username">
+    </div>
+    <div class="input-group mb-3" [hidden]="forgotPasswordFlag">
       <div class="input-group-prepend">
         <span class="input-group-text" id="password-span">Пароль</span>
       </div>
@@ -17,11 +25,15 @@
              [(ngModel)]="user.password" #password="ngModel" aria-label="Password" aria-describedby="Введите пароль">
     </div>
 
-    <span [hidden]="!passwordError">  Неверное имя пользователя или пароль, попробуйте снова</span>
+    <span [hidden]="!passwordError">Неверное имя пользователя или пароль, попробуйте снова</span>
     <span [hidden]="passwordError"></span>
+    <span [hidden]="!passwordSent">Если такой пользователь найден, то пароль запрос на изменение пароля будет выслан на емеил.</span>
+    <span [hidden]="passwordSent"></span>
 
 
-    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="singUpClick()">Войти</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="singUpClick()"  [hidden]="forgotPasswordFlag">Войти</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="forgotPassword()"  [hidden]="forgotPasswordFlag">Забыл пароль</button>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" (click)="sendNewPassword()"  [hidden]="!forgotPasswordFlag || passwordSent">Прислать мне новый пароль на емеил</button>
   </form>
 
 </div>

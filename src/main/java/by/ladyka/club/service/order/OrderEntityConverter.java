@@ -3,7 +3,7 @@ package by.ladyka.club.service.order;
 import by.ladyka.club.dto.menu.TicketOrderDto;
 import by.ladyka.club.dto.tikets.TablePlaceDto;
 import by.ladyka.club.dto.tikets.TicketsOrderDto;
-import by.ladyka.club.entity.order.OrderEntity;
+import by.ladyka.club.entity.order.TicketOrderEntity;
 import by.ladyka.club.service.ConverterEventService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class OrderEntityConverter {
 	@Autowired
 	ConverterEventService converterEventService;
 
-	public TicketOrderDto toDto(OrderEntity entity, boolean deps) {
+	public TicketOrderDto toDto(TicketOrderEntity entity, boolean deps) {
 		TicketOrderDto dto = new TicketOrderDto();
 		BeanUtils.copyProperties(entity, dto);
 		dto.setEventName(entity.getEventEntity().getName());
@@ -41,7 +41,7 @@ public class OrderEntityConverter {
 		return dto;
 	}
 
-	public TicketsOrderDto toTicketsOrderDto(OrderEntity entity, boolean deps) {
+	public TicketsOrderDto toTicketsOrderDto(TicketOrderEntity entity, boolean deps) {
 		TicketsOrderDto dto = new TicketsOrderDto();
 		BeanUtils.copyProperties(entity, dto);
 
@@ -64,7 +64,7 @@ public class OrderEntityConverter {
 		return dto;
 	}
 
-	public List<TicketsOrderDto> toTicketsOrderDtos(List<OrderEntity> tickets, boolean deps) {
+	public List<TicketsOrderDto> toTicketsOrderDtos(List<TicketOrderEntity> tickets, boolean deps) {
 		return tickets.stream().map(t -> toTicketsOrderDto(t, deps)).collect(Collectors.toList());
 	}
 }

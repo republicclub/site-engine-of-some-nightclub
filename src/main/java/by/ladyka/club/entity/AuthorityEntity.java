@@ -17,7 +17,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "authorities")
 @EntityListeners(AuditingEntityListener.class)
-public class AuthorityEntity extends AbstractEntity implements GrantedAuthority {
+public class AuthorityEntity extends BasicEntity implements GrantedAuthority {
 
 	private static final long serialVersionUID = 3L;
 	private String authority;

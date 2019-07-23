@@ -1,5 +1,6 @@
 package by.ladyka.club.endpoints.api;
 
+import by.ladyka.club.dto.ResponseEntityDto;
 import by.ladyka.club.dto.UserDto;
 import by.ladyka.club.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +60,30 @@ public class UserController {
 		}
 	}
 
+	@PostMapping(value = "password/token/request")
+	public ResponseEntity<Boolean> sendNewPasswordRequest(String usernameOrEmail) {
+		userService.sendNewPasswordRequest(usernameOrEmail);
+		return ResponseEntity.ok(true);
+	}
+
+	@PostMapping(value = "password/token/check")
+	public @ResponseBody ResponseEntityDto<String> checkPasswordByToken(String token) {
+		try {
+			return new ResponseEntityDto<>(
+					true,
+					userService.getUserNameByRecoverToken(token),
+					null);
+		} catch (Exception ex) {
+			return new ResponseEntityDto<>(
+					false,
+					null,
+					ex.getLocalizedMessage());
+		}
+	}
+
+	@PostMapping(value = "password/token/update")
+	public @ResponseBody ResponseEntityDto<String>  updatePasswordToken(String token, String password) {
+		userService.updatePasswordByToken(token, password);
+		return new ResponseEntityDto<>(true, "Пароль изменен!","");
+	}
 }

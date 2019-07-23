@@ -12,4 +12,7 @@ public interface UserService {
 	String getRole(UserEntity userEntity);
 	UserPersonalDto getUserFull(String username);
 	UserPersonalDto saveUserFull(UserPersonalDto dto, String name);
+	void sendNewPasswordRequest(String usernameOrEmail);
+	String getUserNameByRecoverToken(String token);
+	void updatePasswordByToken(String token, String password);
 }

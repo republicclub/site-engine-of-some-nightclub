@@ -19,7 +19,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Table(name = "be_paid_request")
 @EntityListeners(AuditingEntityListener.class)
-public class BePaidRequest extends AbstractEntity {
+public class BePaidRequest extends BasicEntity {
 	private String requestId;
 	private String method;
 	private String url;

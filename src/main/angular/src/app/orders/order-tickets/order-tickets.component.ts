@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {MenuFoodOrder} from "../../dto/menuFoodOrder";
 import {TicketOrder} from "../../dto/ticketOrder";
 import {OrderTicketService} from "../../services/tickets/order-ticket.service";
 import {EventDto} from "../../dto/eventDto";
@@ -39,6 +40,7 @@ export class OrderTicketsComponent implements OnInit {
   orderComplete: boolean;
   bePaidUrl: string;
   userAuth: boolean;
+  menuFoodOrder: MenuFoodOrder;
 
   constructor(
     public dialogRef: MatDialogRef<OrderTicketsComponent>,
@@ -66,8 +68,8 @@ export class OrderTicketsComponent implements OnInit {
         this.ticketOrder.surname = user.surname;
         this.ticketOrder.phone = user.phone
         this.userAuth = true;
-      })
-
+      });
+    this.menuFoodOrder = new MenuFoodOrder();
   }
 
   onNoClick(): void {
@@ -77,6 +79,7 @@ export class OrderTicketsComponent implements OnInit {
 
   payTicketOrder() {
     this.ticketOrder.tables = this.allTables;
+    this.ticketOrder.menuFoodOrder = this.menuFoodOrder;
     this.orderTicketService.payOrder(this.ticketOrder)
       .pipe()
       .subscribe(result => {
@@ -219,11 +222,24 @@ export class OrderTicketsComponent implements OnInit {
   }
 
   get totalMoney() {
-    return this.ticketOrder.event.costDance * this.ticketOrder.danceFloor + this.ticketOrder.event.costTablePlace*this.ticketOrder.placeSeats;
+    let ticketsTotal = this.ticketOrder.event.costDance * this.ticketOrder.danceFloor + this.ticketOrder.event.costTablePlace*this.ticketOrder.placeSeats;
+    return ticketsTotal + this.calculateFoodTotal() * 0.9;
+  }
+
+  calculateFoodTotal() {
+    let foodTotal = 0;
+    for (let foodKey in this.menuFoodOrder.food) {
+      foodTotal += this.menuFoodOrder.foodPrice[foodKey] * this.menuFoodOrder.food[foodKey];
+    }
+    return foodTotal;
   }
 
   get allTables() {
     return this.tablesEleven.concat(this.tablesTopStairs, this.tablesMiddleStairs, this.tablesBottomStairs, this.tablesSeventeen, this.tablesConsoleRight, this.tablesConsoleLeft).sort(this.compareTables);
+  }
+
+  tablePlaceExists() {
+    return this.ticketOrder.placeSeats > 0;
   }
 }
 

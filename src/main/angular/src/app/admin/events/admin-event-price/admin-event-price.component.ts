@@ -81,7 +81,7 @@ export class AdminEventPriceComponent implements OnInit {
         dto.modifiedBy = value.name + ' ' + value.surname
       })
     dto.startActiveTime = new Date()
-    dto.endActiveTime = new Date()
+    dto.endActiveTime = new Date(this.event.endEvent)
     this.prices.unshift(dto)
     this.editPrice(dto)
     console.log("Create. End")

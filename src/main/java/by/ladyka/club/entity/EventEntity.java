@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "club_event")
 @EntityListeners(AuditingEntityListener.class)
-public class EventEntity extends AbstractEntity {
+public class EventEntity extends BasicEntity {
 	public static final String startEventFieldName = "startEvent";
 	@Lob
 	private String costText;

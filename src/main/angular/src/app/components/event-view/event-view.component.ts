@@ -25,6 +25,7 @@ export class EventViewComponent implements OnInit {
   files: UploadFile[];
   uploadInput: EventEmitter<UploadInput>;
   humanizeBytes: Function;
+  showFullPoster: boolean;
 
   constructor(public toastr: ToastsManager, vcr: ViewContainerRef, public dialog: MatDialog) {
     this.toastr.setRootViewContainerRef(vcr);
@@ -32,6 +33,7 @@ export class EventViewComponent implements OnInit {
     this.files = []; // local uploading files array
     this.uploadInput = new EventEmitter<UploadInput>(); // input events, we use this to emit data to ngx-uploader
     this.humanizeBytes = humanizeBytes;
+    this.showFullPoster = false;
   }
 
   ngOnInit() {
@@ -127,5 +129,4 @@ export class EventViewComponent implements OnInit {
 
     this.uploadInput.emit(event);
   }
-
 }

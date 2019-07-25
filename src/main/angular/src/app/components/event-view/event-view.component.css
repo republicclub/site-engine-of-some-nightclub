@@ -7,4 +7,75 @@
 .event-view-space {
   width: 10px;
 
+}.modal-mask {
+  position: fixed;
+  z-index: 9998;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  display: table;
+  transition: opacity .3s ease;
+}
+
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.modal-container {
+  width: 555px;
+  max-width: calc(100vw - 10px);
+  max-height: calc(100vh - 10px);
+  margin: 0px auto;
+  padding: 3px;
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  transition: all .3s ease;
+  font-family: Helvetica, Arial, sans-serif;
+  position: relative;
+  overflow-y: auto;
+}
+
+.modal-default-button {
+  display: block;
+  font-size: 0;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: rgba(125,125,125, .3);
+  width: 40px;
+  height: 40px;
+}
+.modal-default-button:before {
+  content: '';
+  display: block;
+  background-color: #000;
+  width: 40px;
+  height: 3px;
+  position: absolute;
+  top: 18px;
+  left: 0;
+  transform: rotate(45deg);
+}
+.modal-default-button:after {
+  content: '';
+  display: block;
+  background-color: #000;
+  width: 40px;
+  height: 3px;
+  position: absolute;
+  top: 18px;
+  left: 0;
+  transform: rotate(-45deg);
+}
+
+.modal-image {
+  width: 100%;
+}
+.hide {
+  display: none;
 }

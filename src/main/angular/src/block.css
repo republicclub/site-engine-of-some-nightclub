@@ -11,29 +11,31 @@
   float: none;
   padding: 20px 0
 }
+.block.bill-day ul {
+  padding: 0;
+}
 
 .block.bill-day .clearfix {
   margin: 0 40px
 }
 
 .block.bill-day .event {
-  /*width: 320px;*/
   padding: 0 0 20px 0;
-  float: left;
-  margin-left: 40px;
   font-family: 'Humanist'
 }
 
 .block.bill-day .event .img {
   width: 120px;
   height: 170px;
-  float: left
+  float: left;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .block.bill-day .event .img a {
   display: block;
   width: 120px;
-  height: 170px
+  height: 170px;
 }
 
 .block.bill-day .event .img img {
@@ -142,9 +144,6 @@
   padding-bottom: 5px
 }
 
-.block.bill-farther .event .info .tickets .tickets-list {
-  width: 300px
-}
 
 .block.bill-farther .event .info .tickets .order-btn {
   float: right
@@ -382,4 +381,16 @@
 
 .block.info-page .img-list li .info h3 {
   color: #cf7a19
+}
+
+@media (max-width: 500px) {
+  .block.bill-farther .event .info {
+    padding-left: unset;
+  }
+  .block.bill-farther .event .img {
+    float: unset;
+  }
+  .block.bill-day .event .img {
+    float: unset;
+  }
 }

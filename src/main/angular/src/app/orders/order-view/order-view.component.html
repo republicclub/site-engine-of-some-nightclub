@@ -13,7 +13,7 @@
   <div class="mt-1"><h3>Номер мобильного </h3></div>
   <p class="lead"> {{order.phone}}</p>
   <div class="mt-1"><h3>Событие </h3></div>
-  <p class="lead"> {{order.eventName}}</p>
+  <p class="lead"> {{order.eventName}}  {{order.start}}</p>
   <div class="mt-1" *ngIf="order.arrivalTime"><h3>Ориентировочное время прибытия</h3></div>
   <p class="lead" *ngIf="order.arrivalTime"> {{order.arrivalTime}}</p>
   <div class="mt-1" *ngIf="order.people"><h3>Гостей </h3></div>

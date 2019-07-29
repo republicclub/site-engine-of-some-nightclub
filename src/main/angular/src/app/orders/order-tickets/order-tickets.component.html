@@ -3,184 +3,190 @@
   <mat-horizontal-stepper [linear]="false" #stepper *ngIf="!orderComplete">
     <mat-step [stepControl]="orderFormGroup">
       <form [formGroup]="orderFormGroup">
-        <ng-template matStepLabel>Выбор билетов</ng-template>
-        Одиночные билеты на танцпол, {{ticketOrder.event.costDance}} BYN
-        <span class="club-order-ticket-area">
+        <div *ngIf="ticketOrder.event.costDance > 0">
+          <ng-template matStepLabel>Выбор билетов</ng-template>
+          Одиночные билеты на танцпол, {{ticketOrder.event.costDance}} BYN
+          <span class="club-order-ticket-area">
           <div class="club-order-ticket-btn" title="Уменьшить кол-во билетов" (click)="decrementDanceFloor()">-</div>
           <div class="club-order-ticket-count">
             {{ticketOrder.danceFloor}}
           </div>
           <div class="club-order-ticket-btn" title="Увеличить кол-во билетов" (click)="incrementDanceFloor()">+</div>
         </span>
-        <br>
-        Места за столиком, {{ticketOrder.event.costTablePlace}} BYN <br>
-        Всего мест за столиком : {{ticketOrder.placeSeats}}
-        <br>
-        <div class="area-map">
-          <div class="area-club-scene"></div>
-          <div class="area-down-bar"></div>
-          <div class="area-console">
-            <div class="area-table" *ngFor="let table of tablesConsoleLeft">
-              <div class="area-table-line">
-                <div *ngFor="let place of table.places.slice(0,2)"
-                     [ngClass]="getPlaceStateClass(place)"
-                     (click)="onPlaceClick(table, place)">
-                </div>
-              </div>
-              <div class="area-table-line">
-                <div
-                  *ngFor="let place of table.places.slice(2)"
-                  [ngClass]="getPlaceStateClass(place)"
-                  (click)="onPlaceClick(table, place)">
-                </div>
-              </div>
-            </div>
-            <div class="area-console-control"></div>
-            <div class="area-table" *ngFor="let table of tablesConsoleRight">
-              <div class="area-table-line">
-                <div *ngFor="let place of table.places.slice(0,2)"
-                     [ngClass]="getPlaceStateClass(place)"
-                     (click)="onPlaceClick(table, place)">
-                </div>
-              </div>
-              <div class="area-table-line">
-                <div
-                  *ngFor="let place of table.places.slice(2)"
-                  [ngClass]="getPlaceStateClass(place)"
-                  (click)="onPlaceClick(table, place)">
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="area-top-dance"></div>
-          <div class="area-stairs">
-            <div class="area-stairs-left">
-              <div class="area-stairs-left-row-first area-table-line">
-                <div class="area-table" *ngFor="let table of tablesBottomStairs">
-                  <div class="area-table-line">
-                    <div *ngFor="let place of table.places.slice(0,2)"
-                         [ngClass]="getPlaceStateClass(place)"
-                         (click)="onPlaceClick(table, place)">
-                    </div>
-                  </div>
-                  <div class="area-table-line">
-                    <div
-                      *ngFor="let place of table.places.slice(2)"
-                      [ngClass]="getPlaceStateClass(place)"
-                      (click)="onPlaceClick(table, place)">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="area-stairs-left-row-second area-table-line">
-                <div class="area-table" *ngFor="let table of tablesMiddleStairs">
-                  <div class="area-table-line">
-                    <div *ngFor="let place of table.places.slice(0,2)"
-                         [ngClass]="getPlaceStateClass(place)"
-                         (click)="onPlaceClick(table, place)">
-                    </div>
-                  </div>
-                  <div class="area-table-line">
-                    <div
-                      *ngFor="let place of table.places.slice(2)"
-                      [ngClass]="getPlaceStateClass(place)"
-                      (click)="onPlaceClick(table, place)">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="area-stairs-left-row-third area-table-line">
-                <div class="area-table" *ngFor="let table of tablesTopStairs">
-                  <div class="area-table-line">
-                    <div *ngFor="let place of table.places.slice(0,2)"
-                         [ngClass]="getPlaceStateClass(place)"
-                         (click)="onPlaceClick(table, place)">
-                    </div>
-                  </div>
-                  <div class="area-table-line">
-                    <div
-                      *ngFor="let place of table.places.slice(2)"
-                      [ngClass]="getPlaceStateClass(place)"
-                      (click)="onPlaceClick(table, place)">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="area-stairs-middle">
-            </div>
-            <div class="area-stairs-right">
-              <div class="area-stairs-right-row-first area-table-line">
-                <div class="area-left">
-                  <div class="area-table" *ngFor="let table of tablesEleven">
-                    <div class="area-table-line">
-                      <div *ngFor="let place of table.places.slice(0,2)"
-                           [ngClass]="getPlaceStateClass(place)"
-                           (click)="onPlaceClick(table, place)">
-                      </div>
-                    </div>
-                    <div class="area-table-line">
-                      <div
-                        *ngFor="let place of table.places.slice(2)"
-                        [ngClass]="getPlaceStateClass(place)"
-                        (click)="onPlaceClick(table, place)">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="area-top-bar">
-                </div>
-              </div>
-              <div class="area-stairs-right-row-second area-table-line">
-                <div class="area-left">
-                  <div class="area-table" *ngFor="let table of tablesSeventeen">
-                    <div class="area-table-line">
-                      <div *ngFor="let place of table.places.slice(0,2)"
-                           [ngClass]="getPlaceStateClass(place)"
-                           (click)="onPlaceClick(table, place)">
-                      </div>
-                    </div>
-                    <div class="area-table-line">
-                      <div
-                        *ngFor="let place of table.places.slice(2)"
-                        [ngClass]="getPlaceStateClass(place)"
-                        (click)="onPlaceClick(table, place)">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="area-nothing-second"></div>
-              </div>
-              <div class="area-nothing-third area-table-line"></div>
-            </div>
-          </div>
         </div>
-        <br>
+        <div *ngIf="ticketOrder.event.costTablePlace > 0">
+          <br>
+          Места за столиком, {{ticketOrder.event.costTablePlace}} BYN <br>
+          Всего мест за столиком : {{ticketOrder.placeSeats}}
+          <br>
+          <div class="area-map">
+            <div class="area-club-scene"></div>
+            <div class="area-down-bar"></div>
+            <div class="area-console">
+              <div class="area-table" *ngFor="let table of tablesConsoleLeft">
+                <div class="area-table-line">
+                  <div *ngFor="let place of table.places.slice(0,2)"
+                       [ngClass]="getPlaceStateClass(place)"
+                       (click)="onPlaceClick(table, place)">
+                  </div>
+                </div>
+                <div class="area-table-line">
+                  <div
+                    *ngFor="let place of table.places.slice(2)"
+                    [ngClass]="getPlaceStateClass(place)"
+                    (click)="onPlaceClick(table, place)">
+                  </div>
+                </div>
+              </div>
+              <div class="area-console-control"></div>
+              <div class="area-table" *ngFor="let table of tablesConsoleRight">
+                <div class="area-table-line">
+                  <div *ngFor="let place of table.places.slice(0,2)"
+                       [ngClass]="getPlaceStateClass(place)"
+                       (click)="onPlaceClick(table, place)">
+                  </div>
+                </div>
+                <div class="area-table-line">
+                  <div
+                    *ngFor="let place of table.places.slice(2)"
+                    [ngClass]="getPlaceStateClass(place)"
+                    (click)="onPlaceClick(table, place)">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="area-top-dance"></div>
+            <div class="area-stairs">
+              <div class="area-stairs-left">
+                <div class="area-stairs-left-row-first area-table-line">
+                  <div class="area-table" *ngFor="let table of tablesBottomStairs">
+                    <div class="area-table-line">
+                      <div *ngFor="let place of table.places.slice(0,2)"
+                           [ngClass]="getPlaceStateClass(place)"
+                           (click)="onPlaceClick(table, place)">
+                      </div>
+                    </div>
+                    <div class="area-table-line">
+                      <div
+                        *ngFor="let place of table.places.slice(2)"
+                        [ngClass]="getPlaceStateClass(place)"
+                        (click)="onPlaceClick(table, place)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="area-stairs-left-row-second area-table-line">
+                  <div class="area-table" *ngFor="let table of tablesMiddleStairs">
+                    <div class="area-table-line">
+                      <div *ngFor="let place of table.places.slice(0,2)"
+                           [ngClass]="getPlaceStateClass(place)"
+                           (click)="onPlaceClick(table, place)">
+                      </div>
+                    </div>
+                    <div class="area-table-line">
+                      <div
+                        *ngFor="let place of table.places.slice(2)"
+                        [ngClass]="getPlaceStateClass(place)"
+                        (click)="onPlaceClick(table, place)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="area-stairs-left-row-third area-table-line">
+                  <div class="area-table" *ngFor="let table of tablesTopStairs">
+                    <div class="area-table-line">
+                      <div *ngFor="let place of table.places.slice(0,2)"
+                           [ngClass]="getPlaceStateClass(place)"
+                           (click)="onPlaceClick(table, place)">
+                      </div>
+                    </div>
+                    <div class="area-table-line">
+                      <div
+                        *ngFor="let place of table.places.slice(2)"
+                        [ngClass]="getPlaceStateClass(place)"
+                        (click)="onPlaceClick(table, place)">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="area-stairs-middle">
+              </div>
+              <div class="area-stairs-right">
+                <div class="area-stairs-right-row-first area-table-line">
+                  <div class="area-left">
+                    <div class="area-table" *ngFor="let table of tablesEleven">
+                      <div class="area-table-line">
+                        <div *ngFor="let place of table.places.slice(0,2)"
+                             [ngClass]="getPlaceStateClass(place)"
+                             (click)="onPlaceClick(table, place)">
+                        </div>
+                      </div>
+                      <div class="area-table-line">
+                        <div
+                          *ngFor="let place of table.places.slice(2)"
+                          [ngClass]="getPlaceStateClass(place)"
+                          (click)="onPlaceClick(table, place)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="area-top-bar">
+                  </div>
+                </div>
+                <div class="area-stairs-right-row-second area-table-line">
+                  <div class="area-left">
+                    <div class="area-table" *ngFor="let table of tablesSeventeen">
+                      <div class="area-table-line">
+                        <div *ngFor="let place of table.places.slice(0,2)"
+                             [ngClass]="getPlaceStateClass(place)"
+                             (click)="onPlaceClick(table, place)">
+                        </div>
+                      </div>
+                      <div class="area-table-line">
+                        <div
+                          *ngFor="let place of table.places.slice(2)"
+                          [ngClass]="getPlaceStateClass(place)"
+                          (click)="onPlaceClick(table, place)">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="area-nothing-second"></div>
+                </div>
+                <div class="area-nothing-third area-table-line"></div>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
         Cумма оплаты {{totalMoney}} BYN
         <br>
-        На платежной странице будет указан номер заказа и сумма платежа. Для оплаты вам необходимо
-        ввести свои карточные данные и подтвердить платеж, нажав кнопку «Оплатить». Если ваша карта поддерживает
-        технологию
-        3-D Secure, системой ваш будет предложено пройти стандартную одноминутную процедуру проверки владельца карты на
-        странице вашего банка (банка, который выдал вашу карту).
-        <br>Обращаем ваше внимание, что после проведения платежа на указанный вами электронный адрес
-        придет подтверждение оплаты. Просим вас сохранять данные оплат.
-        <br>Мы принимаем платежи по следующим банковским картам: Visa, Visa Electron, MasterCard, Maestro, Белкарт и
-        картой Халва.
-        <br>
-        <br>Платежи по банковским картам осуществляются через систему электронных платежей <a href="https://bepaid.by/"
-                                                                                              target="_blank"><b><u>bePaid</u></b></a>.
-         Платежная страница системы bePaid отвечает всем требованиям безопасности передачи данных (PCI DSS Level 1). Все
-        конфиденциальные данные хранятся в зашифрованном виде и максимально устойчивы к взлому.
-        <br>
-        Возврат денежных средств осуществляется на карту, с которой ранее была произведена оплата. Срок поступления
-        денежных
-        средств на карту от 3 до 30 дней с момента осуществления возврата Продавцом.
-        <br>
-        Возврат возможен, если до мероприятия не менее 5 рабочих дней. Для возврата перейдите в
-        <a routerLink="/feedback" (click)="onNoClick()"><u>раздел обратной связи</u></a>
-        и опишите проблему.
-        <br>
+        <div style="margin: 10px">
+          На платежной странице будет указан номер заказа и сумма платежа. Для оплаты вам необходимо
+          ввести свои карточные данные и подтвердить платеж, нажав кнопку «Оплатить». Если ваша карта поддерживает
+          технологию
+          3-D Secure, системой ваш будет предложено пройти стандартную одноминутную процедуру проверки владельца карты на
+          странице вашего банка (банка, который выдал вашу карту).
+          <br>Обращаем ваше внимание, что после проведения платежа на указанный вами электронный адрес
+          придет подтверждение оплаты. Просим вас сохранять данные оплат.
+          <br>Мы принимаем платежи по следующим банковским картам: Visa, Visa Electron, MasterCard, Maestro, Белкарт и
+          картой Халва.
+          <br>
+          <br>Платежи по банковским картам осуществляются через систему электронных платежей <a href="https://bepaid.by/"
+                                                                                                target="_blank"><b><u>bePaid</u></b></a>.
+           Платежная страница системы bePaid отвечает всем требованиям безопасности передачи данных (PCI DSS Level 1). Все
+          конфиденциальные данные хранятся в зашифрованном виде и максимально устойчивы к взлому.
+          <br>
+          Возврат денежных средств осуществляется на карту, с которой ранее была произведена оплата. Срок поступления
+          денежных
+          средств на карту от 3 до 30 дней с момента осуществления возврата Продавцом.
+          <br>
+          Возврат возможен, если до мероприятия не менее 5 рабочих дней. Для возврата перейдите в
+          <a routerLink="/feedback" (click)="onNoClick()"><u>раздел обратной связи</u></a>
+          и опишите проблему.
+          <br>
+        </div>
         <div>
           <button mat-button matStepperNext color="primary">Далее</button>
         </div>

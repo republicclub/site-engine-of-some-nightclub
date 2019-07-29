@@ -31,4 +31,5 @@ public class TicketsOrderDto {
 
 	private LocalDateTime enterTime;
 	private String acceptor;
+	private LocalDateTime start;
 }

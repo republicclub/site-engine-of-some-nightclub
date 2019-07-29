@@ -164,14 +164,14 @@
             <div class="tickets">
               <h4>БИЛЕТЫ</h4>
               <div class="btn order-btn-face" (click)="openOrderModalWindow()"
-                   *ngIf="event.republicPay && (event.costTablePlace>2)">Купить билет
+                   *ngIf="republicPay(event)">Купить билет
               </div>
               <!--<a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face">Купить билет</a>-->
               <div class="tickets-list">
                 <span class="e2e-inner-html-bound" [innerHTML]="event.costText"></span>
               </div>
               <a [href]="event.buyTicketUrl" target="_blank" class="btn order-btn-face"
-                 *ngIf="!event.republicPay || (event.costTablePlace<2)">Купить билет</a>
+                 *ngIf="!republicPay(event)">Купить билет</a>
             </div>
           </div>
         </div>

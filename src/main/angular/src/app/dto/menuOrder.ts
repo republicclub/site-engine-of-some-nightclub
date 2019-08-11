@@ -18,5 +18,6 @@ export class MenuOrder {
   totalMoney: number;
   dance: number;
   tables: any;
+  start: string;
 }
 

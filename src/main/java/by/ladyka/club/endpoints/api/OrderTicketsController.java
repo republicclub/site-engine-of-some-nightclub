@@ -32,13 +32,15 @@ public class OrderTicketsController {
 	}
 
 	@PostMapping("bookandpay")
-	public @ResponseBody
-	Map<String, Object> bookAndPay(Principal principal, HttpServletRequest httpServletRequest, @RequestBody TicketsOrderDto dto) {
+	public @ResponseBody Map<String, Object> bookAndPay(Principal principal, @RequestBody TicketsOrderDto dto) {
 		Map<String, Object> result = new TreeMap<>();
 		result.put("input", dto);
 		try {
-			result.put("success", true);
+			if (!dto.isRulesCheck() || !dto.isOfferCheck()) {
+				throw new Exception("Вам нужно принять правила!");
+			}
 			result.put("data", orderTicketsService.bookAndPay(dto, (principal != null) ? principal.getName() : null));
+			result.put("success", true);
 		} catch (Exception ex) {
 			result.put("message", ex.getLocalizedMessage());
 			result.put("success", false);

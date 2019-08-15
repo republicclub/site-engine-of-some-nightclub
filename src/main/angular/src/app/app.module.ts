@@ -89,12 +89,8 @@ import {NewsPageComponent} from './news-page/news-page.component';
 import {NewsService} from "./news.service";
 import {NewsComponent} from './news/news.component';
 import {OrderComponent} from './order/order.component';
-import {
-  BepaidDialog,
-  MenuOrderComponent
-} from './orders/menu-order/menu-order.component';
-import {OrderEditComponent} from './orders/order-edit/order-edit.component';
-import {OrderFoodComponent} from './orders/order-food/order-food.component';
+import {MenuOrderComponent} from './orders/menu-order/menu-order.component';
+import {OrderMenuFoodComponent} from './orders/order-menu-food/order-menu-food.component';
 import {OrderTicketsComponent} from './orders/order-tickets/order-tickets.component';
 import {OrderViewComponent} from './orders/order-view/order-view.component';
 import {CashboxComponent} from './pages/cashbox/cashbox.component';
@@ -110,7 +106,6 @@ import {StatisticService} from "./services/statistic/statistic.service";
 import {OrderTicketService} from "./services/tickets/order-ticket.service";
 import {ShopMainComponent} from './shop/shop-main/shop-main.component';
 import {UserCabinetModule} from "./user-cabinet/user-cabinet.module";
-import { OrderMenuFoodComponent } from './orders/order-menu-food/order-menu-food.component';
 
 @NgModule({
   imports: [
@@ -170,7 +165,6 @@ import { OrderMenuFoodComponent } from './orders/order-menu-food/order-menu-food
     AdminEventPriceComponent,
     AdminOrderListComponent,
     AppComponent,
-    BepaidDialog,
     ClubComponent,
     ConfirmationDialogComponent,
     EventPageComponent,
@@ -189,8 +183,6 @@ import { OrderMenuFoodComponent } from './orders/order-menu-food/order-menu-food
     DiscoComponent,
     MenuOrderComponent,
     OrderViewComponent,
-    OrderEditComponent,
-    OrderFoodComponent,
     CashboxComponent,
     OrderComponent,
     OrderTicketsComponent,
@@ -224,7 +216,6 @@ import { OrderMenuFoodComponent } from './orders/order-menu-food/order-menu-food
     StatisticService
   ],
   entryComponents: [
-    BepaidDialog,
     ConfirmationDialogComponent,
     OrderTicketsComponent
   ],

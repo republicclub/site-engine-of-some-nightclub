@@ -1,39 +1,27 @@
-<mat-horizontal-stepper [linear]="false" #stepper *ngIf="!orderComplete">
-  <mat-step [stepControl]="menuFormGroup">
-    <form [formGroup]="menuFormGroup">
-      <ng-template matStepLabel>Просмотр меню и выбор позиций</ng-template>
-      <app-order-food [menuCategories]="menuCategories" [order]="order"></app-order-food>
-      <div>
-        <button mat-button matStepperNext color="primary">Далее</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="orderDetailsFormGroup">
-    <form [formGroup]="orderDetailsFormGroup">
-      <ng-template matStepLabel>Общая информация о пользователе</ng-template>
-      <app-order-edit [order]="order" [events]="events"></app-order-edit>
-      <div>
-        <button mat-button matStepperPrevious color="accent">Назад</button>
-        <button mat-button matStepperNext color="primary">Далее</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Превью заказа</ng-template>
-    <app-order-view [menuCategories]="menuCategories" [order]="order"></app-order-view>
-    <div>
-      <button mat-button matStepperPrevious color="accent">Назад</button>
-      <button mat-button (click)="submitOrder()" color="warn">Заказать. Оплата заказа в клубе.</button>
-      <button mat-raised-button (click)="payOrder()"  color="primary">Оплатить заказ онлайн {{(order.totalMoney * 0.9).toFixed(2)}} BYN (скидка 10%)</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+<h2>Правила заказа столика</h2>
+<p>Выберите событие и места за столиком.</p>
+<p>В появившейся вкладке меню закажите требуемые позиции</p>
+<p>Получите 10% скидку на кухню за заказ оналайн и оплатите заказ.</p>
 <p>Заказ, оплаченный на сайте Вы можете получить в клубе РеПаблик, по адресу г. Минск ул. Притыцкого, д. 62.</p>
 <p>По всем вопросам можете писать в <a routerLink="/feedback">службу поддержки клиентов</a></p>
 <p>Для получения заказа Вы заполняете все поля формы, в данном разделе : список позиций меню и информацию о себе</p>
 <p>После этого переходите на страницу оплаты и оплачиваете заказ. Получая скидку в 10%, по сравнению с обычным заказом в клубе.</p>
-<div *ngIf="orderComplete">
-  <h1>Спасибо за заказ</h1>
-  <app-order-view [menuCategories]="menuCategories" [order]="order"></app-order-view>
+<hr>
+<div *ngFor="let categoryMain of menuCategories">
+  <h1>
+    {{categoryMain.name}}<i class="h-line"></i><span class="desc">{{categoryMain.description}}</span>
+  </h1>
+  <div *ngFor="let category of categoryMain.categories">
+    <h3>{{category.name}}</h3>
+    <ul class="info-list menu-list">
+      <li *ngFor="let item of category.menuItems">
+        <span class="title">
+          <b>{{item.name}}</b><br>
+          <i>{{item.description}}</i><br>
+          {{item.descriptionProportions}}<br>
+          <b>{{item.price}} BYN</b>
+        </span>
+      </li>
+    </ul>
+  </div>
 </div>
-

@@ -12,7 +12,7 @@ import {SettingsService} from "../../../services/settings/settings.service";
 export class SettingsMainComponent implements OnInit {
 
   public settingsSiteDto: SettingsSiteDto;
-  private events: EventDto[];
+  events: EventDto[];
 
   constructor(private settingsService: SettingsService, private eventsService : EventsService) {
     this.settingsSiteDto = new SettingsSiteDto();

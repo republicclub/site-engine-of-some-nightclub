@@ -23,7 +23,7 @@ export class EventsListComponent implements OnInit {
 
   @Output() onRowSelected = new EventEmitter();
   private dataSource: MatTableDataSource<EventDto>;
-  private actual: boolean;
+  actual: boolean;
 
   constructor(private eventsService: EventsService) {
   }

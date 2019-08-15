@@ -10,9 +10,7 @@ import by.ladyka.club.entity.EventEntity;
 import by.ladyka.club.entity.UserEntity;
 import by.ladyka.club.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -72,29 +70,37 @@ public class EventsServiceImpl implements EventsService {
 	}
 
 	@Override
-	public List<EventDTO> getEvents(String sort, String order, Integer page, Integer size, String filter, String username) {
+	public List<EventDTO> getEvents(String sort, String order, Integer page, Integer size, String filter, String username, boolean actual) {
 		Sort.Direction direction = !StringUtils.isEmpty(order) ? Sort.Direction.valueOf(order.toUpperCase()) : Sort.Direction.DESC;
 		Pageable pg = PageRequest.of(page, size, Sort.by(new Sort.Order(direction, sort)));
 
 		final UserEntity user = userService.getUserEntity(username);
 		String role = userService.getRole(user);
+		Page<EventEntity> events = new PageImpl<>(Collections.emptyList());
 		switch (role) {
 			case ClubRole.ROLE_ADMIN: {
-				//TODO Use Page and visible in query!!!
-				return eventRepository.findByDescriptionContainingOrNameContainingOrCostTextContaining(filter, filter, filter, pg)
-						.stream()
-						.filter(BasicEntity::getVisible)
-						.map(event -> converterEventService.toEventDto(event))
-						.collect(Collectors.toList());
-			}
+				events = eventRepository.findByDescriptionContainingOrNameContainingOrCostTextContaining(filter, filter, filter, pg);
+				if (actual) {
+
+				}
+			} break;
 			case ClubRole.ROLE_CONCERT: {
-				return eventRepository.findByNameContainingAndAccessEditContains(filter, Collections.singletonList(user), pg)
-						.stream()
-						.filter(BasicEntity::getVisible).map(event -> converterEventService.toEventDto(event))
-						.collect(Collectors.toList());
-			}
+				events = eventRepository.findByNameContainingAndAccessEditContains(filter, Collections.singletonList(user), pg);
+			} break;
 		}
-		return Collections.emptyList();
+
+		//TODO Use Page and visible in query!!!
+		return events.stream()
+				.filter(BasicEntity::getVisible)
+				.filter(eventEntity -> {
+					if (actual) {
+						return LocalDateTime.now().minusHours(5L).compareTo(eventEntity.getEndEvent()) < 0;
+					} else {
+						return true;
+					}
+				})
+				.map(event -> converterEventService.toEventDto(event))
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -103,7 +109,12 @@ public class EventsServiceImpl implements EventsService {
 	}
 
 	@Override
-	public long getTotalEvents(String filter, String username) {
+	public long getTotalEvents(String filter, String username, boolean actual) {
+		if (actual) {
+			//TODO
+		} else {
+			//TODO
+		}
 		return eventRepository.countByDescriptionContainingOrNameContainingOrCostTextContainingAndVisibleTrue(filter, filter, filter);
 	}
 

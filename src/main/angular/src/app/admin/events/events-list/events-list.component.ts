@@ -23,6 +23,7 @@ export class EventsListComponent implements OnInit {
 
   @Output() onRowSelected = new EventEmitter();
   private dataSource: MatTableDataSource<EventDto>;
+  private actual: boolean;
 
   constructor(private eventsService: EventsService) {
   }
@@ -37,6 +38,7 @@ export class EventsListComponent implements OnInit {
 
     // If the user changes the sort order, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this.actual = Boolean(localStorage.getItem('actual'));
     this.loadData();
   }
 
@@ -53,7 +55,8 @@ export class EventsListComponent implements OnInit {
             this.sort.direction,
             this.paginator.pageIndex,
             this.paginator.pageSize,
-            this.dataSource.filter);
+            this.dataSource.filter,
+            this.actual);
         }),
         map(data => {
           // Flip flag to show that loading has finished.
@@ -77,6 +80,11 @@ export class EventsListComponent implements OnInit {
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+    this.loadData();
+  }
+
+  actualChange() {
+    localStorage.setItem('actual', String(this.actual));
     this.loadData();
   }
 }

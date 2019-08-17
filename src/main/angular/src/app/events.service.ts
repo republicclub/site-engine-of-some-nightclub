@@ -29,8 +29,8 @@ export class EventsService {
       );
   }
 
-  getEvents(sort: string, order: string, page: number, size: number, filter: string): Observable<EventListResult> {
-    const requestUrl = this.eventsRestAdminUrl + `?sort=${sort}&order=${order}&page=${page}&size=${size}&filter=${filter}`;
+  getEvents(sort: string, order: string, page: number, size: number, filter: string, actual: boolean): Observable<EventListResult> {
+    const requestUrl = this.eventsRestAdminUrl + `?sort=${sort}&order=${order}&page=${page}&size=${size}&filter=${filter}&actual=${actual}`;
     return this.http.get<EventListResult>(requestUrl);
   }
 

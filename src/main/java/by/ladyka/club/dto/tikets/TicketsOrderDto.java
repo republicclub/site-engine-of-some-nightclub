@@ -20,9 +20,9 @@ public class TicketsOrderDto {
 	private String phone;
 	private String description;
 	@AssertTrue
-	private Boolean rulesCheck;
+	private boolean rulesCheck;
 	@AssertTrue
-	private Boolean offerCheck;
+	private boolean offerCheck;
 	private List<TicketTableDto> tables;
 	private Long id;
 	private MenuFoodOrder menuFoodOrder;
@@ -31,4 +31,5 @@ public class TicketsOrderDto {
 
 	private LocalDateTime enterTime;
 	private String acceptor;
+	private LocalDateTime start;
 }

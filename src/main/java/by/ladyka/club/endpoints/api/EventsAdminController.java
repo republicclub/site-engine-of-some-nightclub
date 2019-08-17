@@ -27,23 +27,30 @@ public class EventsAdminController {
 	@RequestMapping(method = RequestMethod.GET)
 	@Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT})
 	public @ResponseBody
-	ResponseEntity<BaseListResultDto<EventDTO>> get(Principal principal, HttpServletRequest httpServletRequest, @RequestParam(required = false) String sort, String order, Integer page, Integer size, @RequestParam(required = false) String filter) {
-		final List<EventDTO> events = eventsService.getEvents(sort, order, page, size, filter, principal.getName());
-		long total = eventsService.getTotalEvents(filter, principal.getName());
-		return new ResponseEntity<BaseListResultDto<EventDTO>>(new BaseListResultDto<>(events, total), HttpStatus.OK);
+	ResponseEntity<BaseListResultDto<EventDTO>> get(
+			Principal principal,
+			@RequestParam(required = false) String sort,
+			String order,
+			Integer page,
+			Integer size,
+			@RequestParam(required = false) String filter,
+			boolean actual) {
+		final List<EventDTO> events = eventsService.getEvents(sort, order, page, size, filter, principal.getName(), actual);
+		long total = eventsService.getTotalEvents(filter, principal.getName(), actual);
+		return new ResponseEntity<>(new BaseListResultDto<>(events, total), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	@Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT})
 	public @ResponseBody
-	ResponseEntity save(Principal principal, HttpServletRequest httpServletRequest, @RequestBody EventDTO event) {
-		return new ResponseEntity<EventDTO>(eventsService.save(event, principal.getName()), HttpStatus.OK);
+	ResponseEntity save(Principal principal, @RequestBody EventDTO event) {
+		return new ResponseEntity<>(eventsService.save(event, principal.getName()), HttpStatus.OK);
 	}
 
 	@RequestMapping(method = RequestMethod.DELETE)
 	@Secured(value = {ClubRole.ROLE_ADMIN, ClubRole.ROLE_CONCERT})
 	public @ResponseBody
-	ResponseEntity delete(Principal principal, HttpServletRequest httpServletRequest, Long id) {
+	ResponseEntity delete(Long id) {
 		Map<String, Object> r = new LinkedHashMap<>();
 		try {
 			eventsService.delete(id);

@@ -1,11 +1,24 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewContainerRef} from '@angular/core';
-import {EventDto} from "../../dto/eventDto";
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewContainerRef
+} from '@angular/core';
+import {MatDialog} from "@angular/material";
 import * as moment from "moment";
 import {ToastsManager} from "ng6-toastr";
-import {MatDialog} from "@angular/material";
-import {OrderTicketsComponent} from "../../orders/order-tickets/order-tickets.component";
-import {humanizeBytes, UploaderOptions, UploadFile, UploadInput, UploadOutput} from 'ngx-uploader';
+import {
+  humanizeBytes,
+  UploaderOptions,
+  UploadFile,
+  UploadInput,
+  UploadOutput
+} from 'ngx-uploader';
+import {EventDto} from "../../dto/eventDto";
 import {EventTicketsReportDto} from "../../dto/tickets/eventTicketsReportDto";
+import {OrderTicketsComponent} from "../../orders/order-tickets/order-tickets.component";
 
 @Component({
   selector: 'app-event-view',
@@ -128,5 +141,9 @@ export class EventViewComponent implements OnInit {
     };
 
     this.uploadInput.emit(event);
+  }
+
+  republicPay(event: EventDto) {
+    return event.republicPay && (event.costTablePlace > 2 || event.costDance > 2)
   }
 }

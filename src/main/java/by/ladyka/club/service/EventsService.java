@@ -17,9 +17,9 @@ public interface EventsService {
 	List<EventRelevantDTO> getRelevantEvents(AppUser user);
 	Optional<EventEntity> getEventById(Long event);
 	EventDTO save(EventDTO event, String user);
-	List<EventDTO> getEvents(String sort, String order, Integer page, Integer size, String filter, String username);
+	List<EventDTO> getEvents(String sort, String order, Integer page, Integer size, String filter, String username, boolean actual);
 	EventDTO getEvent(Long id);
-	long getTotalEvents(String filter, String username);
+	long getTotalEvents(String filter, String username, boolean actual);
 	void delete(Long id);
 	boolean hasAccess(EventEntity event, UserEntity user);
 }

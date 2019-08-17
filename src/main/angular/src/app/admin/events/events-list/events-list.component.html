@@ -1,7 +1,18 @@
 <div>
-  <mat-form-field>
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
+  <mat-card>
+    <mat-card-content>
+      <section>
+        <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+      </section>
+      <section>
+        <mat-checkbox [(ngModel)]="actual" (change)="actualChange()">
+          Показывать только предстоящие события
+        </mat-checkbox>
+      </section>
+    </mat-card-content>
+  </mat-card>
 
   <table mat-table [dataSource]="events" matSort class="mat-elevation-z8">
 

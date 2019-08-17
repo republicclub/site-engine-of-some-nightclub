@@ -18,7 +18,7 @@
         </span>
         <span class="title">
           <b>{{item.name}}</b><br>
-          <i>{{item.description}}</i><br>
+          <i>{{item.description}}</i><br *ngIf="item.description">
           {{item.descriptionProportions}}<br>
           <b>{{item.price}} BYN</b>
         </span>

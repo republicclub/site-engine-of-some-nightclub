@@ -11,15 +11,20 @@
           </mat-card-content>
         </mat-card>
       </div>
+
       <div class="form-group" [hidden]="!settingsSiteDto.bannerActive">
-        <label for="bannerEventId">bannerEventId</label>
-        <input type="text" class="form-control" id="bannerEventId"
-               required
-               [(ngModel)]="settingsSiteDto.bannerEventId" name="bannerEventId"
-               #bannerEventId="ngModel">
-        <div [hidden]="bannerEventId.valid || bannerEventId.pristine || !settingsSiteDto.bannerActive"
+        <label for="bannerEvent">Событие</label>
+          <select id="bannerEvent"
+                  required
+                  name="event"
+                  [(ngModel)]="settingsSiteDto.bannerEventId"
+                  class="form-control">
+            <option selected="selected" value="0">Выберите...</option>
+            <option *ngFor="let event of events" [value]="event.id">{{event.name}} - {{event.startEvent}}</option>
+          </select>
+        <div [hidden]="settingsSiteDto.bannerEventId > 0"
              class="alert alert-danger">
-          bannerEventId is required
+          Событие обязательно нужно выбрать!
         </div>
       </div>
       <div class="form-group" [hidden]="!settingsSiteDto.bannerActive">

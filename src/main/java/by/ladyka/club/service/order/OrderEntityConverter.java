@@ -1,15 +1,19 @@
 package by.ladyka.club.service.order;
 
+import by.ladyka.club.dto.EventDTO;
 import by.ladyka.club.dto.menu.TicketOrderDto;
-import by.ladyka.club.dto.tikets.TablePlaceDto;
-import by.ladyka.club.dto.tikets.TicketsOrderDto;
+import by.ladyka.club.dto.tikets.*;
+import by.ladyka.club.entity.order.OrderItemEntity;
 import by.ladyka.club.entity.order.TicketOrderEntity;
 import by.ladyka.club.service.ConverterEventService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,11 +59,26 @@ public class OrderEntityConverter {
 		}
 
 		if (deps) {
-			dto.setEvent(converterEventService.toEventDto(entity.getEventEntity()));
-//			dto.setTables(entity.getTableNumbers()
-//					.stream()
-//					.map(ent -> new TicketTableDto(ent.getTableNumber(), ent.getPlace()))
-//					.collect(Collectors.toList()));
+			final EventDTO eventDto = converterEventService.toEventDto(entity.getEventEntity());
+			dto.setEvent(eventDto);
+			dto.setStart(eventDto.getStartEvent());
+
+			final List<OrderItemEntity> tableNumbers = entity.getTableNumbers();
+			Map<Integer, TicketTableDto> tableDtoMap = new HashMap<>();
+			tableNumbers.forEach(orderItemEntity -> {
+				final int tableNumber = orderItemEntity.getTableNumber();
+				TicketTableDto ticketTableDto = tableDtoMap.get(tableNumber);
+				if (ticketTableDto == null) {
+					ticketTableDto = new TicketTableDto();
+					ticketTableDto.setTableNumber(tableNumber);
+				}
+				TicketPlaceDto e = new TicketPlaceDto();
+				e.setPlaceNumber(orderItemEntity.getPlace());
+				e.setStatus(TicketPlaceStatus.BUSY);
+				ticketTableDto.getPlaces().add(e);
+				tableDtoMap.put(tableNumber, ticketTableDto);
+			});
+			dto.setTables(new ArrayList<>(tableDtoMap.values()));
 		}
 		return dto;
 	}

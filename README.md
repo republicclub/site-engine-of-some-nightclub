@@ -27,3 +27,12 @@ Fron part
 * Use tabs instead spaces
 * Maximum method length is 20 lines.
 * CTRL + ALT + L
+
+#ENV
+ OpenJDK 11.LATEST
+ SpringBoot 2.1.LATEST
+ MARIA DB 10.3.LATEST
+ Gradle 5.5.1. Release Jul 10, 2019
+
+#Instal env
+https://mariadb.com/kb/en/library/installing-and-using-mariadb-via-docker/

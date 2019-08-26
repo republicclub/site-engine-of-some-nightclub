@@ -1,11 +1,9 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.6.RELEASE'
+		springBootVersion = '2.1.7.RELEASE'
 	}
 	repositories {
 		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -18,28 +16,32 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 
 group = 'by.ladyka'
-version = '0.5.0r'
-sourceCompatibility = 1.8
+version = '0.7.1r'
+sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
 }
+//
+//ext {
+//	lombokVersion = '1.18.8'
+//}
 
 dependencies {
 	runtime('org.springframework.boot:spring-boot-devtools')
-	compile('org.springframework.boot:spring-boot-starter-web') 
+	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.boot:spring-boot-starter-data-jpa')
 	compile('org.springframework.boot:spring-boot-starter-security')
 	compile('org.springframework.boot:spring-boot-starter-mail')
-	runtime('mysql:mysql-connector-java')
+	compile('org.mariadb.jdbc:mariadb-java-client')
+
 
 	compile "org.apache.httpcomponents:httpclient:$httpclientVersion"
 	compile group: 'com.lowagie', name: 'itext', version: '2.1.7'
 	compile "net.sf.jasperreports:jasperreports:$jasperreportsVersion"
 	compile group: 'com.itextpdf', name: 'itextpdf', version: '5.5.13'
 	compileOnly('org.projectlombok:lombok')
+	annotationProcessor ('org.projectlombok:lombok')
 	// https://mvnrepository.com/artifact/org.thymeleaf/thymeleaf
 	compile group: 'org.thymeleaf', name: 'thymeleaf'
 	compile group: 'org.thymeleaf', name: 'thymeleaf-spring5'
@@ -67,12 +69,7 @@ dependencies {
 		exclude group: 'org.slf4j', module: 'slf4j-simple'
 	}
 	testCompile group: 'org.dbunit', name: 'dbunit', version: '2.6.0'
-
-
 }
-
-
-
 
 sourceSets {
 	integrationTest {
